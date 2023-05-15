@@ -3,7 +3,7 @@ from app import db
 class OrangTua(db.Model):
     __tablename__ = 'data_orang_tua'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nama = db.Column(db.String(255))
     alamat = db.Column(db.String(255))
     provinsi = db.Column(db.String(100))
@@ -18,7 +18,7 @@ class OrangTua(db.Model):
 class Anak(db.Model):
     __tablename__ = 'data_anak'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nik = db.Column(db.String(16))
     nama = db.Column(db.String(255))
     jenis_kelamin = db.Column(db.String(10))
@@ -31,7 +31,7 @@ class Anak(db.Model):
 class Gizi(db.Model):
     __tablename__ = 'data_gizi'
     
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     id_anak = db.Column(db.Integer, db.ForeignKey('data_anak.id'))
     usia_diukur = db.Column(db.Integer)
     tanggal_pengukuran = db.Column(db.Date)
@@ -48,7 +48,7 @@ class Gizi(db.Model):
 class User(db.Model):
     __tablename__ = 'data_login'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(255))
     email = db.Column(db.String(255))
     password = db.Column(db.String(255))

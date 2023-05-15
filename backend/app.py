@@ -85,7 +85,36 @@ def delete_orangtua(id):
 
     return jsonify({'message': 'Data orang tua berhasil dihapus'})
 
+@app.route('/api/anak/get', methods=['GET'])
+def get_anak():
+    anak = Anak.query.all()
+    result = []
 
+    for x in anak:
+        data = {
+            'id' : x.id,
+            'nik' : x.nik,
+            'nama' : x.nama,
+            'jenis_kelamin' : x.jenis_kelamin,
+            'tanggal_lahir' : x.tanggal_lahir,
+            'berat_lahir' : x.berat_lahir,
+            'tinggi_lahir' : x.tinggi_lahir,
+            'id_orang_tua' : x.di_orang_tua,
+        }
+        result.append(data)
+    
+    return jsonify(result)
+
+@app.route('/api/anak/add', methods=['POST'])
+def add_anak():
+    data = request.get_json()
+
+    anak = Anak(
+        nama = data['nama'],
+        alamat = data['alamat'],
+        
+
+    )
 
 if __name__ == '__main__':
     app.run()
