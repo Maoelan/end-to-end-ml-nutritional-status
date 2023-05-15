@@ -10,6 +10,7 @@ migrate = Migrate(app, db)
 
 from models import OrangTua, Anak, Gizi, User
 
+
 @app.route('/api/orangtua/get', methods=['GET'])
 def get_orangtua():
     orangtua = OrangTua.query.all()
@@ -85,6 +86,7 @@ def delete_orangtua(id):
 
     return jsonify({'message': 'Data orang tua berhasil dihapus'})
 
+
 @app.route('/api/anak/get', methods=['GET'])
 def get_anak():
     anak = Anak.query.all()
@@ -110,13 +112,79 @@ def add_anak():
     data = request.get_json()
 
     anak = Anak(
+        nik = data['nik'],
         nama = data['nama'],
-        alamat = data['alamat'],
-        
-
+        jenis_kelamin = data['jenis_kelamin'],
+        tanggal_lahir = data['tanggal_lahir'],
+        berat_lahir = data['berat_lahir'],
+        tinggi_lahir = data['tinggi_lahir'],
+        id_orang_tua = data['id_orang_tua']
     )
+    db.session.add(anak)
+    db.session.commit()
+
+    return jsonify({'message': 'Data anak berhasil ditambahkan'})
+
+@app.route('/api/anak/update/<int:id>', methods=['PUT'])
+def update_anak(id):
+    data = request.get_json()
+
+    anak = Anak.query.get(id)
+    if anak is None:
+        return jsonify({'message': 'Data anak tidak ditemukan'})
+    
+    anak.nik = data['nik']
+    anak.nama = data['nama']
+    anak.jenis_kelamin = data['jenis_kelamin']
+    anak.tanggal_lahir = data['tanggal_lahir']
+    anak.berat_lahir = data['berat_lahir']
+    anak.tinggi_lahir = data['tinggi_lahir']
+    anak.id_orang_tua = data['id_orang_tua']
+
+    db.session.commit()
+
+    return jsonify({'message': 'Data anak berhasil diupdate'})
+
+@app.route('/api/anak/delete/<int:id>', methods=['DELETE'])
+def delete_anak(id):
+    anak = Anak.query.get(id)
+    if anak is None:
+        return jsonify({'message': 'Data anak tidak ditemukan'})
+    
+    db.session.delete(anak)
+    db.session.commit()
+
+    return jsonify({'message': 'Data anak berhasil dihapus'})
+
+
+@app.route('/api/gizi/get', methods=['GET'])
+def get_gizi():
+
+@app.route('/api/gizi/add', methods=['POST'])
+def add_gizi():
+
+@app.route('/api/gizi/update/<int:id>', methods=['PUT'])
+def update_gizi():
+
+@app.route('/api/gizi/delete/<int:id>', methods=['DELETE'])
+def delete_gizi():
+
+@app.route('/api/login/get', methods=['GET'])
+def get_user():
+
+@app.route('/api/login/add', methods=['POST'])
+def add_user():
+
+@app.route('/api/login/update/<int:id>', methods=['PUT'])
+def update_user():
+
+@app.route('/api/login/delete/<int:id>', methods=['DELETE'])
+def delete_user():
+
+
 
 if __name__ == '__main__':
     app.run()
+
 
 
