@@ -8,8 +8,9 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from models import OrangTua, Anak, Gizi, User
+migrate.init_app(app, db)
 
+app.debug = True
 
 @app.route('/api/orangtua/get', methods=['GET'])
 def get_orangtua():
@@ -23,7 +24,8 @@ def get_orangtua():
             'alamat' : x.alamat,
             'provinsi' : x.provinsi,
             'kabupaten' : x.kabupaten,
-            'kecamatan' : x.desa,
+            'kecamatan' : x.kecamatan,
+            'desa' : x.desa,
             'posyandu' : x.posyandu,
             'rt' : x.rt,
             'rw' : x.rw 
@@ -101,7 +103,7 @@ def get_anak():
             'tanggal_lahir' : x.tanggal_lahir,
             'berat_lahir' : x.berat_lahir,
             'tinggi_lahir' : x.tinggi_lahir,
-            'id_orang_tua' : x.di_orang_tua,
+            'id_orang_tua' : x.id_orang_tua,
         }
         result.append(data)
     
@@ -159,31 +161,150 @@ def delete_anak(id):
 
 @app.route('/api/gizi/get', methods=['GET'])
 def get_gizi():
+    gizi = Gizi.query.all()
+    result = []
+
+    for x in gizi:
+        data = {
+            'id' : x.id,
+            'id_anak' : x.id_anak,
+            'usia_diukur' : x.usia_diukur,
+            'tanggal_pengukuran' : x.tanggal_pengukuran,
+            'berat' : x.berat,
+            'tinggi' : x.tinggi,
+            'lingkar_lengan_atas' : x.lingkar_lengan_atas,
+            'zz_bb_umur' : x.zz_bb_umur,
+            'zz_bb_tb' : x.zz_bb_tb,
+            'bb_umur' : x.bb_umur,
+            'bb_tb' : x.bb_tb,
+            'naik_berat_badan' : x.naik_berat_badan,
+            'jumlah_vitamin_a' : x.jumlah_vitamin_a
+        }
+        result.append(data)
+    
+    return jsonify(result)
 
 @app.route('/api/gizi/add', methods=['POST'])
 def add_gizi():
+    data = request.get_json()
+
+    gizi = Gizi(
+        id_anak = data['id_anak'],
+        usia_diukur = data['usia_diukur'],
+        tanggal_pengukuran = data['tanggal_pengukuran'],
+        berat = data['berat'],
+        tinggi = data['tinggi'],
+        lingkar_lengan_atas = data['lingkar_lengan_atas'],
+        zz_bb_umur = data['zz_bb_umur'],
+        zz_bb_tb = data['zz_bb_tb'],
+        bb_umur = data['bb_umur'],
+        bb_tb = data['bb_tb'],
+        naik_berat_badan = data['naik_berat_badan'],
+        jumlah_vitamin_a = data['jumlah_vitamin_a']
+    )
+
+    db.session.add(gizi)
+    db.session.commit()
+
+    return jsonify({'message': 'Data gizi berhasil ditambahkan'})
 
 @app.route('/api/gizi/update/<int:id>', methods=['PUT'])
-def update_gizi():
+def update_gizi(id):
+    data = request.get_json()
+
+    gizi = Gizi.query.get(id)
+    if gizi is None:
+        return jsonify({'message': 'Data gizi tidak ditemukan'})
+    
+    gizi.id_anak = data['id_anak']
+    gizi.usia_diukur = data['usia_diukur']
+    gizi.tanggal_pengukuran = data['tanggal_pengukuran']
+    gizi.berat = data['berat']
+    gizi.tinggi = data['tinggi']
+    gizi.lingkar_lengan_atas = data['lingkar_lengan_atas']
+    gizi.zz_bb_umur = data['zz_bb_umur']
+    gizi.zz_bb_tb = data['zz_bb_tb']
+    gizi.bb_umur = data['bb_umur']
+    gizi.bb_tb = data['bb_tb']
+    gizi.naik_berat_badan = data['naik_berat_badan']
+    gizi.jumlah_vitamin_a = data['jumlah_vitamin_a']
+
+    db.session.commit()
+
+    return jsonify({'message': 'Data gizi berhasil diupdate'})
 
 @app.route('/api/gizi/delete/<int:id>', methods=['DELETE'])
-def delete_gizi():
+def delete_gizi(id):
+    gizi = Gizi.query.get(id)
+    if gizi is None:
+        return jsonify({'message': 'Data gizi tidak ditemukan'})
+    
+    db.session.delete(gizi)
+    db.session.commit()
 
-@app.route('/api/login/get', methods=['GET'])
+
+@app.route('/api/user/get', methods=['GET'])
 def get_user():
+    users = User.query.all()
+    result = []
 
-@app.route('/api/login/add', methods=['POST'])
+    for user in users:
+        data = {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'password': user.password,
+            'role': user.role
+        }
+        result.append(data)
+
+    return jsonify(result)
+
+@app.route('/api/user/add', methods=['POST'])
 def add_user():
+    data = request.get_json()
 
-@app.route('/api/login/update/<int:id>', methods=['PUT'])
-def update_user():
+    user = User(
+        username = data['username'],
+        email = data['email'],
+        password = data['password'],
+        role = data['role']
+    )
 
-@app.route('/api/login/delete/<int:id>', methods=['DELETE'])
-def delete_user():
+    db.session.add(user)
+    db.session.commit()
 
+    return jsonify({'message': 'Data user berhasil ditambahkan'})
+
+@app.route('/api/user/update/<int:id>', methods=['PUT'])
+def update_user(id):
+    data = request.get_json()
+
+    user = User.query.get(id)
+    if user is None:
+        return jsonify({'message': 'Data user tidak ditemukan'})
+    
+    user.username = data['username']
+    user.email = data['email']
+    user.password = data['password']
+    user.role = data['role']
+
+    db.session.commit()
+
+    return jsonify({'message': 'Data user berhasil diupdate'})
+
+@app.route('/api/user/delete/<int:id>', methods=['DELETE'])
+def delete_user(id):
+    user = User.query.get(id)
+    if user is None:
+        return jsonify({'message': 'Data user tidak ditemukan'})
+    
+    db.session.delete(user)
+    db.session.commit()
 
 
 if __name__ == '__main__':
+    from models import OrangTua, Anak, Gizi, User
     app.run()
 
 

@@ -38,15 +38,15 @@ class Gizi(db.Model):
     berat = db.Column(db.Float(5, 2))
     tinggi = db.Column(db.Float(5, 2))
     lingkar_lengan_atas = db.Column(db.Float(5, 2))
-    z_score_berat_badan_umur = db.Column(db.Float(5, 2))
-    z_score_berat_badan_tinggi_badan = db.Column(db.Float(5, 2))
-    berat_badan_umur = db.Column(db.Float(5, 2))
-    berat_badan_tinggi_badan = db.Column(db.Float(5, 2))
+    zs_bb_umur = db.Column(db.Float(5, 2))
+    zs_bb_tb = db.Column(db.Float(5, 2))
+    bb_umur = db.Column(db.Float(5, 2))
+    bb_tb = db.Column(db.Float(5, 2))
     naik_berat_badan = db.Column(db.String(10))
     jumlah_vitamin_a = db.Column(db.Integer)
 
 class User(db.Model):
-    __tablename__ = 'data_login'
+    __tablename__ = 'data_user'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(255))

@@ -24,7 +24,7 @@ def upgrade():
     with op.batch_alter_table('data_gizi', schema=None) as batch_op:
         batch_op.alter_column('id', existing_type=mysql.INTEGER(display_width=11), autoincrement=True, nullable=False)
 
-    with op.batch_alter_table('data_login', schema=None) as batch_op:
+    with op.batch_alter_table('data_user', schema=None) as batch_op:
         batch_op.alter_column('id', existing_type=mysql.INTEGER(display_width=11), autoincrement=True, nullable=False)
 
     with op.batch_alter_table('data_orang_tua', schema=None) as batch_op:
@@ -41,7 +41,7 @@ def downgrade():
     with op.batch_alter_table('data_gizi', schema=None) as batch_op:
         batch_op.alter_column('id', existing_type=mysql.INTEGER(display_width=11), autoincrement=False, nullable=False)
 
-    with op.batch_alter_table('data_login', schema=None) as batch_op:
+    with op.batch_alter_table('data_user', schema=None) as batch_op:
         batch_op.alter_column('id', existing_type=mysql.INTEGER(display_width=11), autoincrement=False, nullable=False)
 
     with op.batch_alter_table('data_orang_tua', schema=None) as batch_op:
