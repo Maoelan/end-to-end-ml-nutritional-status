@@ -84,13 +84,13 @@ def update_orangtua(id):
 @app.route('/api/orangtua/delete/<int:id>', methods=['DELETE'])
 def delete_orangtua(id):
     orangtua = OrangTua.query.get(id)
-    if orangtua is None:
-        return jsonify({'message': 'Data orang tua tidak ditemukan'})
-    
-    db.session.delete(orangtua)
-    db.session.commit()
+    if orangtua:
+        db.session.delete(orangtua)
+        db.session.commit()
+        
+        return jsonify({'message': 'Data orang tua berhasil dihapus'})
 
-    return jsonify({'message': 'Data orang tua berhasil dihapus'})
+    return jsonify({'message': 'Data orang tua tidak ditemukan'})
 
 
 @app.route('/api/anak/get', methods=['GET'])
@@ -154,14 +154,14 @@ def update_anak(id):
 @app.route('/api/anak/delete/<int:id>', methods=['DELETE'])
 def delete_anak(id):
     anak = Anak.query.get(id)
-    if anak is None:
-        return jsonify({'message': 'Data anak tidak ditemukan'})
+    if anak:
+        db.session.delete(anak)
+        db.session.commit()
+
+        return jsonify({'message': 'Data anak berhasil dihapus'})
+        
+    return jsonify({'message': 'Data anak tidak ditemukan'})
     
-    db.session.delete(anak)
-    db.session.commit()
-
-    return jsonify({'message': 'Data anak berhasil dihapus'})
-
 
 @app.route('/api/gizi/get', methods=['GET'])
 def get_gizi():
@@ -178,9 +178,9 @@ def get_gizi():
             'tinggi' : x.tinggi,
             'lingkar_lengan_atas' : x.lingkar_lengan_atas,
             'zs_bb_umur' : x.zs_bb_umur,
-            'zs_bb_tb' : x.zs_bb_tb,
+            'zs_tb_umur' : x.zs_tb_umur,
             'bb_umur' : x.bb_umur,
-            'bb_tb' : x.bb_tb,
+            'tb_umur' : x.tb_umur,
             'naik_berat_badan' : x.naik_berat_badan,
             'jumlah_vitamin_a' : x.jumlah_vitamin_a
         }
@@ -200,9 +200,9 @@ def add_gizi():
         tinggi = data['tinggi'],
         lingkar_lengan_atas = data['lingkar_lengan_atas'],
         zs_bb_umur = data['zs_bb_umur'],
-        zs_bb_tb = data['zs_bb_tb'],
+        zs_tb_umur = data['zs_tb_umur'],
         bb_umur = data['bb_umur'],
-        bb_tb = data['bb_tb'],
+        tb_umur = data['tb_umur'],
         naik_berat_badan = data['naik_berat_badan'],
         jumlah_vitamin_a = data['jumlah_vitamin_a']
     )
@@ -227,9 +227,9 @@ def update_gizi(id):
     gizi.tinggi = data['tinggi']
     gizi.lingkar_lengan_atas = data['lingkar_lengan_atas']
     gizi.zs_bb_umur = data['zs_bb_umur']
-    gizi.zs_bb_tb = data['zs_bb_tb']
+    gizi.zs_tb_umur = data['zs_tb_umur']
     gizi.bb_umur = data['bb_umur']
-    gizi.bb_tb = data['bb_tb']
+    gizi.tb_umur = data['tb_umur']
     gizi.naik_berat_badan = data['naik_berat_badan']
     gizi.jumlah_vitamin_a = data['jumlah_vitamin_a']
 
@@ -240,12 +240,14 @@ def update_gizi(id):
 @app.route('/api/gizi/delete/<int:id>', methods=['DELETE'])
 def delete_gizi(id):
     gizi = Gizi.query.get(id)
-    if gizi is None:
-        return jsonify({'message': 'Data gizi tidak ditemukan'})
-    
-    db.session.delete(gizi)
-    db.session.commit()
+    if gizi:
+        db.session.delete(gizi)
+        db.session.commit()
 
+        return jsonify({'message': 'Data gizi berhasil dihapus'})
+    
+    return jsonify({'message': 'Data gizi tidak ditemukan'})
+    
 
 @app.route('/api/user/get', methods=['GET'])
 def get_user():
@@ -300,12 +302,14 @@ def update_user(id):
 @app.route('/api/user/delete/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user = User.query.get(id)
-    if user is None:
-        return jsonify({'message': 'Data user tidak ditemukan'})
-    
-    db.session.delete(user)
-    db.session.commit()
+    if user:
+        db.session.delete(user)
+        db.session.commit()
 
+        return jsonify({'message': 'Data user berhasil dihapus'})
+    
+    return jsonify({'message': 'Data user tidak ditemukan'})
+    
 
 if __name__ == '__main__':
     app.run()
