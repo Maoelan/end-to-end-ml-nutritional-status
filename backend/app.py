@@ -5,12 +5,16 @@ from config.config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
+db = SQLAlchemy()
+migrate = Migrate()
+
+db.init_app(app)
 migrate.init_app(app, db)
 
 app.debug = True
+
+from models import OrangTua, Anak, Gizi, User
 
 @app.route('/api/orangtua/get', methods=['GET'])
 def get_orangtua():
@@ -173,8 +177,8 @@ def get_gizi():
             'berat' : x.berat,
             'tinggi' : x.tinggi,
             'lingkar_lengan_atas' : x.lingkar_lengan_atas,
-            'zz_bb_umur' : x.zz_bb_umur,
-            'zz_bb_tb' : x.zz_bb_tb,
+            'zs_bb_umur' : x.zs_bb_umur,
+            'zs_bb_tb' : x.zs_bb_tb,
             'bb_umur' : x.bb_umur,
             'bb_tb' : x.bb_tb,
             'naik_berat_badan' : x.naik_berat_badan,
@@ -195,8 +199,8 @@ def add_gizi():
         berat = data['berat'],
         tinggi = data['tinggi'],
         lingkar_lengan_atas = data['lingkar_lengan_atas'],
-        zz_bb_umur = data['zz_bb_umur'],
-        zz_bb_tb = data['zz_bb_tb'],
+        zs_bb_umur = data['zs_bb_umur'],
+        zs_bb_tb = data['zs_bb_tb'],
         bb_umur = data['bb_umur'],
         bb_tb = data['bb_tb'],
         naik_berat_badan = data['naik_berat_badan'],
@@ -222,8 +226,8 @@ def update_gizi(id):
     gizi.berat = data['berat']
     gizi.tinggi = data['tinggi']
     gizi.lingkar_lengan_atas = data['lingkar_lengan_atas']
-    gizi.zz_bb_umur = data['zz_bb_umur']
-    gizi.zz_bb_tb = data['zz_bb_tb']
+    gizi.zs_bb_umur = data['zs_bb_umur']
+    gizi.zs_bb_tb = data['zs_bb_tb']
     gizi.bb_umur = data['bb_umur']
     gizi.bb_tb = data['bb_tb']
     gizi.naik_berat_badan = data['naik_berat_badan']
@@ -304,7 +308,6 @@ def delete_user(id):
 
 
 if __name__ == '__main__':
-    from models import OrangTua, Anak, Gizi, User
     app.run()
 
 
