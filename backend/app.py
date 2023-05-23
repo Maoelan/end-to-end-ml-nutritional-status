@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from config.config import Config
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -11,6 +12,8 @@ migrate = Migrate()
 
 db.init_app(app)
 migrate.init_app(app, db)
+
+CORS(app)
 
 app.debug = True
 
@@ -309,7 +312,20 @@ def delete_user(id):
         return jsonify({'message': 'Data user berhasil dihapus'})
     
     return jsonify({'message': 'Data user tidak ditemukan'})
+
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+
+    username = data['username']
+    password = data['password']
+
+    user = User.query.filter_by(username=username).first()
+    if user and user.password == password:
+        return jsonify({'message': 'Login Berhasil'})
     
+    return jsonify({'message': 'Username atau password salah'})
 
 if __name__ == '__main__':
     app.run()
