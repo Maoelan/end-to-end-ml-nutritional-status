@@ -27,7 +27,13 @@ function App() {
         <Route path="/login" element={isLoggedIn ? <Navigate to="/orangtua-read" /> : <div className="login-wrapper"><Login setIsLoggedIn={setIsLoggedIn} /></div>} />
         <Route
           path="/orangtua-read"
-          element={isLoggedIn ? <OrangTuaRead handleLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={
+            isLoggedIn ? (
+              <OrangTuaRead handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/orangtua-read' }} />
+            )
+          }
         />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>

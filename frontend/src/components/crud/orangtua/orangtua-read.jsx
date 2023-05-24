@@ -6,7 +6,7 @@ import '../../css/orangtua.css'
 import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const OrangTuaRead = () => {
+const OrangTuaRead = ({ handleLogout }) => {
   const [orangtuaList, setOrangTuaList] = useState([]);
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
@@ -19,12 +19,18 @@ const OrangTuaRead = () => {
       } else {
         const storedUsername = localStorage.getItem('username');
         setUsername(storedUsername);
+        fetchOrangTua();
       }
     };
 
     checkAuthentication();
-    fetchOrangTua();
   }, [navigate]);
+
+  useEffect(() => {
+    return () => {
+      setOrangTuaList([]);
+    };
+  }, []);
 
   const fetchOrangTua = async () => {
     try {
@@ -35,14 +41,8 @@ const OrangTuaRead = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.setItem('isLoggedIn', 'false');
-    localStorage.removeItem('isLoggedIn');
-    navigate('/login', { replace: true });
-  };
-
   return (
-<MainLayout username={ username } handleLogout={ handleLogout }>
+    <MainLayout username={ username } handleLogout={ handleLogout }>
       <div className="orangtua-read-container">
         <h2>Daftar Orang Tua</h2>
         <div className="table-container">
