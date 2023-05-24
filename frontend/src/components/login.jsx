@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/login.css';
 
-function Login() {
+function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +34,12 @@ function Login() {
         console.log('Login failed:', response.data.message);
       } else {
         localStorage.setItem('isLoggedIn', 'true');
-        navigate('/orangtua-read');
+        localStorage.setItem('token', response.data.token);
+        setIsLoggedIn(true);
+        navigate('/orangtua-read', { replace: true });
+        setUsername('');
+        setPassword('');
+        return;
       }
       setUsername('');
       setPassword('');

@@ -13,7 +13,7 @@ const OrangTuaRead = () => {
         navigate('/login');
       }
     };
-
+  
     checkAuthentication();
     fetchOrangTua();
   }, [navigate]);
@@ -29,7 +29,8 @@ const OrangTuaRead = () => {
 
   const handleLogout = () => {
     localStorage.setItem('isLoggedIn', 'false');
-    navigate('/login');
+    localStorage.removeItem('isLoggedIn');
+    navigate('/login', { replace: true });
   };
 
 

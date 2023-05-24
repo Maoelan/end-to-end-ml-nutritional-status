@@ -5,7 +5,7 @@ const PrivateRoute = ({ element: Component, ...rest }) => {
   const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';
 
   return isAuthenticated ? (
-    <Component {...rest} />
+    <Route {...rest} element={<Component />} />
   ) : (
     <Navigate to="/login" replace state={{ from: rest.location }} />
   );
