@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Form, FormControl, Button, Container } from 'react-bootstrap';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/login.css';
 
 function Login() {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
@@ -27,6 +29,11 @@ function Login() {
         axios.post('http://localhost:5000/api/login', data)
             .then(response => {
                 console.log(response.data);
+
+                if (response.data.success) {
+                    navigate('/orangtua-read');
+                }
+
                 setUsername('');
                 setPassword('');
             })

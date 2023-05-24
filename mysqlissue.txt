@@ -1,3 +1,0 @@
-mysqld --console --skip-grant-tables --skip-external-locking
-
-mysqlcheck -r --database mysql --use-frm

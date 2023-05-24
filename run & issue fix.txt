@@ -1,0 +1,37 @@
+running virtual env :
+
+- venv\Scripts\activate
+
+migrate database :
+
+- flask db init
+
+- flask db migrate -m "first migrate"
+
+- flask db upgrade
+
+start flask :
+
+- cd backend
+
+- set FLASK_APP=app.py
+
+- flask run
+
+- running on http:/127.0.0.1:5000
+
+start node js :
+
+- cd frontend
+
+- npm start
+
+- port 3000 already use for graphana
+
+- running on http:/127.0.0.1:3001
+
+mysql cant run :
+
+mysqld --console --skip-grant-tables --skip-external-locking
+
+mysqlcheck -r --database mysql --use-frm
