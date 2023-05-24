@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const OrangTuaRead = () => {
   const [orangtuaList, setOrangTuaList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const checkAuthentication = () => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      if (!isLoggedIn) {
+        navigate('/login');
+      }
+    };
+
+    checkAuthentication();
     fetchOrangTua();
-  }, []);
+  }, [navigate]);
 
   const fetchOrangTua = async () => {
     try {
@@ -17,9 +27,16 @@ const OrangTuaRead = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.setItem('isLoggedIn', 'false');
+    navigate('/login');
+  };
+
+
   return (
     <div>
       <h2>Daftar Orang Tua</h2>
+      <button onClick={handleLogout}>Logout</button>
       <table>
         <thead>
           <tr>
