@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './components/login';
 import OrangTuaRead from './components/crud/orangtua/orangtua-read';
 import OrangTuaCreate from './components/crud/orangtua/orangtua-create';
+import OrangTuaUpdate from './components/crud/orangtua/orangtua-update';
 import './components/css/login.css';
 
 function App() {
@@ -46,6 +47,16 @@ function App() {
               <OrangTuaCreate handleLogout={handleLogout} />
             ) : (
               <Navigate to="/login" replace={true} state={{ from: '/orangtua-create' }} />
+            )
+          }
+        />
+        <Route
+          path="/orangtua-update/:id"
+          element={
+            isLoggedIn ? (
+              <OrangTuaUpdate handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/orangtua-update/:id' }} />
             )
           }
         />

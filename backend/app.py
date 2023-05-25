@@ -41,6 +41,27 @@ def get_orangtua():
     
     return jsonify(result)
 
+@app.route('/api/orangtua/get/<int:id>', methods=['GET'])
+def get_orangtua_by_id(id):
+    orangtua = OrangTua.query.get(id)
+    if orangtua is None:
+        return jsonify({'message': 'Data orang tua tidak ditemukan'})
+
+    data = {
+        'id': orangtua.id,
+        'nama': orangtua.nama,
+        'alamat': orangtua.alamat,
+        'provinsi': orangtua.provinsi,
+        'kabupaten': orangtua.kabupaten,
+        'kecamatan': orangtua.kecamatan,
+        'desa': orangtua.desa,
+        'posyandu': orangtua.posyandu,
+        'rt': orangtua.rt,
+        'rw': orangtua.rw
+    }
+    
+    return jsonify(data)
+
 @app.route('/api/orangtua/add', methods=['POST'])
 def add_orangtua():
     data = request.get_json()

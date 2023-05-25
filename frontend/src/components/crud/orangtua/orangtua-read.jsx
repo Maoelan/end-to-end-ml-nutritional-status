@@ -45,10 +45,6 @@ const OrangTuaRead = ({ handleLogout }) => {
     }
   };
 
-  const handleUpdate = async (id) => {
-    //
-  }
-
   return (
     <MainLayout username={ username } handleLogout={ handleLogout }>
       <div className="orangtua-read-container">
@@ -86,9 +82,10 @@ const OrangTuaRead = ({ handleLogout }) => {
               <td>{orangtua.rt}</td>
               <td>{orangtua.rw}</td>
               <td>
-                <Button variant="warning" onClick={() => handleUpdate(orangtua.id)}>
-                  Update
-                </Button>{' '}
+                <Link to={`/orangtua-update/${orangtua.id}`}>
+                  <Button variant="warning">Update</Button>
+                </Link>
+                {' '}
                 <Button variant="danger" onClick={() => handleDelete(orangtua.id)}>
                   Delete
                 </Button>
