@@ -30,7 +30,11 @@ const OrangTuaRead = ({ handleLogout }) => {
   const fetchOrangTua = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/orangtua/get');
-      setOrangTuaList(response.data);
+      const orangtuaData = response.data.map((orangtua, index) => ({
+        ...orangtua,
+        nomor: index + 1
+      }));
+      setOrangTuaList(orangtuaData);
     } catch (error) {
       console.error(error);
     }
@@ -53,47 +57,47 @@ const OrangTuaRead = ({ handleLogout }) => {
           <Button variant="primary">Tambah Data</Button>
         </Link>
         <div className="table-container">
-        <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Alamat</th>
-            <th>Provinsi</th>
-            <th>Kabupaten</th>
-            <th>Kecamatan</th>
-            <th>Desa</th>
-            <th>Posyandu</th>
-            <th>RT</th>
-            <th>RW</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orangtuaList.map((orangtua) => (
-            <tr key={orangtua.id}>
-              <td>{orangtua.id}</td>
-              <td>{orangtua.nama}</td>
-              <td>{orangtua.alamat}</td>
-              <td>{orangtua.provinsi}</td>
-              <td>{orangtua.kabupaten}</td>
-              <td>{orangtua.kecamatan}</td>
-              <td>{orangtua.desa}</td>
-              <td>{orangtua.posyandu}</td>
-              <td>{orangtua.rt}</td>
-              <td>{orangtua.rw}</td>
-              <td>
-                <Link to={`/orangtua-update/${orangtua.id}`}>
-                  <Button variant="warning">Update</Button>
-                </Link>
-                {' '}
-                <Button variant="danger" onClick={() => handleDelete(orangtua.id)}>
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Nomor</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Provinsi</th>
+                <th>Kabupaten</th>
+                <th>Kecamatan</th>
+                <th>Desa</th>
+                <th>Posyandu</th>
+                <th>RT</th>
+                <th>RW</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orangtuaList.map((orangtua) => (
+                <tr key={orangtua.id}>
+                  <td>{orangtua.nomor}</td>
+                  <td>{orangtua.nama}</td>
+                  <td>{orangtua.alamat}</td>
+                  <td>{orangtua.provinsi}</td>
+                  <td>{orangtua.kabupaten}</td>
+                  <td>{orangtua.kecamatan}</td>
+                  <td>{orangtua.desa}</td>
+                  <td>{orangtua.posyandu}</td>
+                  <td>{orangtua.rt}</td>
+                  <td>{orangtua.rw}</td>
+                  <td className="text-center">
+                    <Link to={`/orangtua-update/${orangtua.id}`}>
+                      <Button variant="warning">Update</Button>
+                    </Link>
+                    {' '}
+                    <Button variant="danger" onClick={() => handleDelete(orangtua.id)}>
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </div>
       </div>
     </MainLayout>
