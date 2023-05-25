@@ -36,6 +36,19 @@ const OrangTuaRead = ({ handleLogout }) => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/orangtua/delete/${id}`);
+      fetchOrangTua();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUpdate = async (id) => {
+    //
+  }
+
   return (
     <MainLayout username={ username } handleLogout={ handleLogout }>
       <div className="orangtua-read-container">
@@ -72,6 +85,14 @@ const OrangTuaRead = ({ handleLogout }) => {
               <td>{orangtua.posyandu}</td>
               <td>{orangtua.rt}</td>
               <td>{orangtua.rw}</td>
+              <td>
+                <Button variant="warning" onClick={() => handleUpdate(orangtua.id)}>
+                  Update
+                </Button>{' '}
+                <Button variant="danger" onClick={() => handleDelete(orangtua.id)}>
+                  Delete
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>
