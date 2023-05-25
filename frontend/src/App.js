@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/login';
 import OrangTuaRead from './components/crud/orangtua/orangtua-read';
+import OrangTuaCreate from './components/crud/orangtua/orangtua-create';
 import './components/css/login.css';
 
 function App() {
@@ -24,7 +25,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={isLoggedIn ? <Navigate to="/orangtua-read" /> : <div className="login-wrapper"><Login setIsLoggedIn={setIsLoggedIn} /></div>} />
+        <Route
+          path="/login"
+          element={isLoggedIn ? <Navigate to="/orangtua-read" /> : <div className="login-wrapper"><Login setIsLoggedIn={setIsLoggedIn} /></div>}
+        />
         <Route
           path="/orangtua-read"
           element={
@@ -32,6 +36,16 @@ function App() {
               <OrangTuaRead handleLogout={handleLogout} />
             ) : (
               <Navigate to="/login" replace={true} state={{ from: '/orangtua-read' }} />
+            )
+          }
+        />
+        <Route
+          path="/orangtua-create"
+          element={
+            isLoggedIn ? (
+              <OrangTuaCreate handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/orangtua-create' }} />
             )
           }
         />

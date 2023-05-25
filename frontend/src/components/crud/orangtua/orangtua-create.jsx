@@ -1,59 +1,147 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
+import MainLayout from '../../design/MainLayout';
+import { Form, Button } from 'react-bootstrap';
+import { checkAuthentication, getUsername } from "../../utils/auth";
 
-const OrangTuaRead = () => {
-  const [orangtuaList, setOrangTuaList] = useState([]);
+const OrangTuaCreate = ({ handleLogout }) => {
+    const [nama, setNama] = useState('');
+    const [alamat, setAlamat] = useState('');
+    const [provinsi, setProvinsi] = useState('');
+    const [kabupaten, setKabupaten] = useState('');
+    const [kecamatan, setKecamatan] = useState('');
+    const [desa, setDesa] = useState('');
+    const [posyandu, setPosyandu] = useState('');
+    const [rt, setRt] = useState('');
+    const [rw, setRw] = useState('');
+    const [redirectToOrangTuaRead, setRedirectToOrangTuaRead] = useState(false);
+    const username = getUsername();
 
-  useEffect(() => {
-    fetchOrangTua();
-  }, []);
+    useEffect(() => {
+        checkAuthentication();
+    }, []);
 
-  const fetchOrangTua = async () => {
-    try {
-      const response = await axios.get('/api/orangtua/get');
-      setOrangTuaList(response.data);
-    } catch (error) {
-      console.error(error);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const data = {
+            nama: nama,
+            alamat: alamat,
+            provinsi: provinsi,
+            kabupaten: kabupaten,
+            kecamatan: kecamatan,
+            desa: desa,
+            posyandu: posyandu,
+            rt: rt,
+            rw: rw
+        };
+
+        try {
+            await axios.post('http://localhost:5000/api/orangtua/add', data);
+            setRedirectToOrangTuaRead(true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
+    if (redirectToOrangTuaRead) {
+        return <Navigate to="/orangtua-read" />;
     }
-  };
 
-  return (
-    <div>
-      <h2>Daftar Orang Tua</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Alamat</th>
-            <th>Provinsi</th>
-            <th>Kabupaten</th>
-            <th>Kecamatan</th>
-            <th>Desa</th>
-            <th>Posyandu</th>
-            <th>RT</th>
-            <th>RW</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orangtuaList.map((orangtua) => (
-            <tr key={orangtua.id}>
-              <td>{orangtua.id}</td>
-              <td>{orangtua.nama}</td>
-              <td>{orangtua.alamat}</td>
-              <td>{orangtua.provinsi}</td>
-              <td>{orangtua.kabupaten}</td>
-              <td>{orangtua.kecamatan}</td>
-              <td>{orangtua.desa}</td>
-              <td>{orangtua.posyandu}</td>
-              <td>{orangtua.rt}</td>
-              <td>{orangtua.rw}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+    return (
+        <MainLayout username={username} handleLogout={handleLogout}>
+            <div className="orangtua-create-container">
+                <h2>Tambah Data Orang Tua</h2>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId='formNama'>
+                        <Form.Label>Nama</Form.Label>
+                        <Form.Control
+                            type='text'
+                            value={nama}
+                            onChange={(e) => setNama(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formAlamat">
+                        <Form.Label>Alamat</Form.Label>
+                        <Form.Control
+                            type='text'
+                            value={alamat}
+                            onChange={(e) => setAlamat(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formProvinsi">
+                        <Form.Label>Provinsi</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={provinsi}
+                            onChange={(e) => setProvinsi(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formKabupaten">
+                        <Form.Label>Kabupaten</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={kabupaten}
+                            onChange={(e) => setKabupaten(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formKecamatan">
+                        <Form.Label>Kecamatan</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={kecamatan}
+                            onChange={(e) => setKecamatan(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formDesa">
+                        <Form.Label>Desa</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={desa}
+                            onChange={(e) => setDesa(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formPosyandu">
+                        <Form.Label>Posyandu</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={posyandu}
+                            onChange={(e) => setPosyandu(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formRt">
+                        <Form.Label>RT</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={rt}
+                            onChange={(e) => setRt(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formRw">
+                        <Form.Label>RW</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={rw}
+                            onChange={(e) => setRw(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Tambah
+                    </Button>
+                </Form>
+            </div>
+        </MainLayout>
+    )
+}
 
-export default OrangTuaRead;
+export default OrangTuaCreate;

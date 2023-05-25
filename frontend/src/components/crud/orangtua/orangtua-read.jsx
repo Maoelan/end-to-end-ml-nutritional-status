@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../design/MainLayout';
 import '../../css/orangtua.css'
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { checkAuthentication, getUsername } from '../../utils/auth';
+import { Link } from 'react-router-dom';
 
 const OrangTuaRead = ({ handleLogout }) => {
   const [orangtuaList, setOrangTuaList] = useState([]);
   const [username, setUsername] = useState('');
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuthentication = () => {
-      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-      if (!isLoggedIn) {
-        navigate('/login');
-      } else {
-        const storedUsername = localStorage.getItem('username');
-        setUsername(storedUsername);
-        fetchOrangTua();
-      }
-    };
+    const navigate = checkAuthentication();
+    if (navigate) {
+      return navigate;
+    }
 
-    checkAuthentication();
-  }, [navigate]);
+    fetchOrangTua();
+    setUsername(getUsername());
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -45,6 +40,9 @@ const OrangTuaRead = ({ handleLogout }) => {
     <MainLayout username={ username } handleLogout={ handleLogout }>
       <div className="orangtua-read-container">
         <h2>Daftar Orang Tua</h2>
+        <Link to="/orangtua-create">
+          <Button variant="primary">Tambah Data</Button>
+        </Link>
         <div className="table-container">
         <Table striped bordered hover>
         <thead>
