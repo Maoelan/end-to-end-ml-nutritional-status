@@ -60,7 +60,7 @@ const OrangTuaRead = ({ handleLogout }) => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Nomor</th>
+                <th>No</th>
                 <th>Nama</th>
                 <th>Alamat</th>
                 <th>Provinsi</th>
