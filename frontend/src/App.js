@@ -11,6 +11,7 @@ import Dashboard from './components/dashboard';
 import OrangTuaRead from './components/crud/orangtua/orangtua-read';
 import OrangTuaCreate from './components/crud/orangtua/orangtua-create';
 import OrangTuaUpdate from './components/crud/orangtua/orangtua-update';
+import AnakRead from './components/crud/anak/anak-read';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,10 +33,12 @@ function App() {
   return (
     <Router>
       <Routes>
+
         <Route
           path="/login"
-          element={isLoggedIn ? <Navigate to="/orangtua-read" /> : <div className="login-wrapper"><Login setIsLoggedIn={setIsLoggedIn} /></div>}
+          element={isLoggedIn ? <Navigate to="/dashboard" /> : <div className="login-wrapper"><Login setIsLoggedIn={setIsLoggedIn} /></div>}
         />
+
         <Route
           path="/orangtua-read"
           element={
@@ -66,6 +69,18 @@ function App() {
             )
           }
         />
+
+        <Route
+          path="/anak-read"
+          element={
+            isLoggedIn ? (
+              <AnakRead handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/anak-read' }} />
+            )
+          }
+        />
+
         <Route
           path="/dashboard"
           element={
@@ -76,6 +91,7 @@ function App() {
             )
           }
         />
+
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

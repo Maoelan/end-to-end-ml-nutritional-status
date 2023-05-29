@@ -236,16 +236,20 @@ const Sidebar = (props) => {
           {/* Navigation */}
           <Nav className="mb-md-3" navbar>
             <NavItem>
-              <NavLink href="orangtua-read">
-                <i className="ni ni-single-02" />
-                Data Orang Tua
-              </NavLink>
+              <Link to={'/orangtua-read'}>
+                <NavLink>
+                  <i className="ni ni-single-02" />
+                  Data Orang Tua
+                </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/colors?ref=adr-admin-sidebar">
-                <i className="ni ni-single-02" />
-                Data Anak
-              </NavLink>
+              <Link to={'/anak-read'}>
+                <NavLink>
+                  <i className="ni ni-single-02" />
+                  Data Anak
+                </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
               <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
