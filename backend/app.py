@@ -137,6 +137,25 @@ def get_anak():
     
     return jsonify(result)
 
+@app.route('/api/anak/get/<int:id>', methods=['GET'])
+def get_anak_by_id(id):
+    anak = Anak.query.get(id)
+    if anak is None:
+        return jsonify({'message': 'Data anak tidak ditemukan'})
+
+    data = {
+        'id': anak.id,
+        'nik': anak.nik,
+        'nama': anak.nama,
+        'jenis_kelamin': anak.jenis_kelamin,
+        'tanggal_lahir': anak.tanggal_lahir,
+        'berat_lahir': anak.berat_lahir,
+        'tinggi_lahir': anak.tinggi_lahir,
+        'id_orang_tua': anak.id_orang_tua,
+    }
+
+    return jsonify(data)
+
 @app.route('/api/anak/add', methods=['POST'])
 def add_anak():
     data = request.get_json()
