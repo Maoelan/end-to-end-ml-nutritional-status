@@ -7,6 +7,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
 
 import Login from './components/login';
+import Dashboard from './components/dashboard';
 import OrangTuaRead from './components/crud/orangtua/orangtua-read';
 import OrangTuaCreate from './components/crud/orangtua/orangtua-create';
 import OrangTuaUpdate from './components/crud/orangtua/orangtua-update';
@@ -62,6 +63,16 @@ function App() {
               <OrangTuaUpdate handleLogout={handleLogout} />
             ) : (
               <Navigate to="/login" replace={true} state={{ from: '/orangtua-update/:id' }} />
+            )
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            isLoggedIn ? (
+              <Dashboard handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/dashboard' }} />
             )
           }
         />

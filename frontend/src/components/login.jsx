@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import { Form, FormControl, Button, Container } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Form,
+  FormGroup,
+  Input,
+  Container,
+  Row,
+  Col,
+} from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/login.css';
 
 function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -36,7 +45,7 @@ function Login({ setIsLoggedIn }) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('token', response.data.token);
         setIsLoggedIn(true);
-        navigate('/orangtua-read', { replace: true });
+        navigate('/dashboard', { replace: true });
         setUsername('');
         setPassword('');
         return;
@@ -51,37 +60,48 @@ function Login({ setIsLoggedIn }) {
   };
 
   return (
-    <Container>
-      <div className="login-container">
-        <h2 className="login-heading">Login</h2>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formUsername">
-            <FormControl
-              type="text"
-              value={username}
-              onChange={handleUsernameChange}
-              placeholder="Enter username"
-            />
-          </Form.Group>
-          <Form.Group controlId="formPassword">
-            <FormControl
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="Enter password"
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit" className="login-button">
-            Login
-          </Button>
-          <div className="login-options">
-            <p className="forgot-password">Lupa password?</p>
-            <p className="register-link">Not a member? Register</p>
-          </div>
-        </Form>
-      </div>
-    </Container>
-  );
+    <Container className="d-flex align-items-center justify-content-center vh-100">
+      <Row className="w-100">
+        <Col lg="5" className="mx-auto text-center">
+        <Card className="bg-custom shadow border-0">
+          <CardHeader className="bg-transparent pb-5">
+            <h2 className="login-heading text-center">Login</h2>
+          </CardHeader>
+          <CardBody className="px-lg-5 py-lg-5">
+            <Form role="form" onSubmit={handleSubmit}>
+              <FormGroup className="mb-3">
+                <Input
+                  type="text"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  placeholder="Enter username"
+                  className="input-custom"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  placeholder="Enter password"
+                  className="input-custom"
+                />
+              </FormGroup>
+              <div className="text-center">
+                <Button className="my-4 btn-custom" color="primary" type="submit">
+                  Login
+                </Button>
+              </div>
+              <div className="login-options">
+                <p className="forgot-password">Lupa password?</p>
+                <p className="register-link">Not a member? Register</p>
+              </div>
+            </Form>
+          </CardBody>
+        </Card>
+      </Col>
+    </Row>
+  </Container>
+);
 }
-
 export default Login;
