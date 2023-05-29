@@ -4,7 +4,7 @@ import { Card, CardHeader, CardBody, Table } from "reactstrap";
 import { checkAuthentication, getUsername } from '../../utils/auth';
 import { Link } from 'react-router-dom';
 
-import Sidebar from '../../Sidebar/Sidebar.js';
+import Sidebar from '../../Sidebar/Sidebar';
 import Navbar from '../../Navbars/AuthNavbar.js';
 import Header from '../../Headers/UserHeader.js';
 

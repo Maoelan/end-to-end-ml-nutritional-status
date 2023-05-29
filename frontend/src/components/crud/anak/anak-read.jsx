@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, CardHeader, CardBody, Table } from 'reactstrap';
-import { checkAuthentication, get } from '../../utils/auth';
+import { Card, CardHeader, CardBody, Table } from "reactstrap";
+import { checkAuthentication, getUsername } from '../../utils/auth';
 import { Link } from 'react-router-dom';
 
-import Sidebar from '../../Sidebar/Sidebar.js'
+import Sidebar from '../../Sidebar/Sidebar.js';
 import Navbar from '../../Navbars/AuthNavbar.js';
 import Header from '../../Headers/UserHeader.js';
 
@@ -96,7 +96,7 @@ const AnakRead = ({ handleLogout }) => {
                                 </tbody>
                             </Table>
                             <div className='mt-4'>
-                                <Link to="anak-create">
+                                <Link to="/anak-create">
                                     <button className="btn btn-primary">Tambah Data</button>
                                 </Link>
                             </div>

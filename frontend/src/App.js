@@ -12,6 +12,7 @@ import OrangTuaRead from './components/crud/orangtua/orangtua-read';
 import OrangTuaCreate from './components/crud/orangtua/orangtua-create';
 import OrangTuaUpdate from './components/crud/orangtua/orangtua-update';
 import AnakRead from './components/crud/anak/anak-read';
+import AnakCreate from './components/crud/anak/anak-create';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -77,6 +78,17 @@ function App() {
               <AnakRead handleLogout={handleLogout} />
             ) : (
               <Navigate to="/login" replace={true} state={{ from: '/anak-read' }} />
+            )
+          }
+        />
+        
+        <Route
+          path="/anak-create"
+          element={
+            isLoggedIn ? (
+              <AnakCreate handleLogout={handleLogout} />
+            ) : (
+                <Navigate to="/login" replace={true} state={{ from: '/anak-create' }} />
             )
           }
         />
