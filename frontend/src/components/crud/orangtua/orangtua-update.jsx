@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Card, CardHeader, CardBody, Form, FormGroup, Input, Button } from "reactstrap";
 import { checkAuthentication, getUsername } from '../../utils/auth';
+
+import Sidebar from '../../Sidebar/Sidebar.js';
+import Navbar from '../../Navbars/AuthNavbar.js';
+import Header from '../../Headers/UserHeader.js';
 
 const OrangTuaUpdate = ({ handleLogout }) => {
   const [nama, setNama] = useState('');
@@ -71,55 +75,63 @@ const OrangTuaUpdate = ({ handleLogout }) => {
 
   return (
     <>
-      <Card className="shadow">
-        <CardHeader className="border-0">
-          <h2 className="mb-0">Update Data Orang Tua</h2>
-        </CardHeader>
-        <CardBody>
-          <Form onSubmit={handleSubmit}>
-            <FormGroup>
-              <label className="form-control-label">Nama</label>
-              <Input type="text" value={nama} onChange={(e) => setNama(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <label className="form-control-label">Alamat</label>
-              <Input type="text" value={alamat} onChange={(e) => setAlamat(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <label className="form-control-label">Provinsi</label>
-              <Input type="text" value={provinsi} onChange={(e) => setProvinsi(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <label className="form-control-label">Kabupaten</label>
-              <Input type="text" value={kabupaten} onChange={(e) => setKabupaten(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <label className="form-control-label">Kecamatan</label>
-              <Input type="text" value={kecamatan} onChange={(e) => setKecamatan(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <label className="form-control-label">Desa</label>
-              <Input type="text" value={desa} onChange={(e) => setDesa(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <label className="form-control-label">Posyandu</label>
-              <Input type="text" value={posyandu} onChange={(e) => setPosyandu(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <label className="form-control-label">RT</label>
-              <Input type="text" value={rt} onChange={(e) => setRt(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <label className="form-control-label">RW</label>
-              <Input type="text" value={rw} onChange={(e) => setRw(e.target.value)} />
-            </FormGroup>
-            <Button color="primary" type="submit">
-              Update
-            </Button>
-          </Form>
-        </CardBody>
-      </Card>
+      <Sidebar />
+      <div className="main-content" id="panel">
+        <Navbar handleLogout={handleLogout} />
+        <Header />
+        <div className="orangtua-update-container">
+          <Card className="shadow">
+            <CardHeader className="border-0">
+              <h2 className="mb-0">Update Data Orang Tua</h2>
+            </CardHeader>
+            <CardBody>
+              <Form onSubmit={handleSubmit}>
+                <FormGroup>
+                  <label className="form-control-label">Nama</label>
+                  <Input type="text" value={nama} onChange={(e) => setNama(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <label className="form-control-label">Alamat</label>
+                  <Input type="text" value={alamat} onChange={(e) => setAlamat(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <label className="form-control-label">Provinsi</label>
+                  <Input type="text" value={provinsi} onChange={(e) => setProvinsi(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <label className="form-control-label">Kabupaten</label>
+                  <Input type="text" value={kabupaten} onChange={(e) => setKabupaten(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <label className="form-control-label">Kecamatan</label>
+                  <Input type="text" value={kecamatan} onChange={(e) => setKecamatan(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <label className="form-control-label">Desa</label>
+                  <Input type="text" value={desa} onChange={(e) => setDesa(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <label className="form-control-label">Posyandu</label>
+                  <Input type="text" value={posyandu} onChange={(e) => setPosyandu(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <label className="form-control-label">RT</label>
+                  <Input type="text" value={rt} onChange={(e) => setRt(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <label className="form-control-label">RW</label>
+                  <Input type="text" value={rw} onChange={(e) => setRw(e.target.value)} />
+                </FormGroup>
+                <Button color="primary" type="submit">
+                  Update
+                </Button>
+              </Form>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
     </>
   );
 };
+
 export default OrangTuaUpdate;

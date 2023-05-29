@@ -232,25 +232,43 @@ const Sidebar = (props) => {
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}
-          <h6 className="navbar-heading text-muted">Documentation</h6>
+          <h2 className="navbar-heading">Navigasi</h2>
           {/* Navigation */}
           <Nav className="mb-md-3" navbar>
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
-                <i className="ni ni-spaceship" />
-                Getting started
+              <NavLink href="orangtua-read">
+                <i className="ni ni-single-02" />
+                Data Orang Tua
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/colors?ref=adr-admin-sidebar">
-                <i className="ni ni-palette" />
-                Foundation
+                <i className="ni ni-single-02" />
+                Data Anak
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-ui-04" />
-                Components
+                <i className="ni ni-sound-wave" />
+                Data Gizi
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
+                <i className="ni ni-single-copy-04" />
+                K-Means
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
+                <i className="ni ni-single-copy-04" />
+                K-Medoids
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
+                <i className="ni ni-check-bold" />
+                Hasil Perbandingan
               </NavLink>
             </NavItem>
           </Nav>
