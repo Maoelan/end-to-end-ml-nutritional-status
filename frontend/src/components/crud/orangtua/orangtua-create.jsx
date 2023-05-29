@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { Card, CardHeader, CardBody, FormGroup, Form, Input, Button } from "reactstrap";
 import { checkAuthentication, getUsername } from "../../utils/auth";
+
+import Sidebar from '../../Sidebar/Sidebar';
+import Navbar from '../../Navbars/AuthNavbar.js';
+import Header from '../../Headers/UserHeader.js';
 
 const OrangTuaCreate = ({ handleLogout }) => {
     const [nama, setNama] = useState('');
@@ -50,12 +54,17 @@ const OrangTuaCreate = ({ handleLogout }) => {
 
     return (
         <>
-          <Card className="shadow">
-            <CardHeader className="border-0">
-              <h2 className="mb-0">Tambah Data Orang Tua</h2>
-            </CardHeader>
-            <CardBody>
-              <Form onSubmit={handleSubmit}>
+          <Sidebar />
+          <div className="main-content" id="panel">
+            <Navbar />
+            <Header />
+            <div className="orangtua-read-container">
+              <Card>
+                <CardHeader>
+                  <h2 className="mb-0">Tambah Data Orang Tua</h2>
+                </CardHeader>
+                <CardBody>
+                <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <label className="form-control-label">Nama</label>
                   <Input
@@ -152,8 +161,10 @@ const OrangTuaCreate = ({ handleLogout }) => {
                   </Button>
                 </div>
               </Form>
-            </CardBody>
-          </Card>
+                </CardBody>
+              </Card>
+            </div>
+          </div>
         </>
       );
     };
