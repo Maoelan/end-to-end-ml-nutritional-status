@@ -14,6 +14,7 @@ import OrangTuaUpdate from './components/crud/orangtua/orangtua-update';
 import AnakRead from './components/crud/anak/anak-read';
 import AnakCreate from './components/crud/anak/anak-create';
 import AnakUpdate from './components/crud/anak/anak-update';
+import GiziRead from './components/crud/gizi/gizi-read';
 
 
 function App() {
@@ -101,6 +102,17 @@ function App() {
               <AnakUpdate handleLogout={handleLogout} />
             ) : (
                 <Navigate to="/login" replace={true} state={{ from: '/anak-update/:id' }} />
+            )
+          }
+        />
+        
+        <Route
+          path="/gizi-read"
+          element={
+            isLoggedIn ? (
+              <GiziRead handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/gizi-read' }} />
             )
           }
         />

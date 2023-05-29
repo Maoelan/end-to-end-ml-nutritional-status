@@ -219,12 +219,6 @@ def get_gizi():
             'tanggal_pengukuran' : x.tanggal_pengukuran,
             'berat' : x.berat,
             'tinggi' : x.tinggi,
-            'lingkar_lengan_atas' : x.lingkar_lengan_atas,
-            'zs_bb_umur' : x.zs_bb_umur,
-            'zs_tb_umur' : x.zs_tb_umur,
-            'bb_umur' : x.bb_umur,
-            'tb_umur' : x.tb_umur,
-            'naik_berat_badan' : x.naik_berat_badan,
             'jumlah_vitamin_a' : x.jumlah_vitamin_a
         }
         result.append(data)
@@ -241,12 +235,6 @@ def add_gizi():
         tanggal_pengukuran = data['tanggal_pengukuran'],
         berat = data['berat'],
         tinggi = data['tinggi'],
-        lingkar_lengan_atas = data['lingkar_lengan_atas'],
-        zs_bb_umur = data['zs_bb_umur'],
-        zs_tb_umur = data['zs_tb_umur'],
-        bb_umur = data['bb_umur'],
-        tb_umur = data['tb_umur'],
-        naik_berat_badan = data['naik_berat_badan'],
         jumlah_vitamin_a = data['jumlah_vitamin_a']
     )
 
@@ -268,12 +256,6 @@ def update_gizi(id):
     gizi.tanggal_pengukuran = data['tanggal_pengukuran']
     gizi.berat = data['berat']
     gizi.tinggi = data['tinggi']
-    gizi.lingkar_lengan_atas = data['lingkar_lengan_atas']
-    gizi.zs_bb_umur = data['zs_bb_umur']
-    gizi.zs_tb_umur = data['zs_tb_umur']
-    gizi.bb_umur = data['bb_umur']
-    gizi.tb_umur = data['tb_umur']
-    gizi.naik_berat_badan = data['naik_berat_badan']
     gizi.jumlah_vitamin_a = data['jumlah_vitamin_a']
 
     db.session.commit()

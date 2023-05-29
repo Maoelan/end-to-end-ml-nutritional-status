@@ -37,12 +37,6 @@ class Gizi(db.Model):
     tanggal_pengukuran = db.Column(db.Date)
     berat = db.Column(db.Float())
     tinggi = db.Column(db.Float())
-    lingkar_lengan_atas = db.Column(db.Float())
-    zs_bb_umur = db.Column(db.Float())
-    zs_tb_umur = db.Column(db.Float())
-    bb_umur = db.Column(db.String(50))
-    tb_umur = db.Column(db.String(50))
-    naik_berat_badan = db.Column(db.String(10))
     jumlah_vitamin_a = db.Column(db.Integer)
 
 class User(db.Model):

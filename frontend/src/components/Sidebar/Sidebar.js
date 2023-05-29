@@ -252,10 +252,12 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-sound-wave" />
-                Data Gizi
-              </NavLink>
+              <Link to={'/gizi-read'}>
+                <NavLink>
+                  <i className="ni ni-sound-wave" />
+                  Data Gizi
+                </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
               <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
