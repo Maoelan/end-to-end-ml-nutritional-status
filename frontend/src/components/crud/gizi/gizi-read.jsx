@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardHeader, CardBody, Table } from "reactstrap";
 import { checkAuthentication } from '../../utils/auth';
+import { Link } from 'react-router-dom';
 
 import Sidebar from '../../Sidebar/Sidebar.js';
 import Navbar from '../../Navbars/AuthNavbar.js';
@@ -9,6 +10,7 @@ import Header from '../../Headers/UserHeader.js';
 
 const GiziRead = ({ handleLogout }) => {
   const [giziList, setGiziList] = useState([]);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     const navigate = checkAuthentication();
@@ -19,10 +21,26 @@ const GiziRead = ({ handleLogout }) => {
     fetchGizi();
   }, []);
 
+  useEffect(() => {
+    return () => {
+        setGiziList([]);
+    };
+  }, []);
+
+
   const fetchGizi = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/gizi/get');
       setGiziList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/gizi/delete/${id}`);
+      fetchGizi();
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +59,7 @@ const GiziRead = ({ handleLogout }) => {
             </CardHeader>
             <CardBody>
               <Table className="align-items-center table-flush" responsive>
-                <thead className='thead-light'>
+                <thead className="thead-light">
                   <tr>
                     <th>No</th>
                     <th>ID Anak</th>
@@ -49,13 +67,8 @@ const GiziRead = ({ handleLogout }) => {
                     <th>Tanggal Pengukuran</th>
                     <th>Berat</th>
                     <th>Tinggi</th>
-                    <th>Lingkar Lengan Atas</th>
-                    <th>Z-Score BB/U</th>
-                    <th>Z-Score TB/U</th>
-                    <th>BB/U</th>
-                    <th>TB/U</th>
-                    <th>Naik Berat Badan</th>
                     <th>Jumlah Vitamin A</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,17 +80,30 @@ const GiziRead = ({ handleLogout }) => {
                       <td>{gizi.tanggal_pengukuran}</td>
                       <td>{gizi.berat}</td>
                       <td>{gizi.tinggi}</td>
-                      <td>{gizi.lingkar_lengan_atas}</td>
-                      <td>{gizi.zs_bb_umur}</td>
-                      <td>{gizi.zs_tb_umur}</td>
-                      <td>{gizi.bb_umur}</td>
-                      <td>{gizi.tb_umur}</td>
-                      <td>{gizi.naik_berat_badan}</td>
                       <td>{gizi.jumlah_vitamin_a}</td>
+                      <td className="text-center">
+                        <Link to={`/gizi-update/${gizi.id}`}>
+                          <button className="btn btn-warning btn-sm">
+                            Update
+                          </button>
+                        </Link>
+                        {' '}
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDelete(gizi.id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
+              <div className='mt-4'>
+                <Link to="/gizi-create">
+                  <button className="btn btn-primary">Tambah Data</button>
+                </Link>
+              </div>
             </CardBody>
           </Card>
         </div>

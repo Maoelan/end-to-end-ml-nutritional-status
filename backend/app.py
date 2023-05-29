@@ -225,6 +225,24 @@ def get_gizi():
     
     return jsonify(result)
 
+@app.route('/api/gizi/get/<int:id>', methods=['GET'])
+def get_gizi_by_id(id):
+    gizi = Gizi.query.get(id)
+    if gizi is None:
+        return jsonify({'message': 'Data anak tidak ditemukan'})
+    
+    data = {
+        'id': gizi.id,
+        'id_anak': gizi.id_anak,
+        'usia_diukur': gizi.usia_diukur,
+        'tanggal_pengukuran': gizi.tanggal_pengukuran,
+        'berat': gizi.berat,
+        'tinggi': gizi.tinggi,
+        'jumlah_vitamin_a': gizi.jumlah_vitamin_a
+    }
+    
+    return jsonify(data)
+
 @app.route('/api/gizi/add', methods=['POST'])
 def add_gizi():
     data = request.get_json()

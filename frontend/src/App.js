@@ -15,6 +15,8 @@ import AnakRead from './components/crud/anak/anak-read';
 import AnakCreate from './components/crud/anak/anak-create';
 import AnakUpdate from './components/crud/anak/anak-update';
 import GiziRead from './components/crud/gizi/gizi-read';
+import GiziCreate from './components/crud/gizi/gizi-create';
+import GiziUpdate from './components/crud/gizi/gizi-update';
 
 
 function App() {
@@ -113,6 +115,26 @@ function App() {
               <GiziRead handleLogout={handleLogout} />
             ) : (
               <Navigate to="/login" replace={true} state={{ from: '/gizi-read' }} />
+            )
+          }
+        />
+        <Route
+          path="/gizi-create"
+          element={
+            isLoggedIn ? (
+              <GiziCreate handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/gizi-create' }} />
+            )
+          }
+        />
+        <Route
+          path="/gizi-update/:id"
+          element={
+            isLoggedIn ? (
+              <GiziUpdate handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/gizi-update/:id' }} />
             )
           }
         />
