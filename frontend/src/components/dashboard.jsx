@@ -4,12 +4,12 @@ import Sidebar from './Sidebar/Sidebar';
 import Navbar from './Navbars/AuthNavbar';
 import Header from './Headers/Header';
 
-const Dashboard = () => {
+const Dashboard = ({ handleLogout }) => {
   return (
     <>
       <Sidebar />
       <div className="main-content" id="panel">
-        <Navbar />
+        <Navbar handleLogout={handleLogout} />
         <Header />
         <Container className="mt--7" fluid>
           <Row>

@@ -50,7 +50,7 @@ const GiziRead = ({ handleLogout }) => {
     <>
       <Sidebar />
       <div className="main-content" id="panel">
-        <Navbar />
+        <Navbar handleLogout={handleLogout} />
         <Header />
         <div className="gizi-read-container">
           <Card>

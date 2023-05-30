@@ -1,22 +1,4 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.3
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import { Link } from "react-router-dom";
-// reactstrap components
 import {
   UncontrolledCollapse,
   NavbarBrand,
@@ -28,8 +10,26 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { checkAuthentication, getUsername } from '../utils/auth';
+import React, { useState, useEffect } from 'react';
 
-const AdminNavbar = () => {
+const AuthNavbar = ({ handleLogout }) => {
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const navigate = checkAuthentication();
+    if (navigate) {
+      return navigate;
+    }
+
+    const fetchUsername = async () => {
+      const username = await getUsername();
+      setUsername(username);
+    };
+
+    fetchUsername();
+  }, []);
+
   return (
     <>
       <Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
@@ -64,7 +64,7 @@ const AdminNavbar = () => {
             </div>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink className="nav-link-icon" to="/" tag={Link}>
+                <NavLink className="nav-link-icon" to="/dashboard" tag={Link}>
                   <i className="ni ni-planet" />
                   <span className="nav-link-inner--text">Dashboard</span>
                 </NavLink>
@@ -72,17 +72,12 @@ const AdminNavbar = () => {
               <NavItem>
                 <NavLink
                   className="nav-link-icon"
-                  to="/auth/register"
+                  onClick={handleLogout}
+                  to="/login"
                   tag={Link}
                 >
-                  <i className="ni ni-circle-08" />
-                  <span className="nav-link-inner--text">Register</span>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className="nav-link-icon" to="/auth/login" tag={Link}>
-                  <i className="ni ni-key-25" />
-                  <span className="nav-link-inner--text">Login</span>
+                  <i className="ni ni-user-run" />
+                  <span className="nav-link-inner--text">Logout</span>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -92,7 +87,7 @@ const AdminNavbar = () => {
                   tag={Link}
                 >
                   <i className="ni ni-single-02" />
-                  <span className="nav-link-inner--text">Profile</span>
+                  <span className="nav-link-inner--text">{username}</span>
                 </NavLink>
               </NavItem>
             </Nav>
@@ -103,4 +98,4 @@ const AdminNavbar = () => {
   );
 };
 
-export default AdminNavbar;
+export default AuthNavbar;

@@ -17,6 +17,7 @@ import AnakUpdate from './components/crud/anak/anak-update';
 import GiziRead from './components/crud/gizi/gizi-read';
 import GiziCreate from './components/crud/gizi/gizi-create';
 import GiziUpdate from './components/crud/gizi/gizi-update';
+import AuthNavbar from './components/Navbars/AuthNavbar'
 
 
 function App() {
@@ -34,17 +35,16 @@ function App() {
   const handleLogout = () => {
     localStorage.setItem('isLoggedIn', 'false');
     setIsLoggedIn(false);
+    return <Navigate to="/login" />;
   };
 
   return (
     <Router>
       <Routes>
-
         <Route
           path="/login"
           element={isLoggedIn ? <Navigate to="/dashboard" /> : <div className="login-wrapper"><Login setIsLoggedIn={setIsLoggedIn} /></div>}
         />
-
         <Route
           path="/orangtua-read"
           element={
@@ -86,14 +86,14 @@ function App() {
             )
           }
         />
-        
+
         <Route
           path="/anak-create"
           element={
             isLoggedIn ? (
               <AnakCreate handleLogout={handleLogout} />
             ) : (
-                <Navigate to="/login" replace={true} state={{ from: '/anak-create' }} />
+              <Navigate to="/login" replace={true} state={{ from: '/anak-create' }} />
             )
           }
         />
@@ -103,11 +103,11 @@ function App() {
             isLoggedIn ? (
               <AnakUpdate handleLogout={handleLogout} />
             ) : (
-                <Navigate to="/login" replace={true} state={{ from: '/anak-update/:id' }} />
+              <Navigate to="/login" replace={true} state={{ from: '/anak-update/:id' }} />
             )
           }
         />
-        
+
         <Route
           path="/gizi-read"
           element={
@@ -138,7 +138,7 @@ function App() {
             )
           }
         />
-
+        
         <Route
           path="/dashboard"
           element={
@@ -149,7 +149,6 @@ function App() {
             )
           }
         />
-
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
