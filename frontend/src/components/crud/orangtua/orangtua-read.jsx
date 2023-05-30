@@ -108,8 +108,6 @@ const OrangTuaRead = ({ handleLogout }) => {
                 <Link to="/orangtua-create">
                   <button className="btn btn-primary">Tambah Data</button>
                 </Link>
-                {' '}
-                <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
               </div>
             </CardBody>
           </Card>

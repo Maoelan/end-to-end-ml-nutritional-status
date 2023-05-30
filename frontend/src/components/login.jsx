@@ -29,21 +29,22 @@ function Login({ setIsLoggedIn }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const data = {
       username: username,
       password: password
     };
-
+  
     try {
       const response = await axios.post('http://localhost:5000/api/login', data);
       console.log(response.data);
-
+  
       if (!response.data.message || response.data.message !== 'Login Berhasil') {
         console.log('Login failed:', response.data.message);
       } else {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('username', username); // Tambahkan baris ini
         setIsLoggedIn(true);
         navigate('/dashboard', { replace: true });
         setUsername('');

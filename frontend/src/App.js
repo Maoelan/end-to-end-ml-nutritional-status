@@ -17,8 +17,6 @@ import AnakUpdate from './components/crud/anak/anak-update';
 import GiziRead from './components/crud/gizi/gizi-read';
 import GiziCreate from './components/crud/gizi/gizi-create';
 import GiziUpdate from './components/crud/gizi/gizi-update';
-import AuthNavbar from './components/Navbars/AuthNavbar'
-
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

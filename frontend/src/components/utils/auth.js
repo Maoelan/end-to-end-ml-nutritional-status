@@ -5,7 +5,8 @@ const isAuthenticated = () => {
 };
 
 const getUsername = () => {
-    return localStorage.getItem('username');
+    const username = localStorage.getItem('username');
+    return username;
 };
 
 const checkAuthentication = () => {
