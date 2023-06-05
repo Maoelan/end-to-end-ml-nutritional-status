@@ -271,12 +271,6 @@ const Sidebar = (props) => {
                 K-Medoids
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-check-bold" />
-                Hasil Perbandingan
-              </NavLink>
-            </NavItem>
           </Nav>
         </Collapse>
       </Container>
