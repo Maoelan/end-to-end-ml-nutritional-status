@@ -18,6 +18,8 @@ CORS(app)
 app.debug = True
 
 from models import OrangTua, Anak, Gizi, User
+from train_kmeans import train_kmeans
+from train_kmedoids import train_kmedoids
 
 @app.route('/api/orangtua/get', methods=['GET'])
 def get_orangtua():
@@ -366,6 +368,16 @@ def login():
         return jsonify({'message': 'Login Berhasil'})
     
     return jsonify({'message': 'Username atau password salah'})
+
+@app.route('/train_kmeans', methods=['GET'])
+def train_kmeans_route():
+    result = train_kmeans()
+    return jsonify(result)
+
+@app.route('/train_kmedoids', methods=['GET'])
+def train_kmedoids_route():
+    result = train_kmedoids()
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run()

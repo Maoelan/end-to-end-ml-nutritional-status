@@ -1,9 +1,9 @@
-from sklearn.cluster import KMeans
+from sklearn_extra.cluster import KMedoids
 from sklearn.preprocessing import MinMaxScaler
 from flask import jsonify
 from models import Anak, Gizi
 
-def train_kmeans():
+def train_kmedoids():
     anak = Anak.query.all()
     gizi = Gizi.query.all()
 
@@ -21,11 +21,11 @@ def train_kmeans():
     scaled_data = scaler.fit_transform(data)
 
     n_clusters = 3
-    kmeans = KMeans(n_clusters=n_clusters)
-    kmeans.fit(scaled_data)
+    kmedoids = KMedoids(n_clusters=n_clusters)
+    kmedoids.fit(scaled_data)
 
     iterations = []
-    for i, labels in enumerate(kmeans.labels_):
+    for i, labels in enumerate(kmedoids.labels_):
         iteration = {}
         for j in range(n_clusters):
             cluster_points = scaled_data[labels == j].tolist()
@@ -33,7 +33,7 @@ def train_kmeans():
         iterations.append(iteration)
 
     cluster_count = n_clusters
-    centroid_changes = kmeans.inertia_
+    centroid_changes = kmedoids.inertia_
 
     response = {
         'iterations': iterations,
@@ -44,5 +44,5 @@ def train_kmeans():
     return response
 
 if __name__ == '__main__':
-    result = train_kmeans()
+    result = train_kmedoids()
     print(result)
