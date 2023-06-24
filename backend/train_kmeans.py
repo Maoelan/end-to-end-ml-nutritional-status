@@ -12,7 +12,6 @@ def train_kmeans():
         data.append([
             a.berat_lahir,
             a.tinggi_lahir,
-            g.usia_diukur,
             g.berat,
             g.tinggi
         ])
