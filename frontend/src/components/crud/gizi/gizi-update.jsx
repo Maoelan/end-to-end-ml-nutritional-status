@@ -83,7 +83,7 @@ const GiziUpdate = ({ handleLogout }) => {
             <CardBody>
               <Form onSubmit={handleSubmit}>
                 <FormGroup>
-                  <label className="form-control-label">ID Anak</label>
+                  <label className="form-control-label">Nama Anak</label>
                   <Input
                     className="form-control-alternative"
                     type="select"

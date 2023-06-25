@@ -11,6 +11,7 @@ import Header from '../../Headers/UserHeader.js';
 const GiziRead = ({ handleLogout }) => {
   const [giziList, setGiziList] = useState([]);
   const [username, setUsername] = useState('');
+  const [anakList, setAnakList] = useState([]);
 
   useEffect(() => {
     const navigate = checkAuthentication();
@@ -19,6 +20,7 @@ const GiziRead = ({ handleLogout }) => {
     }
 
     fetchGizi();
+    fetchAnakList();
   }, []);
 
   useEffect(() => {
@@ -27,6 +29,14 @@ const GiziRead = ({ handleLogout }) => {
     };
   }, []);
 
+  const fetchAnakList = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/anak/get');
+      setAnakList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fetchGizi = async () => {
     try {
@@ -62,7 +72,7 @@ const GiziRead = ({ handleLogout }) => {
                 <thead className="thead-light">
                   <tr>
                     <th>No</th>
-                    <th>ID Anak</th>
+                    <th>Nama Anak</th>
                     <th>Usia Diukur</th>
                     <th>Tanggal Pengukuran</th>
                     <th>Berat</th>
@@ -72,31 +82,36 @@ const GiziRead = ({ handleLogout }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {giziList.map((gizi, index) => (
-                    <tr key={gizi.id}>
-                      <td>{index + 1}</td>
-                      <td>{gizi.id_anak}</td>
-                      <td>{gizi.usia_diukur}</td>
-                      <td>{gizi.tanggal_pengukuran}</td>
-                      <td>{gizi.berat}</td>
-                      <td>{gizi.tinggi}</td>
-                      <td>{gizi.jumlah_vitamin_a}</td>
-                      <td className="text-center">
-                        <Link to={`/gizi-update/${gizi.id}`}>
-                          <button className="btn btn-warning btn-sm">
-                            Update
+                  {giziList.map((gizi, index) => {
+                    const anak = anakList.find((anak) => anak.id === gizi.id_anak);
+                    const namaAnak = anak ? anak.nama : '';
+
+                    return (
+                      <tr key={gizi.id}>
+                        <td>{index + 1}</td>
+                        <td>{namaAnak}</td>
+                        <td>{gizi.usia_diukur}</td>
+                        <td>{gizi.tanggal_pengukuran}</td>
+                        <td>{gizi.berat}</td>
+                        <td>{gizi.tinggi}</td>
+                        <td>{gizi.jumlah_vitamin_a}</td>
+                        <td className="text-center">
+                          <Link to={`/gizi-update/${gizi.id}`}>
+                            <button className="btn btn-warning btn-sm">
+                              Update
+                            </button>
+                          </Link>
+                          {' '}
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => handleDelete(gizi.id)}
+                          >
+                            Delete
                           </button>
-                        </Link>
-                        {' '}
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDelete(gizi.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
               <div className='mt-4'>
