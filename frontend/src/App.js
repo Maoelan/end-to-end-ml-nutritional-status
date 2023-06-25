@@ -17,6 +17,7 @@ import AnakUpdate from './components/crud/anak/anak-update';
 import GiziRead from './components/crud/gizi/gizi-read';
 import GiziCreate from './components/crud/gizi/gizi-create';
 import GiziUpdate from './components/crud/gizi/gizi-update';
+import TrainKMeans from './components/train/kmeans-train';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -136,7 +137,16 @@ function App() {
             )
           }
         />
-        
+        <Route
+          path="/kmeans-train"
+          element={
+            isLoggedIn ? (
+              <TrainKMeans handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/k-means-train' }} />
+            )
+          }
+        />
         <Route
           path="/dashboard"
           element={

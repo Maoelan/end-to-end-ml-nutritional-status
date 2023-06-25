@@ -260,16 +260,20 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-single-copy-04" />
-                K-Means
-              </NavLink>
+              <Link to={'/kmeans-train'}>
+                <NavLink>
+                  <i className="ni ni-single-copy-04" />
+                  K-Means
+                </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-single-copy-04" />
-                K-Medoids
-              </NavLink>
+              <Link to={'/gizi-read'}>
+                <NavLink>
+                  <i className="ni ni-single-copy-04" />
+                  K-Medoids
+                </NavLink>
+              </Link>
             </NavItem>
           </Nav>
         </Collapse>

@@ -369,12 +369,12 @@ def login():
     
     return jsonify({'message': 'Username atau password salah'})
 
-@app.route('/api/train_kmeans', methods=['GET'])
+@app.route('/api/train_kmeans', methods=['GET', 'POST'])
 def train_kmeans_route():
     result = train_kmeans()
     return jsonify(result)
 
-@app.route('/api/train_kmedoids', methods=['GET'])
+@app.route('/api/train_kmedoids', methods=['GET', 'POST'])
 def train_kmedoids_route():
     result = train_kmedoids()
     return jsonify(result)
