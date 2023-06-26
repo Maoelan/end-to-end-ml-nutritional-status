@@ -19,13 +19,13 @@ def train_kmeans():
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(data)
 
-    n_clusters = 3
-    kmeans = KMeans(n_clusters=n_clusters, init='random')
+    n_clusters = 4
+    kmeans = KMeans(n_clusters=n_clusters, init='random', )
     kmeans.fit(scaled_data)
 
     iterations = []
-    initial_centroids = scaler.inverse_transform(kmeans.cluster_centers_)  # Menggunakan scaler untuk mengembalikan centroid awal
-    initial_centroids = scaler.fit_transform(initial_centroids).tolist()  # Melakukan MinMaxScaler pada centroid awal
+    initial_centroids = scaler.inverse_transform(kmeans.cluster_centers_)  
+    initial_centroids = scaler.fit_transform(initial_centroids).tolist()  
 
     total_iterations = kmeans.n_iter_
 
@@ -44,7 +44,6 @@ def train_kmeans():
 
         iterations.append(iteration)
 
-        # Update centroid
         kmeans.fit(scaled_data)
     
     cluster_count = n_clusters

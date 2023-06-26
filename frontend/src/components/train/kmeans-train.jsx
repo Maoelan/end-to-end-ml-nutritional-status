@@ -56,68 +56,64 @@ const KMeans = ({ handleLogout }) => {
               <div className="train-button-container">
                 <button className="btn btn-primary" onClick={handleTrainKMeans}>Train</button>
               </div>
+              <br></br>
               {isTrained && kMeansData && kMeansData.iterations && kMeansData.cluster_labels && (
-  <>
-<Table className="align-items-center table-flush" responsive>
-  <thead className="thead-light">
-    <tr>
-      <th>Cluster</th>
-      <th>Data Points</th>
-    </tr>
-  </thead>
-  <tbody>
-    {isTrained &&
-      kMeansData &&
-      kMeansData.iterations &&
-      kMeansData.cluster_labels &&
-      kMeansData.iterations.map((iteration, index) => (
-        <tr key={index}>
-          <td>Cluster {index + 1}</td>
-          <td>
-            <div>
-              {iteration[`cluster_${index + 1}`]?.reduce((rows, dataPoint, i) => {
-                if (i % 4 === 0) {
-                  rows.push([]);
-                }
-                rows[Math.floor(i / 4)].push(dataPoint.join(', '));
-                return rows;
-              }, []).map((row, rowIndex) => (
-                <div key={rowIndex}>
-                  {row.map((data, dataIndex) => (
-                    <span key={dataIndex}>
-                      {data}
-                      {dataIndex !== row.length - 1 && ','}
-                      <br />
-                    </span>
+                <>
+                  <div className="kmeans-summary">
+                    <p>Cluster Count: {kMeansData.cluster_count}</p>
+                    <p>Total Iterations: {kMeansData.total_iterations}</p>
+                  </div>
+                  <br></br>
+                  <div className="cluster-labels">
+                    <Table className="align-items-center table-flush" responsive>
+                      <thead className="thead-light">
+                        <tr>
+                          <th>Data</th>
+                          <th>Cluster Labels</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {kMeansData.cluster_labels.map((label, index) => (
+                          <tr key={index}>
+                            <td>Data {index + 1}</td>
+                            <td>{label}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </div>
+                  <br></br>
+                  {kMeansData.iterations.slice(0, 3).map((iteration, index) => (
+                    <div key={index}>
+                      <h4>Iterasi {index + 1}</h4>
+                      <Table bordered>
+                        <thead>
+                          <tr>
+                            <th>Data Points</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <Table>
+                                <tbody>
+                                  {iteration[`cluster_${index + 1}`]?.map((dataPoint, i) => (
+                                    <tr key={i}>
+                                      {dataPoint.map((value, j) => (
+                                        <td key={j}>{value}</td>
+                                      ))}
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </Table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </div>
                   ))}
-                </div>
-              ))}
-            </div>
-          </td>
-        </tr>
-      ))}
-  </tbody>
-</Table>
-<Table className="align-items-center table-flush" responsive>
-  <thead className="thead-light">
-    <tr>
-      <th>Cluster Count</th>
-      <th>Centroid Changes</th>
-      <th>Total Iterations</th>
-      <th>Cluster Labels</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{kMeansData?.cluster_count}</td>
-      <td>{kMeansData?.centroid_changes}</td>
-      <td>{kMeansData?.total_iterations}</td>
-      <td>{kMeansData?.cluster_labels?.join(', ')}</td>
-    </tr>
-  </tbody>
-</Table>
-  </>
-)}
+                </>
+              )}
             </CardBody>
           </Card>
         </div>
