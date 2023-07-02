@@ -260,10 +260,10 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to={'/kmeans-train'}>
+              <Link to={'/train'}>
                 <NavLink>
                   <i className="ni ni-single-copy-04" />
-                  K-Means
+                  Train
                 </NavLink>
               </Link>
             </NavItem>
@@ -271,7 +271,7 @@ const Sidebar = (props) => {
               <Link to={'/gizi-read'}>
                 <NavLink>
                   <i className="ni ni-single-copy-04" />
-                  K-Medoids
+                  Perbandingan
                 </NavLink>
               </Link>
             </NavItem>

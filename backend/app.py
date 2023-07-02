@@ -17,7 +17,7 @@ CORS(app)
 
 app.debug = True
 
-from models import OrangTua, Anak, Gizi, User
+from models import OrangTua, Anak, Gizi, User, Label
 from train_kmeans import train_kmeans
 from train_kmedoids import train_kmedoids
 
@@ -368,6 +368,26 @@ def login():
         return jsonify({'message': 'Login Berhasil'})
     
     return jsonify({'message': 'Username atau password salah'})
+
+@app.route('/api/label/add', methods=['POST'])
+def add_label():
+    data = request.get_json()
+
+    label = Label(
+        label_aktual = data['label_aktual']
+    )
+
+    db.session.add(label)
+    db.session.commit()
+
+    return jsonify({'message': 'Data label berhasil ditambahkan'})
+
+@app.route('/api/label/delete', methods=['DELETE'])
+def delete_all_labels():
+    Label.query.delete()
+    db.session.commit()
+
+    return jsonify({'message': 'Semua data label berhasil dihapus'})
 
 @app.route('/api/train_kmeans', methods=['GET', 'POST'])
 def train_kmeans_route():

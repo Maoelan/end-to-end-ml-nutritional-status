@@ -47,5 +47,13 @@ class User(db.Model):
     email = db.Column(db.String(255))
     password = db.Column(db.String(255))
     role = db.Column(db.String(50))
+
+class Label(db.Model):
+    __tablename__ = 'data_label'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    label_aktual = db.Column(db.String(25))
+
+
         
 

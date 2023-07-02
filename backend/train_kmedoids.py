@@ -20,35 +20,45 @@ def train_kmedoids():
     scaled_data = scaler.fit_transform(data)
 
     n_clusters = 3
-    kmedoids = KMedoids(n_clusters=n_clusters, init='random')
+    random_state = 12
+
+    kmedoids = KMedoids(n_clusters=n_clusters, init='random', random_state=random_state, metric='euclidean')
     kmedoids.fit(scaled_data)
 
     iterations = []
-    initial_medoids = scaler.inverse_transform(kmedoids.cluster_centers_)  # Menggunakan scaler untuk mengembalikan medoid awal
-    initial_medoids = scaler.fit_transform(initial_medoids).tolist()  # Melakukan MinMaxScaler pada medoid awal
+    initial_medoids = scaler.inverse_transform(kmedoids.cluster_centers_)  
+    initial_medoids = scaler.fit_transform(initial_medoids).tolist()  
 
     total_iterations = kmedoids.n_iter_
 
-    previous_medoids = None
     for i in range(total_iterations):
         iteration = {}
-        kmedoids.fit(scaled_data)
+        current_kmedoids = KMedoids(n_clusters=n_clusters, init='random', random_state=random_state, metric='euclidean')
+        current_kmedoids.medoid_indices_ = kmedoids.medoid_indices_
+        current_kmedoids.labels_ = kmedoids.predict(scaled_data)
 
         for j in range(n_clusters):
-            cluster_points = scaled_data[kmedoids.labels_ == j].tolist()
+            cluster_points = []
+            for index, point in enumerate(scaled_data):
+                if current_kmedoids.labels_[index] == j:
+                    cluster_points.append(point.tolist())
             iteration[f'cluster_{j+1}'] = cluster_points
 
-        if previous_medoids is not None:
-            medoid_changes = kmedoids.cluster_centers_ - previous_medoids
-            iteration['medoid_changes'] = scaler.inverse_transform(medoid_changes).tolist()
-
-        previous_medoids = kmedoids.cluster_centers_
         iterations.append(iteration)
 
+        kmedoids.fit(scaled_data)
+    
     cluster_count = n_clusters
     medoid_changes = kmedoids.inertia_
 
-    cluster_labels = kmedoids.labels_.tolist()
+    cluster_labels = []
+    for label in kmedoids.labels_:
+        if label == 2:
+            cluster_labels.append("GIZI LEBIH")
+        elif label == 1:
+            cluster_labels.append("GIZI BAIK")
+        else:
+            cluster_labels.append("GIZI KURANG")
 
     scaled_data = scaled_data.tolist()
 

@@ -19,8 +19,10 @@ def train_kmeans():
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(data)
 
-    n_clusters = 4
-    kmeans = KMeans(n_clusters=n_clusters, init='random', )
+    n_clusters = 3
+    random_state = 12
+
+    kmeans = KMeans(n_clusters=n_clusters, init='random', random_state=random_state)
     kmeans.fit(scaled_data)
 
     iterations = []
@@ -31,7 +33,7 @@ def train_kmeans():
 
     for i in range(total_iterations):
         iteration = {}
-        current_kmeans = KMeans(n_clusters=n_clusters, init='random')
+        current_kmeans = KMeans(n_clusters=n_clusters, init='random', random_state=random_state)
         current_kmeans.cluster_centers_ = kmeans.cluster_centers_
         current_kmeans.labels_ = kmeans.predict(scaled_data)
 
@@ -49,7 +51,14 @@ def train_kmeans():
     cluster_count = n_clusters
     centroid_changes = kmeans.inertia_
 
-    cluster_labels = kmeans.labels_.tolist()
+    cluster_labels = []
+    for label in kmeans.labels_:
+        if label == 2:
+            cluster_labels.append("GIZI LEBIH")
+        elif label == 1:
+            cluster_labels.append("GIZI BAIK")
+        else:
+            cluster_labels.append("GIZI KURANG")
 
     scaled_data = scaled_data.tolist()
 

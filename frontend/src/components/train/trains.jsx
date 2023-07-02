@@ -1,0 +1,164 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Card, CardHeader, CardBody, Table } from "reactstrap";
+import { checkAuthentication, getUsername } from '../utils/auth';
+import { Link } from 'react-router-dom';
+
+import Sidebar from '../Sidebar/Sidebar.js';
+import Navbar from '../Navbars/AuthNavbar.js';
+import Header from '../Headers/UserHeader.js';
+
+const Trains = ({ handleLogout }) => {
+  const [kMeansData, setKMeansData] = useState(null);
+  const [kMedoidsData, setKMedoidsData] = useState(null);
+  const [anakData, setAnakData] = useState(null);
+  const [giziData, setGiziData] = useState(null);
+  const [isTrained, setIsTrained] = useState(false);
+  const [username, setUsername] = useState('');
+  const [isTableVisible, setTableVisible] = useState(true);
+
+  useEffect(() => {
+    const navigate = checkAuthentication();
+    if (navigate) {
+      return navigate;
+    }
+
+    fetchKMeansData();
+    fetchKMedoidsData();
+    fetchAnakData();
+    fetchGiziData();
+    //setUsername(getUsername());
+  }, []);
+
+  const fetchKMeansData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/train_kmeans');
+      setKMeansData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleTrainKMeans = async () => {
+    try {
+      await axios.post('http://localhost:5000/api/train_kmeans');
+      setIsTrained(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchKMedoidsData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/train_kmedoids');
+      setKMedoidsData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleTrainKMedoids = async () => {
+    try {
+      await axios.post('http://localhost:5000/api/train_kmedoids');
+      setIsTrained(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchAnakData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/anak/get');
+      setAnakData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchGiziData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/gizi/get');
+      setGiziData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleToggleTable = () => {
+    setTableVisible(!isTableVisible);
+  };
+
+  return (
+    <>
+      <Sidebar />
+      <div className="main-content" id="panel">
+        <Navbar handleLogout={handleLogout} />
+        <Header />
+        <div className="kmeans-container">
+          <Card>
+            <CardHeader>
+              <h2 className="mb-0">K-Means Clustering</h2>
+            </CardHeader>
+            <CardBody>
+              <div className="train-button-container">
+                {/*<button className="btn btn-primary" onClick={handleTrainKMeans}>Train K-Means</button>*/}
+                <button className="btn btn-primary" onClick={handleTrainKMedoids}>Train K-Medoids</button>
+              </div>
+              <br></br>
+              {isTrained && kMeansData && kMeansData.cluster_labels && kMedoidsData && kMedoidsData.cluster_labels && anakData && giziData && (
+                <>
+                  <div className="kmeans-summary">
+                    <p>K-Means Cluster Count: {kMeansData.cluster_count}</p>
+                    <p>K-Means Total Iterations: {kMeansData.total_iterations}</p>
+                    <p>K-Medoids Total Iterations: {kMedoidsData.total_iterations}</p>
+                  </div>
+                  <br></br>
+                  <div className="toggle-table-button">
+                    <button className="btn btn-primary" onClick={handleToggleTable}>
+                      {isTableVisible ? 'Hide Table' : 'Show Table'}
+                    </button>
+                  </div>
+                  <br></br>
+                  {isTableVisible && (
+                    <div className="cluster-labels">
+                      <Table className="align-items-center table-flush" responsive>
+                        <thead className="thead-light">
+                          <tr>
+                            <th>No</th>
+                            <th>NAMA ANAK</th>
+                            <th>BERAT LAHIR</th>
+                            <th>TINGGI LAHIR</th>
+                            <th>BERAT</th>
+                            <th>TINGGI</th>
+                            <th>K-Means Cluster Labels</th>
+                            <th>K-Medoids Cluster Labels</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {kMeansData.cluster_labels.map((label, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{anakData[index].nama}</td>
+                              <td>{anakData[index].berat_lahir}</td>
+                              <td>{anakData[index].tinggi_lahir}</td>
+                              <td>{giziData[index].berat}</td>
+                              <td>{giziData[index].tinggi}</td>
+                              <td style={label === "GIZI LEBIH" ? { fontWeight: "bold", color: "orange" } : (label === "GIZI BAIK" ? { fontWeight: "bold", color: "green" } : { fontWeight: "bold", color: "red" })}>{label}</td>
+                              <td style={kMedoidsData.cluster_labels[index] === "GIZI LEBIH" ? { fontWeight: "bold", color: "orange" } : (kMedoidsData.cluster_labels[index] === "GIZI BAIK" ? { fontWeight: "bold", color: "green" } : { fontWeight: "bold", color: "red" })}>{kMedoidsData.cluster_labels[index]}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </div>
+                  )}
+                </>
+              )}
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Trains;
