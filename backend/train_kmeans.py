@@ -20,7 +20,7 @@ def train_kmeans():
     scaled_data = scaler.fit_transform(data)
 
     n_clusters = 3
-    random_state = 12
+    random_state = 45
 
     kmeans = KMeans(n_clusters=n_clusters, init='random', random_state=random_state)
     kmeans.fit(scaled_data)
