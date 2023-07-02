@@ -12,6 +12,7 @@ const GiziRead = ({ handleLogout }) => {
   const [giziList, setGiziList] = useState([]);
   const [username, setUsername] = useState('');
   const [anakList, setAnakList] = useState([]);
+  const [isTableVisible, setTableVisible] = useState(true);
 
   useEffect(() => {
     const navigate = checkAuthentication();
@@ -56,6 +57,10 @@ const GiziRead = ({ handleLogout }) => {
     }
   };
 
+  const handleToggleTable = () => {
+    setTableVisible(!isTableVisible);
+  };
+
   return (
     <>
       <Sidebar />
@@ -65,9 +70,20 @@ const GiziRead = ({ handleLogout }) => {
         <div className="gizi-read-container">
           <Card>
             <CardHeader>
+            <div className="d-flex justify-content-between align-items-center">
               <h2 className="mb-0">Daftar Data Gizi</h2>
+              <div className="d-flex">
+              <button className="btn btn-primary mr-2" onClick={handleToggleTable}>
+                  {isTableVisible ? 'Hide Table' : 'Show Table'}
+              </button>
+              <Link to="/gizi-create">
+                  <button className="btn btn-primary">Tambah Data</button>
+              </Link>
+              </div>
+            </div>
             </CardHeader>
             <CardBody>
+            {isTableVisible && (
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
@@ -113,12 +129,8 @@ const GiziRead = ({ handleLogout }) => {
                     );
                   })}
                 </tbody>
-              </Table>
-              <div className='mt-4'>
-                <Link to="/gizi-create">
-                  <button className="btn btn-primary">Tambah Data</button>
-                </Link>
-              </div>
+                </Table>
+                )}
             </CardBody>
           </Card>
         </div>

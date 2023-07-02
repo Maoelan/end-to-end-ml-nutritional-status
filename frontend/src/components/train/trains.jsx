@@ -97,26 +97,23 @@ const Trains = ({ handleLogout }) => {
         <div className="kmeans-container">
           <Card>
             <CardHeader>
-              <h2 className="mb-0">K-Means Clustering</h2>
+              <div className="d-flex justify-content-between align-items-center">
+                <h2 className="mb-0">K-Means Clustering</h2>
+                <div className="d-flex">
+                  <button className="btn btn-primary" onClick={handleToggleTable}>
+                    {isTableVisible ? 'Hide Table' : 'Show Table'}
+                  </button>
+                  <button className="btn btn-primary mr-2" onClick={handleTrainKMedoids}>Train K-Medoids</button>
+                </div>
+              </div>
             </CardHeader>
             <CardBody>
-              <div className="train-button-container">
-                {/*<button className="btn btn-primary" onClick={handleTrainKMeans}>Train K-Means</button>*/}
-                <button className="btn btn-primary" onClick={handleTrainKMedoids}>Train K-Medoids</button>
-              </div>
-              <br></br>
               {isTrained && kMeansData && kMeansData.cluster_labels && kMedoidsData && kMedoidsData.cluster_labels && anakData && giziData && (
                 <>
                   <div className="kmeans-summary">
                     <p>K-Means Cluster Count: {kMeansData.cluster_count}</p>
                     <p>K-Means Total Iterations: {kMeansData.total_iterations}</p>
                     <p>K-Medoids Total Iterations: {kMedoidsData.total_iterations}</p>
-                  </div>
-                  <br></br>
-                  <div className="toggle-table-button">
-                    <button className="btn btn-primary" onClick={handleToggleTable}>
-                      {isTableVisible ? 'Hide Table' : 'Show Table'}
-                    </button>
                   </div>
                   <br></br>
                   {isTableVisible && (

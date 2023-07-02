@@ -11,6 +11,7 @@ import Header from '../../Headers/UserHeader.js';
 const AnakRead = ({ handleLogout }) => {
     const [anakList, setAnakList] = useState([]);
     const [username, setUsername] = useState('');
+    const [isTableVisible, setTableVisible] = useState(true);
 
     useEffect(() => {
         const navigate = checkAuthentication();
@@ -45,6 +46,10 @@ const AnakRead = ({ handleLogout }) => {
         }
     };
 
+    const handleToggleTable = () => {
+        setTableVisible(!isTableVisible);
+    };
+
     return (
         <>
             <Sidebar />
@@ -54,52 +59,59 @@ const AnakRead = ({ handleLogout }) => {
                 <div className="anak-read-container">
                     <Card>
                         <CardHeader>
+                        <div className="d-flex justify-content-between align-items-center">
                             <h2 className="mb-0">Daftar Anak</h2>
+                            <div className="d-flex">
+                            <button className="btn btn-primary mr-2" onClick={handleToggleTable}>
+                                {isTableVisible ? 'Hide Table' : 'Show Table'}
+                            </button>
+                            <Link to="/anak-create">
+                                <button className="btn btn-primary">Tambah Data</button>
+                            </Link>
+                            </div>
+                        </div>
                         </CardHeader>
                         <CardBody>
-                            <Table className="align-items-center table-flush" responsive>
-                                <thead className='thead-light'>
-                                    <tr>
-                                        <th>No</th>
-                                        <th scope="col">NIK</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Jenis Kelamin</th>
-                                        <th scope="col">Tanggal Lahir</th>
-                                        <th scope="col">Berat Lahir</th>
-                                        <th scope="col">Tinggi Lahir</th>
-                                        <th scope="col">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {anakList.map((anak, index) => (
-                                        <tr key={anak.id}>
-                                            <td>{index + 1}</td>
-                                            <td>{anak.nik}</td>
-                                            <td>{anak.nama}</td>
-                                            <td>{anak.jenis_kelamin}</td>
-                                            <td>{anak.tanggal_lahir}</td>
-                                            <td>{anak.berat_lahir}</td>
-                                            <td>{anak.tinggi_lahir}</td>
-                                            <td className="text-center">
-                                                <Link to={`/anak-update/${anak.id}`}>
-                                                    <button className='btn btn-warning btn-sm'>
-                                                        Update
-                                                    </button>
-                                                </Link>
-                                                {' '}
-                                                <button className='btn btn-danger btn-sm' onClick={() => handleDelete(anak.id)}>
-                                                    Delete
-                                                </button>
-                                            </td>
+                            {isTableVisible && (
+                                <Table className="align-items-center table-flush" responsive>
+                                    <thead className='thead-light'>
+                                        <tr>
+                                            <th>No</th>
+                                            <th scope="col">NIK</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Jenis Kelamin</th>
+                                            <th scope="col">Tanggal Lahir</th>
+                                            <th scope="col">Berat Lahir</th>
+                                            <th scope="col">Tinggi Lahir</th>
+                                            <th scope="col">Aksi</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                            <div className='mt-4'>
-                                <Link to="/anak-create">
-                                    <button className="btn btn-primary">Tambah Data</button>
-                                </Link>
-                            </div>
+                                    </thead>
+                                    <tbody>
+                                        {anakList.map((anak, index) => (
+                                            <tr key={anak.id}>
+                                                <td>{index + 1}</td>
+                                                <td>{anak.nik}</td>
+                                                <td>{anak.nama}</td>
+                                                <td>{anak.jenis_kelamin}</td>
+                                                <td>{anak.tanggal_lahir}</td>
+                                                <td>{anak.berat_lahir}</td>
+                                                <td>{anak.tinggi_lahir}</td>
+                                                <td className="text-center">
+                                                    <Link to={`/anak-update/${anak.id}`}>
+                                                        <button className='btn btn-warning btn-sm'>
+                                                            Update
+                                                        </button>
+                                                    </Link>
+                                                    {' '}
+                                                    <button className='btn btn-danger btn-sm' onClick={() => handleDelete(anak.id)}>
+                                                        Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
+                            )}
                         </CardBody>
                     </Card>
                 </div>

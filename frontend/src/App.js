@@ -18,6 +18,7 @@ import GiziRead from './components/crud/gizi/gizi-read';
 import GiziCreate from './components/crud/gizi/gizi-create';
 import GiziUpdate from './components/crud/gizi/gizi-update';
 import Trains from './components/train/trains';
+import Perbandingan from './components/perbandingan/perbandingan'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -143,7 +144,17 @@ function App() {
             isLoggedIn ? (
               <Trains handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/k-means-train' }} />
+              <Navigate to="/login" replace={true} state={{ from: '/train' }} />
+            )
+          }
+        />
+        <Route
+          path="/perbandingan"
+          element={
+            isLoggedIn ? (
+              <Perbandingan handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace={true} state={{ from: '/perbandingan' }} />
             )
           }
         />

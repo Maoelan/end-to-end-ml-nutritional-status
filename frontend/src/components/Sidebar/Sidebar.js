@@ -268,7 +268,7 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to={'/gizi-read'}>
+              <Link to={'/perbandingan'}>
                 <NavLink>
                   <i className="ni ni-single-copy-04" />
                   Perbandingan
