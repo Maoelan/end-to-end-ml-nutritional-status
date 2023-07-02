@@ -382,6 +382,19 @@ def add_label():
 
     return jsonify({'message': 'Data label berhasil ditambahkan'})
 
+@app.route('/api/label/get', methods=['GET'])
+def get_label():
+    label = Label.query.all()
+    result = []
+
+    for x in label:
+        data = {
+            'label_aktual': x.label_aktual,
+        }
+        result.append(data)
+
+    return jsonify(result)
+
 @app.route('/api/label/delete', methods=['DELETE'])
 def delete_all_labels():
     Label.query.delete()
