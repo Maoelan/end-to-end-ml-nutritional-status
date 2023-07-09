@@ -1,5 +1,6 @@
 from sklearn_extra.cluster import KMedoids
 from sklearn.preprocessing import MinMaxScaler
+from scipy.spatial.distance import cdist
 from flask import jsonify
 from models import Anak, Gizi
 
@@ -36,6 +37,17 @@ def train_kmedoids():
         current_kmedoids = KMedoids(n_clusters=n_clusters, init='random', random_state=random_state, metric='euclidean')
         current_kmedoids.medoid_indices_ = kmedoids.medoid_indices_
         current_kmedoids.labels_ = kmedoids.predict(scaled_data)
+
+        medoid_changes = []
+        for j in range(n_clusters):
+            cluster_indices = [index for index, label in enumerate(current_kmedoids.labels_) if label == j]
+            cluster_points = scaled_data[cluster_indices]
+            distances = cdist(cluster_points, cluster_points, metric='cityblock')
+            new_medoid_index = distances.sum(axis=1).argmin()
+            medoid_change = abs(cluster_points[new_medoid_index] - scaled_data[current_kmedoids.medoid_indices_[j]])
+            medoid_changes.append(medoid_change.tolist())
+
+        iteration['medoid_changes'] = medoid_changes
 
         for j in range(n_clusters):
             cluster_points = []
