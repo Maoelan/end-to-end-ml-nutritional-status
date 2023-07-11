@@ -3,6 +3,7 @@ from scipy.spatial.distance import cdist
 from sklearn.cluster import KMeans
 from flask import jsonify
 from models import Anak, Gizi
+import time
 
 def train_kmeans():
     anak = Anak.query.all()
@@ -29,7 +30,13 @@ def train_kmeans():
     ])
 
     kmeans = KMeans(n_clusters=n_clusters, init=initial_centroids, random_state=random_state)
+
+    start_time = time.time()
+
     kmeans.fit(scaled_data)
+
+    end_time = time.time()
+    training_time = end_time - start_time
 
     iterations = []
     total_iterations = kmeans.n_iter_
@@ -82,7 +89,8 @@ def train_kmeans():
         'cluster_labels': cluster_labels,
         'initial_centroids': initial_centroids.tolist(),
         'total_iterations': total_iterations,
-        'scaled_data': scaled_data.tolist()
+        'scaled_data': scaled_data.tolist(),
+        'training_time': training_time
     }
 
     return response

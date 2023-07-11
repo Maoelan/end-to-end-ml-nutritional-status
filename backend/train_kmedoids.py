@@ -3,6 +3,7 @@ from scipy.spatial.distance import cdist
 from sklearn_extra.cluster import KMedoids
 from flask import jsonify
 from models import Anak, Gizi
+import time
 
 def train_kmedoids():
     anak = Anak.query.all()
@@ -29,7 +30,13 @@ def train_kmedoids():
     ])
 
     kmedoids = KMedoids(n_clusters=n_clusters, init=initial_medoids, max_iter=4, random_state=random_state, metric='euclidean')
+
+    start_time = time.time()
+
     kmedoids.fit(scaled_data)
+
+    end_time = time.time()
+    training_time = end_time - start_time
 
     iterations = []
     total_iterations = kmedoids.n_iter_
@@ -82,7 +89,8 @@ def train_kmedoids():
         'cluster_labels': cluster_labels,
         'initial_medoids': initial_medoids.tolist(),
         'total_iterations': total_iterations,
-        'scaled_data': scaled_data.tolist()
+        'scaled_data': scaled_data.tolist(),
+        'training_time': training_time
     }
 
     return response

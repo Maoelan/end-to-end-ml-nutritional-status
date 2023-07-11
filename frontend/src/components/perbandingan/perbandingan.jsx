@@ -72,97 +72,166 @@ const Perbandingan = ({ handleLogout }) => {
   }, [kMeansData, kMedoidsData, actualLabels]);
 
   const calculateMetrics = (actualLabels, kmeansLabels, kmedoidsLabels) => {
-    let tpKMeans = 0;
-    let tnKMeans = 0;
-    let fpKMeans = 0;
-    let fnKMeans = 0;
-    let tpKMedoids = 0;
-    let tnKMedoids = 0;
-    let fpKMedoids = 0;
-    let fnKMedoids = 0;
+    let tpKMeansGiziLebih = 0;
+    let tnKMeansGiziLebih = 0;
+    let fpKMeansGiziLebih = 0;
+    let fnKMeansGiziLebih = 0;
+
+    let tpKMeansGiziBaik = 0;
+    let tnKMeansGiziBaik = 0;
+    let fpKMeansGiziBaik = 0;
+    let fnKMeansGiziBaik = 0;
+
+    let tpKMeansGiziKurang = 0;
+    let tnKMeansGiziKurang = 0;
+    let fpKMeansGiziKurang = 0;
+    let fnKMeansGiziKurang = 0;
+
+    let tpKMedoidsGiziLebih = 0;
+    let tnKMedoidsGiziLebih = 0;
+    let fpKMedoidsGiziLebih = 0;
+    let fnKMedoidsGiziLebih = 0;
+
+    let tpKMedoidsGiziBaik = 0;
+    let tnKMedoidsGiziBaik = 0;
+    let fpKMedoidsGiziBaik = 0;
+    let fnKMedoidsGiziBaik = 0;
+
+    let tpKMedoidsGiziKurang = 0;
+    let tnKMedoidsGiziKurang = 0;
+    let fpKMedoidsGiziKurang = 0;
+    let fnKMedoidsGiziKurang = 0;
 
     for (let i = 0; i < actualLabels.length; i++) {
       const actual = actualLabels[i];
       const kmeans = kmeansLabels[i];
       const kmedoids = kmedoidsLabels[i];
 
-      if (actual === kmeans) {
-        if (actual === kmedoids) {
-          tpKMeans++;
-          tpKMedoids++;
+      if (actual === 'GIZI LEBIH') {
+        if (kmeans === 'GIZI LEBIH') {
+          tpKMeansGiziLebih++;
         } else {
-          tpKMeans++;
-          fnKMedoids++;
+          fnKMeansGiziLebih++;
         }
-      } else {
-        if (actual === kmedoids) {
-          fpKMeans++;
-          tpKMedoids++;
+
+        if (kmedoids === 'GIZI LEBIH') {
+          tpKMedoidsGiziLebih++;
         } else {
-          fpKMeans++;
-          fnKMedoids++;
+          fnKMedoidsGiziLebih++;
+        }
+      } else if (actual === 'GIZI BAIK') {
+        if (kmeans === 'GIZI BAIK') {
+          tpKMeansGiziBaik++;
+        } else {
+          fnKMeansGiziBaik++;
+        }
+
+        if (kmedoids === 'GIZI BAIK') {
+          tpKMedoidsGiziBaik++;
+        } else {
+          fnKMedoidsGiziBaik++;
+        }
+      } else if (actual === 'GIZI KURANG') {
+        if (kmeans === 'GIZI KURANG') {
+          tpKMeansGiziKurang++;
+        } else {
+          fnKMeansGiziKurang++;
+        }
+
+        if (kmedoids === 'GIZI KURANG') {
+          tpKMedoidsGiziKurang++;
+        } else {
+          fnKMedoidsGiziKurang++;
         }
       }
 
-      if (actual !== kmeans) {
-        if (actual !== kmedoids) {
-          tnKMeans++;
-          tnKMedoids++;
+      if (actual !== 'GIZI LEBIH') {
+        if (kmeans !== 'GIZI LEBIH') {
+          tnKMeansGiziLebih++;
         } else {
-          tnKMeans++;
-          fpKMedoids++;
+          fpKMeansGiziLebih++;
         }
-      } else {
-        if (actual !== kmedoids) {
-          fnKMeans++;
-          tnKMedoids++;
+
+        if (kmedoids !== 'GIZI LEBIH') {
+          tnKMedoidsGiziLebih++;
         } else {
-          fnKMeans++;
-          fpKMedoids++;
+          fpKMedoidsGiziLebih++;
+        }
+      }
+
+      if (actual !== 'GIZI BAIK') {
+        if (kmeans !== 'GIZI BAIK') {
+          tnKMeansGiziBaik++;
+        } else {
+          fpKMeansGiziBaik++;
+        }
+
+        if (kmedoids !== 'GIZI BAIK') {
+          tnKMedoidsGiziBaik++;
+        } else {
+          fpKMedoidsGiziBaik++;
+        }
+      }
+
+      if (actual !== 'GIZI KURANG') {
+        if (kmeans !== 'GIZI KURANG') {
+          tnKMeansGiziKurang++;
+        } else {
+          fpKMeansGiziKurang++;
+        }
+
+        if (kmedoids !== 'GIZI KURANG') {
+          tnKMedoidsGiziKurang++;
+        } else {
+          fpKMedoidsGiziKurang++;
         }
       }
     }
 
-    const accuracyKMeans = ((tpKMeans + tnKMeans) / (tpKMeans + tnKMeans + fpKMeans + fnKMeans)).toFixed(2);
-    const accuracyKMedoids = ((tpKMedoids + tnKMedoids) / (tpKMedoids + tnKMedoids + fpKMedoids + fnKMedoids)).toFixed(2);
-    const precisionKMeans = (tpKMeans / (tpKMeans + fpKMeans)).toFixed(2);
-    const precisionKMedoids = (tpKMedoids / (tpKMedoids + fpKMedoids)).toFixed(2);
-    const recallKMeans = (tpKMeans / (tpKMeans + fnKMeans)).toFixed(2);
-    const recallKMedoids = (tpKMedoids / (tpKMedoids + fnKMedoids)).toFixed(2);
-    const f1ScoreKMeans = ((2 * precisionKMeans * recallKMeans) / (precisionKMeans + recallKMeans)).toFixed(2);
-    const f1ScoreKMedoids = ((2 * precisionKMedoids * recallKMedoids) / (precisionKMedoids + recallKMedoids)).toFixed(2);
-
-    const comparisonResults = actualLabels.map((actual, index) => {
-      const kmeans = kmeansLabels[index];
-      const kmedoids = kmedoidsLabels[index];
-      const kMeansComparison = actual === kmeans ? 1 : 0;
-      const kMedoidsComparison = actual === kmedoids ? 1 : 0;
-
-      return {
-        kMeansComparison,
-        kMedoidsComparison,
-      };
-    });
-
-    return {
-      tpKMeans,
-      tnKMeans,
-      fpKMeans,
-      fnKMeans,
-      tpKMedoids,
-      tnKMedoids,
-      fpKMedoids,
-      fnKMedoids,
-      accuracyKMeans,
-      accuracyKMedoids,
-      precisionKMeans,
-      precisionKMedoids,
-      recallKMeans,
-      recallKMedoids,
-      f1ScoreKMeans,
-      f1ScoreKMedoids,
-      comparisonResults,
+    const evaluationMetrics = {
+      tpKMeansGiziLebih,
+      tnKMeansGiziLebih,
+      fpKMeansGiziLebih,
+      fnKMeansGiziLebih,
+      tpKMeansGiziBaik,
+      tnKMeansGiziBaik,
+      fpKMeansGiziBaik,
+      fnKMeansGiziBaik,
+      tpKMeansGiziKurang,
+      tnKMeansGiziKurang,
+      fpKMeansGiziKurang,
+      fnKMeansGiziKurang,
+      tpKMedoidsGiziLebih,
+      tnKMedoidsGiziLebih,
+      fpKMedoidsGiziLebih,
+      fnKMedoidsGiziLebih,
+      tpKMedoidsGiziBaik,
+      tnKMedoidsGiziBaik,
+      fpKMedoidsGiziBaik,
+      fnKMedoidsGiziBaik,
+      tpKMedoidsGiziKurang,
+      tnKMedoidsGiziKurang,
+      fpKMedoidsGiziKurang,
+      fnKMedoidsGiziKurang,
     };
+
+    return evaluationMetrics;
+  };
+
+  const calculateAccuracy = (tp, tn, fp, fn) => {
+    const total = tp + tn + fp + fn;
+    const correct = tp + tn;
+    return (correct / total) * 100;
+  };
+
+  const calculatePrecision = (tp, fp) => {
+    if (tp === 0 && fp === 0) return 0;
+    return (tp / (tp + fp)) * 100;
+  };
+
+  const calculateRecall = (tp, fn) => {
+    if (tp === 0 && fn === 0) return 0;
+    return (tp / (tp + fn)) * 100;
   };
 
   const handleToggleTable = () => {
@@ -203,10 +272,6 @@ const Perbandingan = ({ handleLogout }) => {
                               <th>K-Means Label</th>
                               <th>K-Medoids Label</th>
                               <th>Label Aktual</th>
-                              <th>Perbandingan K-Means</th>
-                              <th>Perbandingan K-Medoids</th>
-                              <th>CF K-Means</th>
-                              <th>CF K-Medoids</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -214,57 +279,6 @@ const Perbandingan = ({ handleLogout }) => {
                               const kmeans = kMeansData.cluster_labels[index];
                               const kmedoids = kMedoidsData.cluster_labels[index];
                               const actual = actualLabels[index];
-                              const comparison = evaluationMetrics.comparisonResults[index];
-
-                              const confusionMatrixKMeans =
-                                actual === kmeans && actual === kmedoids
-                                  ? 'TRUE POSITIVE'
-                                  : actual !== kmeans && actual !== kmedoids
-                                  ? 'TRUE NEGATIVE'
-                                  : actual !== kmeans && actual === kmedoids
-                                  ? 'FALSE POSITIVE'
-                                  : actual === kmeans && actual !== kmedoids
-                                  ? 'FALSE NEGATIVE'
-                                  : '';
-
-                              const confusionMatrixKMedoids =
-                                actual === kmeans && actual === kmedoids
-                                  ? 'TRUE POSITIVE'
-                                  : actual !== kmeans && actual !== kmedoids
-                                  ? 'TRUE NEGATIVE'
-                                  : actual === kmeans && actual !== kmedoids
-                                  ? 'FALSE POSITIVE'
-                                  : actual !== kmeans && actual === kmedoids
-                                  ? 'FALSE NEGATIVE'
-                                  : '';
-
-                              const cfKMeansStyle = {
-                                fontWeight: 'bold',
-                                color:
-                                  confusionMatrixKMeans === 'TRUE POSITIVE'
-                                    ? 'green'
-                                    : confusionMatrixKMeans === 'TRUE NEGATIVE'
-                                    ? 'orange'
-                                    : confusionMatrixKMeans === 'FALSE POSITIVE'
-                                    ? 'dodgerblue'
-                                    : confusionMatrixKMeans === 'FALSE NEGATIVE'
-                                    ? 'red'
-                                    : 'inherit',
-                              };
-
-                              const cfKMedoidsStyle = {
-                                fontWeight: 'bold',
-                                color:
-                                  confusionMatrixKMedoids === 'TRUE POSITIVE'
-                                    ? 'green'
-                                    : confusionMatrixKMedoids === 'TRUE NEGATIVE'
-                                    ? 'orange'
-                                    : confusionMatrixKMedoids === 'FALSE POSITIVE'
-                                    ? 'dodgerblue'
-                                    : confusionMatrixKMedoids === 'FALSE NEGATIVE'
-                                    ? 'red'
-                                    : 'inherit',
-                              };
 
                               return (
                                 <tr key={index}>
@@ -303,56 +317,196 @@ const Perbandingan = ({ handleLogout }) => {
                                   >
                                     {actual}
                                   </td>
-                                  <td style={comparison.kMeansComparison === 1 ? { fontWeight: 'bold', color: 'green' } : { fontWeight: 'bold', color: 'red' }}>
-                                    {comparison.kMeansComparison}
-                                  </td>
-                                  <td style={comparison.kMedoidsComparison === 1 ? { fontWeight: 'bold', color: 'green' } : { fontWeight: 'bold', color: 'red' }}>
-                                    {comparison.kMedoidsComparison}
-                                  </td>
-                                  <td style={cfKMeansStyle}>{confusionMatrixKMeans}</td>
-                                  <td style={cfKMedoidsStyle}>{confusionMatrixKMedoids}</td>
                                 </tr>
                               );
                             })}
                           </tbody>
                         </Table>
+                        
+                        <br></br>
+                      
+                        <Table className="align-items-center table-flush" responsive>
+                          <thead className="thead-light">
+                            <tr>
+                              <th>Metric</th>
+                              <th>K-Means GIZI LEBIH</th>
+                              <th>K-Means GIZI BAIK</th>
+                              <th>K-Means GIZI KURANG</th>
+                              <th>K-Medoids GIZI LEBIH</th>
+                              <th>K-Medoids GIZI BAIK</th>
+                              <th>K-Medoids GIZI KURANG</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>TP</td>
+                              <td>{evaluationMetrics.tpKMeansGiziLebih}</td>
+                              <td>{evaluationMetrics.tpKMeansGiziBaik}</td>
+                              <td>{evaluationMetrics.tpKMeansGiziKurang}</td>
+                              <td>{evaluationMetrics.tpKMedoidsGiziLebih}</td>
+                              <td>{evaluationMetrics.tpKMedoidsGiziBaik}</td>
+                              <td>{evaluationMetrics.tpKMedoidsGiziKurang}</td>
+                            </tr>
+                            <tr>
+                              <td>TN</td>
+                              <td>{evaluationMetrics.tnKMeansGiziLebih}</td>
+                              <td>{evaluationMetrics.tnKMeansGiziBaik}</td>
+                              <td>{evaluationMetrics.tnKMeansGiziKurang}</td>
+                              <td>{evaluationMetrics.tnKMedoidsGiziLebih}</td>
+                              <td>{evaluationMetrics.tnKMedoidsGiziBaik}</td>
+                              <td>{evaluationMetrics.tnKMedoidsGiziKurang}</td>
+                            </tr>
+                            <tr>
+                              <td>FP</td>
+                              <td>{evaluationMetrics.fpKMeansGiziLebih}</td>
+                              <td>{evaluationMetrics.fpKMeansGiziBaik}</td>
+                              <td>{evaluationMetrics.fpKMeansGiziKurang}</td>
+                              <td>{evaluationMetrics.fpKMedoidsGiziLebih}</td>
+                              <td>{evaluationMetrics.fpKMedoidsGiziBaik}</td>
+                              <td>{evaluationMetrics.fpKMedoidsGiziKurang}</td>
+                            </tr>
+                            <tr>
+                              <td>FN</td>
+                              <td>{evaluationMetrics.fnKMeansGiziLebih}</td>
+                              <td>{evaluationMetrics.fnKMeansGiziBaik}</td>
+                              <td>{evaluationMetrics.fnKMeansGiziKurang}</td>
+                              <td>{evaluationMetrics.fnKMedoidsGiziLebih}</td>
+                              <td>{evaluationMetrics.fnKMedoidsGiziBaik}</td>
+                              <td>{evaluationMetrics.fnKMedoidsGiziKurang}</td>
+                            </tr>
+                            <tr>
+                              <td>Accuracy</td>
+                              <td>
+                                {calculateAccuracy(
+                                  evaluationMetrics.tpKMeansGiziLebih,
+                                  evaluationMetrics.tnKMeansGiziLebih,
+                                  evaluationMetrics.fpKMeansGiziLebih,
+                                  evaluationMetrics.fnKMeansGiziLebih
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateAccuracy(
+                                  evaluationMetrics.tpKMeansGiziBaik,
+                                  evaluationMetrics.tnKMeansGiziBaik,
+                                  evaluationMetrics.fpKMeansGiziBaik,
+                                  evaluationMetrics.fnKMeansGiziBaik
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateAccuracy(
+                                  evaluationMetrics.tpKMeansGiziKurang,
+                                  evaluationMetrics.tnKMeansGiziKurang,
+                                  evaluationMetrics.fpKMeansGiziKurang,
+                                  evaluationMetrics.fnKMeansGiziKurang
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateAccuracy(
+                                  evaluationMetrics.tpKMedoidsGiziLebih,
+                                  evaluationMetrics.tnKMedoidsGiziLebih,
+                                  evaluationMetrics.fpKMedoidsGiziLebih,
+                                  evaluationMetrics.fnKMedoidsGiziLebih
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateAccuracy(
+                                  evaluationMetrics.tpKMedoidsGiziBaik,
+                                  evaluationMetrics.tnKMedoidsGiziBaik,
+                                  evaluationMetrics.fpKMedoidsGiziBaik,
+                                  evaluationMetrics.fnKMedoidsGiziBaik
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateAccuracy(
+                                  evaluationMetrics.tpKMedoidsGiziKurang,
+                                  evaluationMetrics.tnKMedoidsGiziKurang,
+                                  evaluationMetrics.fpKMedoidsGiziKurang,
+                                  evaluationMetrics.fnKMedoidsGiziKurang
+                                ).toFixed(2)}%
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Precision</td>
+                              <td>
+                                {calculatePrecision(
+                                  evaluationMetrics.tpKMeansGiziLebih,
+                                  evaluationMetrics.fpKMeansGiziLebih
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculatePrecision(
+                                  evaluationMetrics.tpKMeansGiziBaik,
+                                  evaluationMetrics.fpKMeansGiziBaik
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculatePrecision(
+                                  evaluationMetrics.tpKMeansGiziKurang,
+                                  evaluationMetrics.fpKMeansGiziKurang
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculatePrecision(
+                                  evaluationMetrics.tpKMedoidsGiziLebih,
+                                  evaluationMetrics.fpKMedoidsGiziLebih
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculatePrecision(
+                                  evaluationMetrics.tpKMedoidsGiziBaik,
+                                  evaluationMetrics.fpKMedoidsGiziBaik
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculatePrecision(
+                                  evaluationMetrics.tpKMedoidsGiziKurang,
+                                  evaluationMetrics.fpKMedoidsGiziKurang
+                                ).toFixed(2)}%
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Recall</td>
+                              <td>
+                                {calculateRecall(
+                                  evaluationMetrics.tpKMeansGiziLebih,
+                                  evaluationMetrics.fnKMeansGiziLebih
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateRecall(
+                                  evaluationMetrics.tpKMeansGiziBaik,
+                                  evaluationMetrics.fnKMeansGiziBaik
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateRecall(
+                                  evaluationMetrics.tpKMeansGiziKurang,
+                                  evaluationMetrics.fnKMeansGiziKurang
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateRecall(
+                                  evaluationMetrics.tpKMedoidsGiziLebih,
+                                  evaluationMetrics.fnKMedoidsGiziLebih
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateRecall(
+                                  evaluationMetrics.tpKMedoidsGiziBaik,
+                                  evaluationMetrics.fnKMedoidsGiziBaik
+                                ).toFixed(2)}%
+                              </td>
+                              <td>
+                                {calculateRecall(
+                                  evaluationMetrics.tpKMedoidsGiziKurang,
+                                  evaluationMetrics.fnKMedoidsGiziKurang
+                                ).toFixed(2)}%
+                              </td>
+                            </tr>
+                          </tbody>
+                        </Table>
                       </div>
                     )}
-
-                    <div className="evaluation-metrics">
-                      <h3>Hasil Akurasi, Presisi, Recall, dan F1-Score</h3>
-                      <Table className="align-items-center table-flush" responsive>
-                        <thead className="thead-light">
-                          <tr>
-                            <th></th>
-                            <th>K-Means</th>
-                            <th>K-Medoids</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Akurasi</td>
-                            <td>{evaluationMetrics.accuracyKMeans}</td>
-                            <td>{evaluationMetrics.accuracyKMedoids}</td>
-                          </tr>
-                          <tr>
-                            <td>Presisi</td>
-                            <td>{evaluationMetrics.precisionKMeans}</td>
-                            <td>{evaluationMetrics.precisionKMedoids}</td>
-                          </tr>
-                          <tr>
-                            <td>Recall</td>
-                            <td>{evaluationMetrics.recallKMeans}</td>
-                            <td>{evaluationMetrics.recallKMedoids}</td>
-                          </tr>
-                          <tr>
-                            <td>F1-Score</td>
-                            <td>{evaluationMetrics.f1ScoreKMeans}</td>
-                            <td>{evaluationMetrics.f1ScoreKMedoids}</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </div>
                   </>
                 )}
             </CardBody>

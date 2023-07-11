@@ -16,6 +16,8 @@ const Trains = ({ handleLogout }) => {
   const [isTrained, setIsTrained] = useState(false);
   const [username, setUsername] = useState('');
   const [isTableVisible, setTableVisible] = useState(true);
+  const [kMeansTrainingTime, setKMeansTrainingTime] = useState(0);
+  const [kMedoidsTrainingTime, setKMedoidsTrainingTime] = useState(0);
 
   useEffect(() => {
     const navigate = checkAuthentication();
@@ -41,8 +43,11 @@ const Trains = ({ handleLogout }) => {
 
   const handleTrainKMeans = async () => {
     try {
+      const startTime = Date.now();
       await axios.post('http://localhost:5000/api/train_kmeans');
-      setIsTrained(true);
+      const endTime = Date.now();
+      const trainingTime = (endTime - startTime) / 1000; // Konversi ke detik
+      return trainingTime;
     } catch (error) {
       console.error(error);
     }
@@ -59,8 +64,11 @@ const Trains = ({ handleLogout }) => {
 
   const handleTrainKMedoids = async () => {
     try {
+      const startTime = Date.now();
       await axios.post('http://localhost:5000/api/train_kmedoids');
-      setIsTrained(true);
+      const endTime = Date.now();
+      const trainingTime = (endTime - startTime) / 1000; // Konversi ke detik
+      return trainingTime;
     } catch (error) {
       console.error(error);
     }
@@ -88,6 +96,22 @@ const Trains = ({ handleLogout }) => {
     setTableVisible(!isTableVisible);
   };
 
+  const handleTrain = async () => {
+    try {
+      const startTimeKMeans = Date.now();
+      const kMeansTrainingTime = await handleTrainKMeans();
+      setKMeansTrainingTime(kMeansTrainingTime);
+
+      const startTimeKMedoids = Date.now();
+      const kMedoidsTrainingTime = await handleTrainKMedoids();
+      setKMedoidsTrainingTime(kMedoidsTrainingTime);
+
+      setIsTrained(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <Sidebar />
@@ -98,12 +122,12 @@ const Trains = ({ handleLogout }) => {
           <Card>
             <CardHeader>
               <div className="d-flex justify-content-between align-items-center">
-                <h2 className="mb-0">K-Means Clustering</h2>
+                <h2 className="mb-0">K-Means & K-Medoids Clustering</h2>
                 <div className="d-flex">
                   <button className="btn btn-primary" onClick={handleToggleTable}>
                     {isTableVisible ? 'Hide Table' : 'Show Table'}
                   </button>
-                  <button className="btn btn-primary mr-2" onClick={handleTrainKMedoids}>Train K-Medoids</button>
+                  <button className="btn btn-primary mr-2" onClick={handleTrain}>Train</button>
                 </div>
               </div>
             </CardHeader>
@@ -114,6 +138,8 @@ const Trains = ({ handleLogout }) => {
                     <p>K-Means Cluster Count: {kMeansData.cluster_count}</p>
                     <p>K-Means Total Iterations: {kMeansData.total_iterations}</p>
                     <p>K-Medoids Total Iterations: {kMedoidsData.total_iterations}</p>
+                    <p>K-Means Training Time: {kMeansTrainingTime} seconds</p> {/* Tampilkan waktu pelatihan K-Means */}
+                    <p>K-Medoids Training Time: {kMedoidsTrainingTime} seconds</p> {/* Tampilkan waktu pelatihan K-Medoids */}
                   </div>
                   <br></br>
                   {isTableVisible && (
