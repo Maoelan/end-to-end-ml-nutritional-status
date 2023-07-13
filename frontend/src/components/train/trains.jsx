@@ -135,7 +135,7 @@ const Trains = ({ handleLogout }) => {
               {isTrained && kMeansData && kMeansData.cluster_labels && kMedoidsData && kMedoidsData.cluster_labels && anakData && giziData && (
                 <>
                   <div className="kmeans-summary">
-                    <p>K-Means Cluster Count: {kMeansData.cluster_count}</p>
+                    <p>Cluster Count: {kMeansData.cluster_count}</p>
                     <p>K-Means Total Iterations: {kMeansData.total_iterations}</p>
                     <p>K-Medoids Total Iterations: {kMedoidsData.total_iterations}</p>
                     <p>K-Means Training Time: {kMeansTrainingTime} seconds</p> {/* Tampilkan waktu pelatihan K-Means */}
