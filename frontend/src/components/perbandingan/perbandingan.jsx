@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Card, CardHeader, CardBody, Table } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Table,
+  FormGroup,
+  Input,
+} from "reactstrap";
 import { checkAuthentication } from "../utils/auth";
 import Sidebar from "../Sidebar/Sidebar.js";
 import Navbar from "../Navbars/AuthNavbar.js";
@@ -13,6 +20,7 @@ const Perbandingan = ({ handleLogout }) => {
   const [anakData, setAnakData] = useState(null);
   const [actualLabels, setActualLabels] = useState(null);
   const [evaluationMetrics, setEvaluationMetrics] = useState(null);
+  const [labelId, setLabelId] = useState("");
   const [isTableVisible, setTableVisible] = useState(true);
 
   useEffect(() => {
@@ -64,6 +72,15 @@ const Perbandingan = ({ handleLogout }) => {
     try {
       const response = await axios.get("http://localhost:5000/api/label/get");
       setActualLabels(response.data.map((item) => item.label_aktual));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteLabel = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/api/label/delete/${labelId}`);
+      fetchActualLabels();
     } catch (error) {
       console.error(error);
     }
@@ -266,10 +283,25 @@ const Perbandingan = ({ handleLogout }) => {
                     {isTableVisible ? "Hide Table" : "Show Table"}
                   </button>
                   <Link to="/label-create">
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary mr-2">
                       Tambah Data Label Aktual
                     </button>
                   </Link>
+                  <FormGroup className="mb-0 mr-2">
+                    <Input
+                      className="form-control-alternative"
+                      type="text"
+                      value={labelId}
+                      onChange={(e) => setLabelId(e.target.value)}
+                      placeholder="Masukkan ID Label"
+                    />
+                  </FormGroup>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={deleteLabel}
+                  >
+                    Hapus Label
+                  </button>
                 </div>
               </div>
             </CardHeader>
@@ -299,7 +331,9 @@ const Perbandingan = ({ handleLogout }) => {
                           </thead>
                           <tbody>
                             {kMeansData.cluster_labels.map((label, index) => {
-                              {/*const kmeans = kMeansData.cluster_labels[index];*/}
+                              {
+                                /*const kmeans = kMeansData.cluster_labels[index];*/
+                              }
                               const kmedoids =
                                 kMedoidsData.cluster_labels[index];
                               const actual = actualLabels[index];
