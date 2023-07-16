@@ -48,6 +48,7 @@ const GiziUpdate = ({ handleLogout }) => {
     checkAuthentication();
     fetchGizi();
     fetchAnakOptions();
+    document.title = "Edit Data Gizi";
   }, [id]);
 
   const fetchAnakOptions = async () => {

@@ -5,6 +5,7 @@ import { checkAuthentication, getUsername } from "../utils/auth";
 import Sidebar from "../Sidebar/Sidebar.js";
 import Navbar from "../Navbars/AuthNavbar.js";
 import Header from "../Headers/UserHeader.js";
+import { Link } from "react-router-dom";
 
 const Perbandingan = ({ handleLogout }) => {
   const [kMeansData, setKMeansData] = useState(null);
@@ -25,6 +26,7 @@ const Perbandingan = ({ handleLogout }) => {
     fetchKMedoidsData();
     fetchAnakData();
     fetchActualLabels();
+    document.title = "Perbandingan";
     // setUsername(getUsername());
   }, []);
 
@@ -257,9 +259,19 @@ const Perbandingan = ({ handleLogout }) => {
             <CardHeader>
               <div className="d-flex justify-content-between align-items-center">
                 <h2 className="mb-0">Perbandingan K-Means dan K-Medoids</h2>
-                <button className="btn btn-primary" onClick={handleToggleTable}>
-                  {isTableVisible ? "Hide Table" : "Show Table"}
-                </button>
+                <div className="d-flex">
+                  <button
+                    className="btn btn-primary mr-2"
+                    onClick={handleToggleTable}
+                  >
+                    {isTableVisible ? "Hide Table" : "Show Table"}
+                  </button>
+                  <Link to="/label-create">
+                    <button className="btn btn-primary">
+                      Tambah Data Label Aktual
+                    </button>
+                  </Link>
+                </div>
               </div>
             </CardHeader>
             <CardBody>

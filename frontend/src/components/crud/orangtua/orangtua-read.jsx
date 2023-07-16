@@ -20,6 +20,7 @@ const OrangTuaRead = ({ handleLogout }) => {
     }
 
     fetchOrangTua();
+    document.title = "Lihat Data Orangtua";
     //setUsername(getUsername());
   }, []);
 

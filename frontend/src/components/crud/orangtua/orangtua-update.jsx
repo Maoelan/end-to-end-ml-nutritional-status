@@ -58,6 +58,7 @@ const OrangTuaUpdate = ({ handleLogout }) => {
 
     fetchOrangTua();
     setUsername(getUsername());
+    document.title = "Edit Data Anak";
   }, [id]);
 
   const handleSubmit = async (e) => {

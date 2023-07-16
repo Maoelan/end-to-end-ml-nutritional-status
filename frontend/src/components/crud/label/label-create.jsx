@@ -16,57 +16,32 @@ import Sidebar from "../../Sidebar/Sidebar.js";
 import Navbar from "../../Navbars/AuthNavbar.js";
 import Header from "../../Headers/UserHeader.js";
 
-const AnakCreate = ({ handleLogout }) => {
-  const [nik, setNik] = useState("");
-  const [nama, setNama] = useState("");
-  const [jenisKelamin, setJenisKelamin] = useState("");
-  const [tanggalLahir, setTanggalLahir] = useState("");
-  const [beratLahir, setBeratLahir] = useState("");
-  const [tinggiLahir, setTinggiLahir] = useState("");
-  const [idOrangTua, setIdOrangTua] = useState("");
-  const [orangTuaOptions, setOrangTuaOptions] = useState([]);
-  const [redirectToAnakRead, setRedirectToAnakRead] = useState(false);
+const LabelCreate = ({ handleLogout }) => {
+  const [labelAktual, setLabelAktual] = useState("");
+  const [redirectToPerbandingan, setRedirectToPerbandingan] = useState(false);
   const username = getUsername();
 
   useEffect(() => {
     checkAuthentication();
-    fetchOrangTuaOptions();
   }, []);
-
-  const fetchOrangTuaOptions = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/api/orangtua/get"
-      );
-      setOrangTuaOptions(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
-      nik: nik,
-      nama: nama,
-      jenis_kelamin: jenisKelamin,
-      tanggal_lahir: tanggalLahir,
-      berat_lahir: beratLahir,
-      tinggi_lahir: tinggiLahir,
-      id_orang_tua: idOrangTua,
+      label_aktual: labelAktual,
     };
 
     try {
-      await axios.post("http://localhost:5000/api/anak/add", data);
-      setRedirectToAnakRead(true);
+      await axios.post("http://localhost:5000/api/label/add", data);
+      setRedirectToPerbandingan(true);
     } catch (error) {
       console.error(error);
     }
   };
 
-  if (redirectToAnakRead) {
-    return <Navigate to="/anak-read" />;
+  if (redirectToPerbandingan) {
+    return <Navigate to="/perbandingan" />;
   }
 
   return (
@@ -83,84 +58,18 @@ const AnakCreate = ({ handleLogout }) => {
             <CardBody>
               <Form onSubmit={handleSubmit}>
                 <FormGroup>
-                  <label className="form-control-label">NIK</label>
-                  <Input
-                    className="form-control-alternative"
-                    type="text"
-                    value={nik}
-                    onChange={(e) => setNik(e.target.value)}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label className="form-control-label">Nama</label>
-                  <Input
-                    className="form-control-alternative"
-                    type="text"
-                    value={nama}
-                    onChange={(e) => setNama(e.target.value)}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label className="form-control-label">Jenis Kelamin</label>
+                  <label className="form-control-label">Label Aktual</label>
                   <Input
                     className="form-control-alternative"
                     type="select"
-                    value={jenisKelamin}
-                    onChange={(e) => setJenisKelamin(e.target.value)}
+                    value={labelAktual}
+                    onChange={(e) => setLabelAktual(e.target.value)}
                     required
                   >
-                    <option value="">Pilih Jenis Kelamin</option>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                  </Input>
-                </FormGroup>
-                <FormGroup>
-                  <label className="form-control-label">Tanggal Lahir</label>
-                  <Input
-                    className="form-control-alternative"
-                    type="date"
-                    value={tanggalLahir}
-                    onChange={(e) => setTanggalLahir(e.target.value)}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label className="form-control-label">Berat Lahir</label>
-                  <Input
-                    className="form-control-alternative"
-                    type="number"
-                    value={beratLahir}
-                    onChange={(e) => setBeratLahir(e.target.value)}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label className="form-control-label">Tinggi Lahir</label>
-                  <Input
-                    className="form-control-alternative"
-                    type="number"
-                    value={tinggiLahir}
-                    onChange={(e) => setTinggiLahir(e.target.value)}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label className="form-control-label">Orang Tua</label>
-                  <Input
-                    className="form-control-alternative"
-                    type="select"
-                    value={idOrangTua}
-                    onChange={(e) => setIdOrangTua(e.target.value)}
-                    required
-                  >
-                    <option value="">Pilih Orang Tua</option>
-                    {orangTuaOptions.map((orangTua) => (
-                      <option key={orangTua.id} value={orangTua.id}>
-                        {orangTua.nama}
-                      </option>
-                    ))}
+                    <option value="">Pilih Label Aktual</option>
+                    <option value="GIZI LEBIH">GIZI LEBIIH</option>
+                    <option value="GIZI BAIK">GIZI BAIK</option>
+                    <option value="GIZI KURANG">GIZI KURANG</option>
                   </Input>
                 </FormGroup>
                 <Button type="submit" color="primary">
@@ -175,4 +84,4 @@ const AnakCreate = ({ handleLogout }) => {
   );
 };
 
-export default AnakCreate;
+export default LabelCreate;

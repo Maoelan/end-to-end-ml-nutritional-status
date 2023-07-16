@@ -50,6 +50,7 @@ const AnakUpdate = ({ handleLogout }) => {
     checkAuthentication();
     fetchAnak();
     fetchOrangTuaOptions();
+    document.title = "Edit Data Anak";
   }, [id]);
 
   const fetchOrangTuaOptions = async () => {

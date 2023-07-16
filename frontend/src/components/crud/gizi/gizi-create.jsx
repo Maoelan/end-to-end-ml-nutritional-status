@@ -30,6 +30,7 @@ const GiziCreate = ({ handleLogout }) => {
   useEffect(() => {
     checkAuthentication();
     fetchAnakOptions();
+    document.title = "Tambah Data Gizi";
   }, []);
 
   const fetchAnakOptions = async () => {

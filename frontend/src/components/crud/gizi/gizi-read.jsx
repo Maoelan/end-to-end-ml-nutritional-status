@@ -22,6 +22,7 @@ const GiziRead = ({ handleLogout }) => {
 
     fetchGizi();
     fetchAnakList();
+    document.title = "Lihat Data Gizi";
   }, []);
 
   useEffect(() => {

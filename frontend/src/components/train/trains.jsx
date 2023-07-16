@@ -29,6 +29,7 @@ const Trains = ({ handleLogout }) => {
     fetchKMedoidsData();
     fetchAnakData();
     fetchGiziData();
+    document.title = "Train";
     //setUsername(getUsername());
   }, []);
 

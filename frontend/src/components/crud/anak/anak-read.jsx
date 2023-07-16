@@ -20,6 +20,7 @@ const AnakRead = ({ handleLogout }) => {
     }
 
     fetchAnak();
+    document.title = "Lihat Data Anak";
   }, []);
 
   useEffect(() => {

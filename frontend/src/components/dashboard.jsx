@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Row,
@@ -14,6 +14,10 @@ import Navbar from "./Navbars/AuthNavbar";
 import Header from "./Headers/Header";
 
 const Dashboard = ({ handleLogout }) => {
+  useEffect(() => {
+    document.title = "Dashboard";
+  });
+
   return (
     <>
       <Sidebar />

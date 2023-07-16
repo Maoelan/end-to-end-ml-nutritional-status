@@ -31,6 +31,7 @@ const AnakCreate = ({ handleLogout }) => {
   useEffect(() => {
     checkAuthentication();
     fetchOrangTuaOptions();
+    document.title = "Tambah Data Anak";
   }, []);
 
   const fetchOrangTuaOptions = async () => {

@@ -22,6 +22,7 @@ import AnakUpdate from "./components/crud/anak/anak-update";
 import GiziRead from "./components/crud/gizi/gizi-read";
 import GiziCreate from "./components/crud/gizi/gizi-create";
 import GiziUpdate from "./components/crud/gizi/gizi-update";
+import LabelCreate from "./components/crud/label/label-create";
 import Trains from "./components/train/trains";
 import Perbandingan from "./components/perbandingan/perbandingan";
 
@@ -183,6 +184,20 @@ function App() {
                 to="/login"
                 replace={true}
                 state={{ from: "/gizi-update/:id" }}
+              />
+            )
+          }
+        />
+        <Route
+          path="/label-create"
+          element={
+            isLoggedIn ? (
+              <LabelCreate handleLogout={handleLogout} />
+            ) : (
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/label-create" }}
               />
             )
           }

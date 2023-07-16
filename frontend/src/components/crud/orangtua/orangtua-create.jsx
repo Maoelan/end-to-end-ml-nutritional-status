@@ -31,6 +31,7 @@ const OrangTuaCreate = ({ handleLogout }) => {
 
   useEffect(() => {
     checkAuthentication();
+    document.title = "Tambah Data Orangtua";
   }, []);
 
   const handleSubmit = async (event) => {
