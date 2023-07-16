@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "ae5aa5f4-6eec-467b-83d3-f8c36f95f495",
+		"name": "orangtua",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27453721"
+	},
+	"item": [
+		{
+			"name": "orangtua_get",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "orangtua_add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nama\": \"Maulana Muhammad\",\r\n    \"alamat\": \"Sintung Timur\",\r\n    \"provinsi\": \"Nusa Tenggara Barat\",\r\n    \"kabupaten\": \"Lombok Tengah\",\r\n    \"kecamatan\": \"Pringgarata\",\r\n    \"desa\": \"Sintung\",\r\n    \"posyandu\": \"Posyandu Mekar Indah\",\r\n    \"rt\": \"00\",\r\n    \"rw\": \"00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/orangtua/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"orangtua",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orangtua_update",
+			"request": {
+				"method": "PUT",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "orangtua_delete",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "orangtua_get_id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

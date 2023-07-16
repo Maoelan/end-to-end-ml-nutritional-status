@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "358b50b1-49e3-438c-a484-d26271d5f480",
+		"name": "anak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27453721"
+	},
+	"item": [
+		{
+			"name": "anak_get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/anak/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"anak",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "anak_add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nik\": \"123456789\",\r\n    \"nama\": \"nadela\",\r\n    \"jenis_kelamin\": \"perempuan\",\r\n    \"tanggal_lahir\": \"2022-05-17\",\r\n    \"berat_lahir\": 3.2,\r\n    \"tinggi_lahir\": 40,\r\n    \"id_orang_tua\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/anak/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"anak",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "anak_update",
+			"request": {
+				"method": "PUT",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "anak_delete",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "anak_get_id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

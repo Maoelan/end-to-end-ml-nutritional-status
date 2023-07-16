@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "29cc7bb6-7c36-412e-82ec-d560ab5f869e",
+		"name": "train",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27453721"
+	},
+	"item": [
+		{
+			"name": "train_kmeans",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/train_kmeans",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"train_kmeans"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "train_kmedoids",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

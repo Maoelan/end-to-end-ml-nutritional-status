@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "033d94fd-e2a9-4f3b-8bf7-48dac80f4dd5",
+		"name": "Label Aktual",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27453721"
+	},
+	"item": [
+		{
+			"name": "label_add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"label_aktual\": \"GIZI KURANG\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/label/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"label",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "label_delete_all",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/label/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"label",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "label_get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/label/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"label",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "label_delete_id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/label/delete/249",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"label",
+						"delete",
+						"249"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

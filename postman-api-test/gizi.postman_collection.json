@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "22f9f70c-0bac-4edf-bc8b-6df2e6879271",
+		"name": "gizi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27453721"
+	},
+	"item": [
+		{
+			"name": "gizi_get",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "gizi_add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_anak\": 4,\r\n    \"usia_diukur\": 1,\r\n    \"tanggal_pengukuran\": \"2023-05-17\",\r\n    \"berat\": 5.6,\r\n    \"tinggi\": 64,\r\n    \"lingkar_lengan_atas\": 14,\r\n    \"zs_bb_umur\": -2.63,\r\n    \"zs_tb_umur\": -0.5,\r\n    \"bb_umur\": \"Berat Badan Normal\",\r\n    \"tb_umur\": \"Gizi Lebih\",\r\n    \"naik_berat_badan\": \"Tidak\",\r\n    \"jumlah_vitamin_a\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/gizi/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"gizi",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gizi_update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_anak\": 1,\r\n    \"usia_diukur\": 2,\r\n    \"tanggal_pengukuran\": 2023-03-22,\r\n    \"berat\": 20,\r\n    \"tinggi\": 50,\r\n    \"lingkar_lengan_atas\": 12.1,\r\n    \"zs_bb_umur\": -1.2,\r\n    \"zs_tb_umur\": -1.0,\r\n    \"bb_umur\": \"Kurang\",\r\n    \"tb_umur\": \"Pendek\",\r\n    \"naik_berat_badan\": \"Tidak\",\r\n    \"jumlah_vitamin_a\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/gizi/update/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"gizi",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gizi_delete",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "gizi_get_id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
