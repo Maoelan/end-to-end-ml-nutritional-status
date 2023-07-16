@@ -52,7 +52,7 @@ const LabelCreate = ({ handleLogout }) => {
         <div className="anak-create-container">
           <Card className="shadow">
             <CardHeader className="border-0">
-              <h2 className="mb-0">Tambah Data Anak</h2>
+              <h2 className="mb-0">Tambah Data Label</h2>
             </CardHeader>
             <CardBody>
               <Form onSubmit={handleSubmit}>
