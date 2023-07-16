@@ -20,6 +20,7 @@ import { useState } from "react";
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
+import logoImg from "../../assets/img/brand/logo.png";
 
 // reactstrap components
 import {
@@ -86,7 +87,13 @@ const Sidebar = (props) => {
     });
   };
 
-  const { bgColor, routes, logo } = props;
+  const logo = {
+    innerLink: "/",
+    imgSrc: logoImg,
+    imgAlt: "Logo",
+  };
+
+  const { bgColor, routes } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {
@@ -106,7 +113,7 @@ const Sidebar = (props) => {
       expand="md"
       id="sidenav-main"
     >
-      <Container fluid>
+      <Container fluid className="p-0" style={{ height: "100px" }}>
         {/* Toggler */}
         <button
           className="navbar-toggler"
@@ -117,7 +124,17 @@ const Sidebar = (props) => {
         </button>
         {/* Brand */}
         {logo ? (
-          <NavbarBrand className="pt-0" {...navbarBrandProps}>
+          <NavbarBrand
+            className="pt-0"
+            {...navbarBrandProps}
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "-3.5rem",
+              alignItems: "center"
+            }}
+          >
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
@@ -230,13 +247,13 @@ const Sidebar = (props) => {
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
           {/* Divider */}
-          <hr className="my-3" />
+          <hr className="my-1" />
           {/* Heading */}
           <h2 className="navbar-heading">Navigasi</h2>
           {/* Navigation */}
           <Nav className="mb-md-3" navbar>
             <NavItem>
-              <Link to={'/orangtua-read'}>
+              <Link to={"/orangtua-read"}>
                 <NavLink>
                   <i className="ni ni-single-02" />
                   Data Orang Tua
@@ -244,7 +261,7 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to={'/anak-read'}>
+              <Link to={"/anak-read"}>
                 <NavLink>
                   <i className="ni ni-single-02" />
                   Data Anak
@@ -252,7 +269,7 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to={'/gizi-read'}>
+              <Link to={"/gizi-read"}>
                 <NavLink>
                   <i className="ni ni-sound-wave" />
                   Data Gizi
@@ -260,7 +277,7 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to={'/train'}>
+              <Link to={"/train"}>
                 <NavLink>
                   <i className="ni ni-single-copy-04" />
                   Train
@@ -268,7 +285,7 @@ const Sidebar = (props) => {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to={'/perbandingan'}>
+              <Link to={"/perbandingan"}>
                 <NavLink>
                   <i className="ni ni-single-copy-04" />
                   Perbandingan
