@@ -75,6 +75,7 @@ function Login({ setIsLoggedIn }) {
       <Row className="w-100">
         <Col lg="5" className="mx-auto text-center">
           <Card className="bg-custom shadow border-0">
+            <br></br>
             <CardHeader className="bg-transparent pb-5">
               <h2 className="login-heading text-center">Login</h2>
             </CardHeader>

@@ -219,7 +219,7 @@ const Dashboard = ({ handleLogout }) => {
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <Col>
-                      <h3 className="mb-0">Persentase Nama Desa</h3>
+                      <h3 className="mb-0">Jumlah Nama Desa</h3>
                     </Col>
                     <Col className="text-right">
                       <NavLink
@@ -270,7 +270,7 @@ const Dashboard = ({ handleLogout }) => {
                   <Row className="align-items-center">
                     <Col>
                       <h3 className="mb-0">
-                        Persentase Rata-rata Tinggi Lahir Anak Perempuan dan
+                        Rata-rata Tinggi Lahir Anak Perempuan dan
                         Laki-laki
                       </h3>
                     </Col>
