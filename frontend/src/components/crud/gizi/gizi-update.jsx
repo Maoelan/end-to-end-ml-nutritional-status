@@ -1,20 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Card, CardHeader, CardBody, FormGroup, Form, Input, Button } from 'reactstrap';
-import { checkAuthentication, getUsername } from '../../utils/auth';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Button,
+} from "reactstrap";
+import { checkAuthentication, getUsername } from "../../utils/auth";
 
-import Sidebar from '../../Sidebar/Sidebar.js';
-import Navbar from '../../Navbars/AuthNavbar.js';
-import Header from '../../Headers/UserHeader.js';
+import Sidebar from "../../Sidebar/Sidebar.js";
+import Navbar from "../../Navbars/AuthNavbar.js";
+import Header from "../../Headers/UserHeader.js";
 
 const GiziUpdate = ({ handleLogout }) => {
-  const [idAnak, setIdAnak] = useState('');
-  const [usiaDiukur, setUsiaDiukur] = useState('');
-  const [tanggalPengukuran, setTanggalPengukuran] = useState('');
-  const [berat, setBerat] = useState('');
-  const [tinggi, setTinggi] = useState('');
-  const [jumlahVitaminA, setJumlahVitaminA] = useState('');
+  const [idAnak, setIdAnak] = useState("");
+  const [usiaDiukur, setUsiaDiukur] = useState("");
+  const [tanggalPengukuran, setTanggalPengukuran] = useState("");
+  const [berat, setBerat] = useState("");
+  const [tinggi, setTinggi] = useState("");
+  const [jumlahVitaminA, setJumlahVitaminA] = useState("");
   const [anakOptions, setAnakOptions] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -22,7 +30,9 @@ const GiziUpdate = ({ handleLogout }) => {
   useEffect(() => {
     const fetchGizi = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/gizi/get/${id}`);
+        const response = await axios.get(
+          `http://localhost:5000/api/gizi/get/${id}`
+        );
         const gizi = response.data;
         setIdAnak(gizi.id_anak);
         setUsiaDiukur(gizi.usia_diukur);
@@ -42,7 +52,7 @@ const GiziUpdate = ({ handleLogout }) => {
 
   const fetchAnakOptions = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/anak/get');
+      const response = await axios.get("http://localhost:5000/api/anak/get");
       setAnakOptions(response.data);
     } catch (error) {
       console.error(error);
@@ -63,7 +73,7 @@ const GiziUpdate = ({ handleLogout }) => {
 
     try {
       await axios.put(`http://localhost:5000/api/gizi/update/${id}`, data);
-      navigate('/gizi-read');
+      navigate("/gizi-read");
     } catch (error) {
       console.error(error);
     }
@@ -99,7 +109,9 @@ const GiziUpdate = ({ handleLogout }) => {
                   </Input>
                 </FormGroup>
                 <FormGroup>
-                  <label className="form-control-label">Usia diukur (bulan)</label>
+                  <label className="form-control-label">
+                    Usia diukur (bulan)
+                  </label>
                   <Input
                     className="form-control-alternative"
                     type="number"
@@ -109,7 +121,9 @@ const GiziUpdate = ({ handleLogout }) => {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <label className="form-control-label">Tanggal Pengukuran</label>
+                  <label className="form-control-label">
+                    Tanggal Pengukuran
+                  </label>
                   <Input
                     className="form-control-alternative"
                     type="date"

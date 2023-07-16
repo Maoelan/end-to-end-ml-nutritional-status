@@ -1,70 +1,78 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import { Navigate, Link } from 'react-router-dom';
-import { Card, CardHeader, CardBody, FormGroup, Form, Input, Button } from "reactstrap";
+import axios from "axios";
+import { Navigate, Link } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Button,
+} from "reactstrap";
 import { checkAuthentication, getUsername } from "../../utils/auth";
 
-import Sidebar from '../../Sidebar/Sidebar';
-import Navbar from '../../Navbars/AuthNavbar.js';
-import Header from '../../Headers/UserHeader.js';
+import Sidebar from "../../Sidebar/Sidebar";
+import Navbar from "../../Navbars/AuthNavbar.js";
+import Header from "../../Headers/UserHeader.js";
 
 const OrangTuaCreate = ({ handleLogout }) => {
-    const [nama, setNama] = useState('');
-    const [alamat, setAlamat] = useState('');
-    const [provinsi, setProvinsi] = useState('');
-    const [kabupaten, setKabupaten] = useState('');
-    const [kecamatan, setKecamatan] = useState('');
-    const [desa, setDesa] = useState('');
-    const [posyandu, setPosyandu] = useState('');
-    const [rt, setRt] = useState('');
-    const [rw, setRw] = useState('');
-    const [redirectToOrangTuaRead, setRedirectToOrangTuaRead] = useState(false);
-    const username = getUsername();
+  const [nama, setNama] = useState("");
+  const [alamat, setAlamat] = useState("");
+  const [provinsi, setProvinsi] = useState("");
+  const [kabupaten, setKabupaten] = useState("");
+  const [kecamatan, setKecamatan] = useState("");
+  const [desa, setDesa] = useState("");
+  const [posyandu, setPosyandu] = useState("");
+  const [rt, setRt] = useState("");
+  const [rw, setRw] = useState("");
+  const [redirectToOrangTuaRead, setRedirectToOrangTuaRead] = useState(false);
+  const username = getUsername();
 
-    useEffect(() => {
-        checkAuthentication();
-    }, []);
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        const data = {
-            nama: nama,
-            alamat: alamat,
-            provinsi: provinsi,
-            kabupaten: kabupaten,
-            kecamatan: kecamatan,
-            desa: desa,
-            posyandu: posyandu,
-            rt: rt,
-            rw: rw
-        };
-
-        try {
-            await axios.post('http://localhost:5000/api/orangtua/add', data);
-            setRedirectToOrangTuaRead(true);
-        } catch (error) {
-            console.error(error);
-        }
+    const data = {
+      nama: nama,
+      alamat: alamat,
+      provinsi: provinsi,
+      kabupaten: kabupaten,
+      kecamatan: kecamatan,
+      desa: desa,
+      posyandu: posyandu,
+      rt: rt,
+      rw: rw,
     };
-    
-    if (redirectToOrangTuaRead) {
-        return <Navigate to="/orangtua-read" />;
-    }
 
-    return (
-        <>
-          <Sidebar />
-          <div className="main-content" id="panel">
-            <Navbar handleLogout={handleLogout} />
-            <Header />
-            <div className="orangtua-read-container">
-              <Card>
-                <CardHeader>
-                  <h2 className="mb-0">Tambah Data Orang Tua</h2>
-                </CardHeader>
-                <CardBody>
-                <Form onSubmit={handleSubmit}>
+    try {
+      await axios.post("http://localhost:5000/api/orangtua/add", data);
+      setRedirectToOrangTuaRead(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (redirectToOrangTuaRead) {
+    return <Navigate to="/orangtua-read" />;
+  }
+
+  return (
+    <>
+      <Sidebar />
+      <div className="main-content" id="panel">
+        <Navbar handleLogout={handleLogout} />
+        <Header />
+        <div className="orangtua-read-container">
+          <Card>
+            <CardHeader>
+              <h2 className="mb-0">Tambah Data Orang Tua</h2>
+            </CardHeader>
+            <CardBody>
+              <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <label className="form-control-label">Nama</label>
                   <Input
@@ -161,12 +169,12 @@ const OrangTuaCreate = ({ handleLogout }) => {
                   </Button>
                 </div>
               </Form>
-                </CardBody>
-              </Card>
-            </div>
-          </div>
-        </>
-      );
-    };
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default OrangTuaCreate;

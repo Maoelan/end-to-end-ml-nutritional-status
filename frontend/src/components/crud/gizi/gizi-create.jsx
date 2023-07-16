@@ -1,20 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Card, CardHeader, CardBody, FormGroup, Form, Input, Button } from 'reactstrap';
-import { Navigate } from 'react-router-dom';
-import { checkAuthentication, getUsername } from '../../utils/auth';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Button,
+} from "reactstrap";
+import { Navigate } from "react-router-dom";
+import { checkAuthentication, getUsername } from "../../utils/auth";
 
-import Sidebar from '../../Sidebar/Sidebar.js';
-import Navbar from '../../Navbars/AuthNavbar.js';
-import Header from '../../Headers/UserHeader.js';
+import Sidebar from "../../Sidebar/Sidebar.js";
+import Navbar from "../../Navbars/AuthNavbar.js";
+import Header from "../../Headers/UserHeader.js";
 
 const GiziCreate = ({ handleLogout }) => {
-  const [idAnak, setIdAnak] = useState('');
-  const [usiaDiukur, setUsiaDiukur] = useState('');
-  const [tanggalPengukuran, setTanggalPengukuran] = useState('');
-  const [berat, setBerat] = useState('');
-  const [tinggi, setTinggi] = useState('');
-  const [jumlahVitaminA, setJumlahVitaminA] = useState('');
+  const [idAnak, setIdAnak] = useState("");
+  const [usiaDiukur, setUsiaDiukur] = useState("");
+  const [tanggalPengukuran, setTanggalPengukuran] = useState("");
+  const [berat, setBerat] = useState("");
+  const [tinggi, setTinggi] = useState("");
+  const [jumlahVitaminA, setJumlahVitaminA] = useState("");
   const [anakOptions, setAnakOptions] = useState([]);
   const [redirectToGiziRead, setRedirectToGiziRead] = useState(false);
   const username = getUsername();
@@ -26,7 +34,7 @@ const GiziCreate = ({ handleLogout }) => {
 
   const fetchAnakOptions = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/anak/get');
+      const response = await axios.get("http://localhost:5000/api/anak/get");
       setAnakOptions(response.data);
     } catch (error) {
       console.error(error);
@@ -46,7 +54,7 @@ const GiziCreate = ({ handleLogout }) => {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/gizi/add', data);
+      await axios.post("http://localhost:5000/api/gizi/add", data);
       setRedirectToGiziRead(true);
     } catch (error) {
       console.error(error);
@@ -98,7 +106,9 @@ const GiziCreate = ({ handleLogout }) => {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <label className="form-control-label">Tanggal Pengukuran</label>
+                  <label className="form-control-label">
+                    Tanggal Pengukuran
+                  </label>
                   <Input
                     className="form-control-alternative"
                     type="date"

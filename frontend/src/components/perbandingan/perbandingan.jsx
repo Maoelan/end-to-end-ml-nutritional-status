@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Card, CardHeader, CardBody, Table } from 'reactstrap';
-import { checkAuthentication, getUsername } from '../utils/auth';
-import Sidebar from '../Sidebar/Sidebar.js';
-import Navbar from '../Navbars/AuthNavbar.js';
-import Header from '../Headers/UserHeader.js';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Card, CardHeader, CardBody, Table } from "reactstrap";
+import { checkAuthentication, getUsername } from "../utils/auth";
+import Sidebar from "../Sidebar/Sidebar.js";
+import Navbar from "../Navbars/AuthNavbar.js";
+import Header from "../Headers/UserHeader.js";
 
 const Perbandingan = ({ handleLogout }) => {
   const [kMeansData, setKMeansData] = useState(null);
@@ -12,7 +12,7 @@ const Perbandingan = ({ handleLogout }) => {
   const [anakData, setAnakData] = useState(null);
   const [actualLabels, setActualLabels] = useState(null);
   const [evaluationMetrics, setEvaluationMetrics] = useState(null);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const [isTableVisible, setTableVisible] = useState(true);
 
   useEffect(() => {
@@ -30,7 +30,9 @@ const Perbandingan = ({ handleLogout }) => {
 
   const fetchKMeansData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/train_kmeans');
+      const response = await axios.get(
+        "http://localhost:5000/api/train_kmeans"
+      );
       setKMeansData(response.data);
     } catch (error) {
       console.error(error);
@@ -39,7 +41,9 @@ const Perbandingan = ({ handleLogout }) => {
 
   const fetchKMedoidsData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/train_kmedoids');
+      const response = await axios.get(
+        "http://localhost:5000/api/train_kmedoids"
+      );
       setKMedoidsData(response.data);
     } catch (error) {
       console.error(error);
@@ -48,7 +52,7 @@ const Perbandingan = ({ handleLogout }) => {
 
   const fetchAnakData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/anak/get');
+      const response = await axios.get("http://localhost:5000/api/anak/get");
       setAnakData(response.data);
     } catch (error) {
       console.error(error);
@@ -57,7 +61,7 @@ const Perbandingan = ({ handleLogout }) => {
 
   const fetchActualLabels = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/label/get');
+      const response = await axios.get("http://localhost:5000/api/label/get");
       setActualLabels(response.data.map((item) => item.label_aktual));
     } catch (error) {
       console.error(error);
@@ -66,7 +70,11 @@ const Perbandingan = ({ handleLogout }) => {
 
   useEffect(() => {
     if (kMeansData && kMedoidsData && actualLabels) {
-      const metrics = calculateMetrics(actualLabels, kMeansData.cluster_labels, kMedoidsData.cluster_labels);
+      const metrics = calculateMetrics(
+        actualLabels,
+        kMeansData.cluster_labels,
+        kMedoidsData.cluster_labels
+      );
       setEvaluationMetrics(metrics);
     }
   }, [kMeansData, kMedoidsData, actualLabels]);
@@ -107,80 +115,80 @@ const Perbandingan = ({ handleLogout }) => {
       const kmeans = kmeansLabels[i];
       const kmedoids = kmedoidsLabels[i];
 
-      if (actual === 'GIZI LEBIH') {
-        if (kmeans === 'GIZI LEBIH') {
+      if (actual === "GIZI LEBIH") {
+        if (kmeans === "GIZI LEBIH") {
           tpKMeansGiziLebih++;
         } else {
           fnKMeansGiziLebih++;
         }
 
-        if (kmedoids === 'GIZI LEBIH') {
+        if (kmedoids === "GIZI LEBIH") {
           tpKMedoidsGiziLebih++;
         } else {
           fnKMedoidsGiziLebih++;
         }
-      } else if (actual === 'GIZI BAIK') {
-        if (kmeans === 'GIZI BAIK') {
+      } else if (actual === "GIZI BAIK") {
+        if (kmeans === "GIZI BAIK") {
           tpKMeansGiziBaik++;
         } else {
           fnKMeansGiziBaik++;
         }
 
-        if (kmedoids === 'GIZI BAIK') {
+        if (kmedoids === "GIZI BAIK") {
           tpKMedoidsGiziBaik++;
         } else {
           fnKMedoidsGiziBaik++;
         }
-      } else if (actual === 'GIZI KURANG') {
-        if (kmeans === 'GIZI KURANG') {
+      } else if (actual === "GIZI KURANG") {
+        if (kmeans === "GIZI KURANG") {
           tpKMeansGiziKurang++;
         } else {
           fnKMeansGiziKurang++;
         }
 
-        if (kmedoids === 'GIZI KURANG') {
+        if (kmedoids === "GIZI KURANG") {
           tpKMedoidsGiziKurang++;
         } else {
           fnKMedoidsGiziKurang++;
         }
       }
 
-      if (actual !== 'GIZI LEBIH') {
-        if (kmeans !== 'GIZI LEBIH') {
+      if (actual !== "GIZI LEBIH") {
+        if (kmeans !== "GIZI LEBIH") {
           tnKMeansGiziLebih++;
         } else {
           fpKMeansGiziLebih++;
         }
 
-        if (kmedoids !== 'GIZI LEBIH') {
+        if (kmedoids !== "GIZI LEBIH") {
           tnKMedoidsGiziLebih++;
         } else {
           fpKMedoidsGiziLebih++;
         }
       }
 
-      if (actual !== 'GIZI BAIK') {
-        if (kmeans !== 'GIZI BAIK') {
+      if (actual !== "GIZI BAIK") {
+        if (kmeans !== "GIZI BAIK") {
           tnKMeansGiziBaik++;
         } else {
           fpKMeansGiziBaik++;
         }
 
-        if (kmedoids !== 'GIZI BAIK') {
+        if (kmedoids !== "GIZI BAIK") {
           tnKMedoidsGiziBaik++;
         } else {
           fpKMedoidsGiziBaik++;
         }
       }
 
-      if (actual !== 'GIZI KURANG') {
-        if (kmeans !== 'GIZI KURANG') {
+      if (actual !== "GIZI KURANG") {
+        if (kmeans !== "GIZI KURANG") {
           tnKMeansGiziKurang++;
         } else {
           fpKMeansGiziKurang++;
         }
 
-        if (kmedoids !== 'GIZI KURANG') {
+        if (kmedoids !== "GIZI KURANG") {
           tnKMedoidsGiziKurang++;
         } else {
           fpKMedoidsGiziKurang++;
@@ -250,12 +258,13 @@ const Perbandingan = ({ handleLogout }) => {
               <div className="d-flex justify-content-between align-items-center">
                 <h2 className="mb-0">Perbandingan K-Means dan K-Medoids</h2>
                 <button className="btn btn-primary" onClick={handleToggleTable}>
-                  {isTableVisible ? 'Hide Table' : 'Show Table'}
+                  {isTableVisible ? "Hide Table" : "Show Table"}
                 </button>
               </div>
             </CardHeader>
             <CardBody>
-              {kMeansData && kMeansData.cluster_labels &&
+              {kMeansData &&
+                kMeansData.cluster_labels &&
                 kMedoidsData &&
                 kMedoidsData.cluster_labels &&
                 anakData &&
@@ -264,7 +273,10 @@ const Perbandingan = ({ handleLogout }) => {
                   <>
                     {isTableVisible && (
                       <div className="perbandingan-summary">
-                        <Table className="align-items-center table-flush" responsive>
+                        <Table
+                          className="align-items-center table-flush"
+                          responsive
+                        >
                           <thead className="thead-light">
                             <tr>
                               <th>No</th>
@@ -277,7 +289,8 @@ const Perbandingan = ({ handleLogout }) => {
                           <tbody>
                             {kMeansData.cluster_labels.map((label, index) => {
                               const kmeans = kMeansData.cluster_labels[index];
-                              const kmedoids = kMedoidsData.cluster_labels[index];
+                              const kmedoids =
+                                kMedoidsData.cluster_labels[index];
                               const actual = actualLabels[index];
 
                               return (
@@ -286,33 +299,42 @@ const Perbandingan = ({ handleLogout }) => {
                                   <td>{anakData[index].nama}</td>
                                   <td
                                     style={
-                                      label === 'GIZI LEBIH'
-                                        ? { fontWeight: 'bold', color: 'orange' }
-                                        : label === 'GIZI BAIK'
-                                        ? { fontWeight: 'bold', color: 'green' }
-                                        : { fontWeight: 'bold', color: 'red' }
+                                      label === "GIZI LEBIH"
+                                        ? {
+                                            fontWeight: "bold",
+                                            color: "orange",
+                                          }
+                                        : label === "GIZI BAIK"
+                                        ? { fontWeight: "bold", color: "green" }
+                                        : { fontWeight: "bold", color: "red" }
                                     }
                                   >
                                     {label}
                                   </td>
                                   <td
                                     style={
-                                      kmedoids === 'GIZI LEBIH'
-                                        ? { fontWeight: 'bold', color: 'orange' }
-                                        : kmedoids === 'GIZI BAIK'
-                                        ? { fontWeight: 'bold', color: 'green' }
-                                        : { fontWeight: 'bold', color: 'red' }
+                                      kmedoids === "GIZI LEBIH"
+                                        ? {
+                                            fontWeight: "bold",
+                                            color: "orange",
+                                          }
+                                        : kmedoids === "GIZI BAIK"
+                                        ? { fontWeight: "bold", color: "green" }
+                                        : { fontWeight: "bold", color: "red" }
                                     }
                                   >
                                     {kmedoids}
                                   </td>
                                   <td
                                     style={
-                                      actual === 'GIZI LEBIH'
-                                        ? { fontWeight: 'bold', color: 'orange' }
-                                        : actual === 'GIZI BAIK'
-                                        ? { fontWeight: 'bold', color: 'green' }
-                                        : { fontWeight: 'bold', color: 'red' }
+                                      actual === "GIZI LEBIH"
+                                        ? {
+                                            fontWeight: "bold",
+                                            color: "orange",
+                                          }
+                                        : actual === "GIZI BAIK"
+                                        ? { fontWeight: "bold", color: "green" }
+                                        : { fontWeight: "bold", color: "red" }
                                     }
                                   >
                                     {actual}
@@ -322,10 +344,13 @@ const Perbandingan = ({ handleLogout }) => {
                             })}
                           </tbody>
                         </Table>
-                        
+
                         <br></br>
-                      
-                        <Table className="align-items-center table-flush" responsive>
+
+                        <Table
+                          className="align-items-center table-flush"
+                          responsive
+                        >
                           <thead className="thead-light">
                             <tr>
                               <th>Metric</th>
@@ -382,7 +407,8 @@ const Perbandingan = ({ handleLogout }) => {
                                   evaluationMetrics.tnKMeansGiziLebih,
                                   evaluationMetrics.fpKMeansGiziLebih,
                                   evaluationMetrics.fnKMeansGiziLebih
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateAccuracy(
@@ -390,7 +416,8 @@ const Perbandingan = ({ handleLogout }) => {
                                   evaluationMetrics.tnKMeansGiziBaik,
                                   evaluationMetrics.fpKMeansGiziBaik,
                                   evaluationMetrics.fnKMeansGiziBaik
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateAccuracy(
@@ -398,7 +425,8 @@ const Perbandingan = ({ handleLogout }) => {
                                   evaluationMetrics.tnKMeansGiziKurang,
                                   evaluationMetrics.fpKMeansGiziKurang,
                                   evaluationMetrics.fnKMeansGiziKurang
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateAccuracy(
@@ -406,7 +434,8 @@ const Perbandingan = ({ handleLogout }) => {
                                   evaluationMetrics.tnKMedoidsGiziLebih,
                                   evaluationMetrics.fpKMedoidsGiziLebih,
                                   evaluationMetrics.fnKMedoidsGiziLebih
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateAccuracy(
@@ -414,7 +443,8 @@ const Perbandingan = ({ handleLogout }) => {
                                   evaluationMetrics.tnKMedoidsGiziBaik,
                                   evaluationMetrics.fpKMedoidsGiziBaik,
                                   evaluationMetrics.fnKMedoidsGiziBaik
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateAccuracy(
@@ -422,7 +452,8 @@ const Perbandingan = ({ handleLogout }) => {
                                   evaluationMetrics.tnKMedoidsGiziKurang,
                                   evaluationMetrics.fpKMedoidsGiziKurang,
                                   evaluationMetrics.fnKMedoidsGiziKurang
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                             </tr>
                             <tr>
@@ -431,37 +462,43 @@ const Perbandingan = ({ handleLogout }) => {
                                 {calculatePrecision(
                                   evaluationMetrics.tpKMeansGiziLebih,
                                   evaluationMetrics.fpKMeansGiziLebih
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculatePrecision(
                                   evaluationMetrics.tpKMeansGiziBaik,
                                   evaluationMetrics.fpKMeansGiziBaik
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculatePrecision(
                                   evaluationMetrics.tpKMeansGiziKurang,
                                   evaluationMetrics.fpKMeansGiziKurang
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculatePrecision(
                                   evaluationMetrics.tpKMedoidsGiziLebih,
                                   evaluationMetrics.fpKMedoidsGiziLebih
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculatePrecision(
                                   evaluationMetrics.tpKMedoidsGiziBaik,
                                   evaluationMetrics.fpKMedoidsGiziBaik
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculatePrecision(
                                   evaluationMetrics.tpKMedoidsGiziKurang,
                                   evaluationMetrics.fpKMedoidsGiziKurang
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                             </tr>
                             <tr>
@@ -470,37 +507,43 @@ const Perbandingan = ({ handleLogout }) => {
                                 {calculateRecall(
                                   evaluationMetrics.tpKMeansGiziLebih,
                                   evaluationMetrics.fnKMeansGiziLebih
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateRecall(
                                   evaluationMetrics.tpKMeansGiziBaik,
                                   evaluationMetrics.fnKMeansGiziBaik
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateRecall(
                                   evaluationMetrics.tpKMeansGiziKurang,
                                   evaluationMetrics.fnKMeansGiziKurang
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateRecall(
                                   evaluationMetrics.tpKMedoidsGiziLebih,
                                   evaluationMetrics.fnKMedoidsGiziLebih
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateRecall(
                                   evaluationMetrics.tpKMedoidsGiziBaik,
                                   evaluationMetrics.fnKMedoidsGiziBaik
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                               <td>
                                 {calculateRecall(
                                   evaluationMetrics.tpKMedoidsGiziKurang,
                                   evaluationMetrics.fnKMedoidsGiziKurang
-                                ).toFixed(2)}%
+                                ).toFixed(2)}
+                                %
                               </td>
                             </tr>
                           </tbody>

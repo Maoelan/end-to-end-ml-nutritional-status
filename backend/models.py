@@ -1,7 +1,8 @@
 from app import db
 
+
 class OrangTua(db.Model):
-    __tablename__ = 'data_orang_tua'
+    __tablename__ = "data_orang_tua"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nama = db.Column(db.String(255))
@@ -13,10 +14,11 @@ class OrangTua(db.Model):
     posyandu = db.Column(db.String(100))
     rt = db.Column(db.String(10))
     rw = db.Column(db.String(10))
-    anak = db.relationship('Anak', backref='orang_tua', lazy=True)
+    anak = db.relationship("Anak", backref="orang_tua", lazy=True)
+
 
 class Anak(db.Model):
-    __tablename__ = 'data_anak'
+    __tablename__ = "data_anak"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nik = db.Column(db.String(16))
@@ -25,22 +27,24 @@ class Anak(db.Model):
     tanggal_lahir = db.Column(db.Date)
     berat_lahir = db.Column(db.Float())
     tinggi_lahir = db.Column(db.Float())
-    id_orang_tua = db.Column(db.Integer, db.ForeignKey('data_orang_tua.id'))
-    data_gizi = db.relationship('Gizi', backref='anak', lazy=True)
+    id_orang_tua = db.Column(db.Integer, db.ForeignKey("data_orang_tua.id"))
+    data_gizi = db.relationship("Gizi", backref="anak", lazy=True)
+
 
 class Gizi(db.Model):
-    __tablename__ = 'data_gizi'
-    
+    __tablename__ = "data_gizi"
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    id_anak = db.Column(db.Integer, db.ForeignKey('data_anak.id'))
+    id_anak = db.Column(db.Integer, db.ForeignKey("data_anak.id"))
     usia_diukur = db.Column(db.Integer)
     tanggal_pengukuran = db.Column(db.Date)
     berat = db.Column(db.Float())
     tinggi = db.Column(db.Float())
     jumlah_vitamin_a = db.Column(db.Integer)
 
+
 class User(db.Model):
-    __tablename__ = 'data_user'
+    __tablename__ = "data_user"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(255))
@@ -48,12 +52,9 @@ class User(db.Model):
     password = db.Column(db.String(255))
     role = db.Column(db.String(50))
 
+
 class Label(db.Model):
-    __tablename__ = 'data_label'
+    __tablename__ = "data_label"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     label_aktual = db.Column(db.String(25))
-
-
-        
-

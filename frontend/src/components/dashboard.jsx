@@ -1,8 +1,17 @@
-import React from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody, NavLink, Table } from 'reactstrap';
-import Sidebar from './Sidebar/Sidebar';
-import Navbar from './Navbars/AuthNavbar';
-import Header from './Headers/Header';
+import React from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  NavLink,
+  Table,
+} from "reactstrap";
+import Sidebar from "./Sidebar/Sidebar";
+import Navbar from "./Navbars/AuthNavbar";
+import Header from "./Headers/Header";
 
 const Dashboard = ({ handleLogout }) => {
   return (

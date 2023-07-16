@@ -1,8 +1,8 @@
-import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import React from "react";
+import { Route, Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ element: Component, ...rest }) => {
-  const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';
+  const isAuthenticated = localStorage.getItem("isLoggedIn") === "true";
 
   return isAuthenticated ? (
     <Route {...rest} element={<Component />} />

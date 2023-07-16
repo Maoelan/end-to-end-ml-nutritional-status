@@ -1,31 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import "assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
 
-import Login from './components/login';
-import Dashboard from './components/dashboard';
-import OrangTuaRead from './components/crud/orangtua/orangtua-read';
-import OrangTuaCreate from './components/crud/orangtua/orangtua-create';
-import OrangTuaUpdate from './components/crud/orangtua/orangtua-update';
-import AnakRead from './components/crud/anak/anak-read';
-import AnakCreate from './components/crud/anak/anak-create';
-import AnakUpdate from './components/crud/anak/anak-update';
-import GiziRead from './components/crud/gizi/gizi-read';
-import GiziCreate from './components/crud/gizi/gizi-create';
-import GiziUpdate from './components/crud/gizi/gizi-update';
-import Trains from './components/train/trains';
-import Perbandingan from './components/perbandingan/perbandingan'
+import Login from "./components/login";
+import Dashboard from "./components/dashboard";
+import OrangTuaRead from "./components/crud/orangtua/orangtua-read";
+import OrangTuaCreate from "./components/crud/orangtua/orangtua-create";
+import OrangTuaUpdate from "./components/crud/orangtua/orangtua-update";
+import AnakRead from "./components/crud/anak/anak-read";
+import AnakCreate from "./components/crud/anak/anak-create";
+import AnakUpdate from "./components/crud/anak/anak-update";
+import GiziRead from "./components/crud/gizi/gizi-read";
+import GiziCreate from "./components/crud/gizi/gizi-create";
+import GiziUpdate from "./components/crud/gizi/gizi-update";
+import Trains from "./components/train/trains";
+import Perbandingan from "./components/perbandingan/perbandingan";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const checkAuthentication = () => {
-      const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
       setIsLoggedIn(storedIsLoggedIn);
     };
 
@@ -33,7 +38,7 @@ function App() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.setItem("isLoggedIn", "false");
     setIsLoggedIn(false);
     return <Navigate to="/login" />;
   };
@@ -43,7 +48,15 @@ function App() {
       <Routes>
         <Route
           path="/login"
-          element={isLoggedIn ? <Navigate to="/dashboard" /> : <div className="login-wrapper"><Login setIsLoggedIn={setIsLoggedIn} /></div>}
+          element={
+            isLoggedIn ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <div className="login-wrapper">
+                <Login setIsLoggedIn={setIsLoggedIn} />
+              </div>
+            )
+          }
         />
         <Route
           path="/orangtua-read"
@@ -51,7 +64,11 @@ function App() {
             isLoggedIn ? (
               <OrangTuaRead handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/orangtua-read' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/orangtua-read" }}
+              />
             )
           }
         />
@@ -61,7 +78,11 @@ function App() {
             isLoggedIn ? (
               <OrangTuaCreate handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/orangtua-create' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/orangtua-create" }}
+              />
             )
           }
         />
@@ -71,7 +92,11 @@ function App() {
             isLoggedIn ? (
               <OrangTuaUpdate handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/orangtua-update/:id' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/orangtua-update/:id" }}
+              />
             )
           }
         />
@@ -82,7 +107,11 @@ function App() {
             isLoggedIn ? (
               <AnakRead handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/anak-read' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/anak-read" }}
+              />
             )
           }
         />
@@ -93,7 +122,11 @@ function App() {
             isLoggedIn ? (
               <AnakCreate handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/anak-create' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/anak-create" }}
+              />
             )
           }
         />
@@ -103,7 +136,11 @@ function App() {
             isLoggedIn ? (
               <AnakUpdate handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/anak-update/:id' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/anak-update/:id" }}
+              />
             )
           }
         />
@@ -114,7 +151,11 @@ function App() {
             isLoggedIn ? (
               <GiziRead handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/gizi-read' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/gizi-read" }}
+              />
             )
           }
         />
@@ -124,7 +165,11 @@ function App() {
             isLoggedIn ? (
               <GiziCreate handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/gizi-create' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/gizi-create" }}
+              />
             )
           }
         />
@@ -134,7 +179,11 @@ function App() {
             isLoggedIn ? (
               <GiziUpdate handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/gizi-update/:id' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/gizi-update/:id" }}
+              />
             )
           }
         />
@@ -144,7 +193,7 @@ function App() {
             isLoggedIn ? (
               <Trains handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/train' }} />
+              <Navigate to="/login" replace={true} state={{ from: "/train" }} />
             )
           }
         />
@@ -154,7 +203,11 @@ function App() {
             isLoggedIn ? (
               <Perbandingan handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/perbandingan' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/perbandingan" }}
+              />
             )
           }
         />
@@ -164,7 +217,11 @@ function App() {
             isLoggedIn ? (
               <Dashboard handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" replace={true} state={{ from: '/dashboard' }} />
+              <Navigate
+                to="/login"
+                replace={true}
+                state={{ from: "/dashboard" }}
+              />
             )
           }
         />

@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card, CardHeader, CardBody, FormGroup, Form, Input, Button } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Button,
+} from "reactstrap";
 import { checkAuthentication, getUsername } from "../../utils/auth";
 
 import Sidebar from "../../Sidebar/Sidebar.js";
@@ -23,7 +31,9 @@ const AnakUpdate = ({ handleLogout }) => {
   useEffect(() => {
     const fetchAnak = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/anak/get/${id}`);
+        const response = await axios.get(
+          `http://localhost:5000/api/anak/get/${id}`
+        );
         const anak = response.data;
         setNik(anak.nik);
         setNama(anak.nama);
@@ -44,7 +54,9 @@ const AnakUpdate = ({ handleLogout }) => {
 
   const fetchOrangTuaOptions = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/orangtua/get");
+      const response = await axios.get(
+        "http://localhost:5000/api/orangtua/get"
+      );
       setOrangTuaOptions(response.data);
     } catch (error) {
       console.error(error);
