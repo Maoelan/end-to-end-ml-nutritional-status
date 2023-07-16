@@ -419,6 +419,17 @@ def delete_all_labels():
 
     return jsonify({"message": "Semua data label berhasil dihapus"})
 
+@app.route("/api/label/delete/<int:id>", methods=["DELETE"])
+def delete_label(id):
+    label = Label.query.get(id)
+    if label:
+        db.session.delete(label)
+        db.session.commit()
+        
+        return jsonify({"message": "Data label aktual berhasil dihapus"})
+    
+    return jsonify({"message": "Data label aktual tidak ditemukan"})
+
 
 @app.route("/api/train_kmeans", methods=["GET", "POST"])
 def train_kmeans_route():
