@@ -35,3 +35,11 @@ mysql cant run :
 mysqld --console --skip-grant-tables --skip-external-locking
 
 mysqlcheck -r --database mysql --use-frm
+
+reset id mysql
+
+Set @num := 0;
+
+Update data_label SET id = @num := (@num+1);
+
+ALTER TABLE data_label AUTO_INCREMENT =1;
