@@ -10,7 +10,7 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { checkAuthentication, getUsername } from "../../utils/auth";
+import { checkAuthentication } from "../../utils/auth";
 
 import Sidebar from "../../Sidebar/Sidebar.js";
 import Navbar from "../../Navbars/AuthNavbar.js";
@@ -19,7 +19,6 @@ import Header from "../../Headers/UserHeader.js";
 const LabelCreate = ({ handleLogout }) => {
   const [labelAktual, setLabelAktual] = useState("");
   const [redirectToPerbandingan, setRedirectToPerbandingan] = useState(false);
-  const username = getUsername();
 
   useEffect(() => {
     checkAuthentication();

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Table } from "reactstrap";
-import { checkAuthentication, getUsername } from "../utils/auth";
-import { Link } from "react-router-dom";
+import { checkAuthentication } from "../utils/auth";
 
 import Sidebar from "../Sidebar/Sidebar.js";
 import Navbar from "../Navbars/AuthNavbar.js";
@@ -14,7 +13,6 @@ const Trains = ({ handleLogout }) => {
   const [anakData, setAnakData] = useState(null);
   const [giziData, setGiziData] = useState(null);
   const [isTrained, setIsTrained] = useState(false);
-  const [username, setUsername] = useState("");
   const [isTableVisible, setTableVisible] = useState(true);
   const [kMeansTrainingTime, setKMeansTrainingTime] = useState(0);
   const [kMedoidsTrainingTime, setKMedoidsTrainingTime] = useState(0);
@@ -103,11 +101,11 @@ const Trains = ({ handleLogout }) => {
 
   const handleTrain = async () => {
     try {
-      const startTimeKMeans = Date.now();
+      {/*const startTimeKMeans = Date.now();*/ }
       const kMeansTrainingTime = await handleTrainKMeans();
       setKMeansTrainingTime(kMeansTrainingTime);
 
-      const startTimeKMedoids = Date.now();
+      {/*const startTimeKMedoids = Date.now();*/ }
       const kMedoidsTrainingTime = await handleTrainKMedoids();
       setKMedoidsTrainingTime(kMedoidsTrainingTime);
 

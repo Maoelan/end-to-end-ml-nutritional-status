@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Table } from "reactstrap";
-import { checkAuthentication, getUsername } from "../utils/auth";
+import { checkAuthentication } from "../utils/auth";
 import Sidebar from "../Sidebar/Sidebar.js";
 import Navbar from "../Navbars/AuthNavbar.js";
 import Header from "../Headers/UserHeader.js";
@@ -13,7 +13,6 @@ const Perbandingan = ({ handleLogout }) => {
   const [anakData, setAnakData] = useState(null);
   const [actualLabels, setActualLabels] = useState(null);
   const [evaluationMetrics, setEvaluationMetrics] = useState(null);
-  const [username, setUsername] = useState("");
   const [isTableVisible, setTableVisible] = useState(true);
 
   useEffect(() => {
@@ -300,7 +299,7 @@ const Perbandingan = ({ handleLogout }) => {
                           </thead>
                           <tbody>
                             {kMeansData.cluster_labels.map((label, index) => {
-                              const kmeans = kMeansData.cluster_labels[index];
+                              {/*const kmeans = kMeansData.cluster_labels[index];*/}
                               const kmedoids =
                                 kMedoidsData.cluster_labels[index];
                               const actual = actualLabels[index];

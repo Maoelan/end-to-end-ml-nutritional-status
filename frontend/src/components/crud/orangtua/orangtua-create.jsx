@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -10,7 +10,7 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { checkAuthentication, getUsername } from "../../utils/auth";
+import { checkAuthentication } from "../../utils/auth";
 
 import Sidebar from "../../Sidebar/Sidebar";
 import Navbar from "../../Navbars/AuthNavbar.js";
@@ -27,7 +27,6 @@ const OrangTuaCreate = ({ handleLogout }) => {
   const [rt, setRt] = useState("");
   const [rw, setRw] = useState("");
   const [redirectToOrangTuaRead, setRedirectToOrangTuaRead] = useState(false);
-  const username = getUsername();
 
   useEffect(() => {
     checkAuthentication();

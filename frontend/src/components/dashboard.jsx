@@ -5,9 +5,7 @@ import {
   Col,
   Card,
   CardHeader,
-  CardBody,
   NavLink,
-  Table,
 } from "reactstrap";
 import Sidebar from "./Sidebar/Sidebar";
 import Navbar from "./Navbars/AuthNavbar";

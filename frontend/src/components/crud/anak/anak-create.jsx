@@ -10,7 +10,7 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { checkAuthentication, getUsername } from "../../utils/auth";
+import { checkAuthentication } from "../../utils/auth";
 
 import Sidebar from "../../Sidebar/Sidebar.js";
 import Navbar from "../../Navbars/AuthNavbar.js";
@@ -26,7 +26,6 @@ const AnakCreate = ({ handleLogout }) => {
   const [idOrangTua, setIdOrangTua] = useState("");
   const [orangTuaOptions, setOrangTuaOptions] = useState([]);
   const [redirectToAnakRead, setRedirectToAnakRead] = useState(false);
-  const username = getUsername();
 
   useEffect(() => {
     checkAuthentication();

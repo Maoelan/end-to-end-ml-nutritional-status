@@ -10,7 +10,6 @@ import Header from "../../Headers/UserHeader.js";
 
 const GiziRead = ({ handleLogout }) => {
   const [giziList, setGiziList] = useState([]);
-  const [username, setUsername] = useState("");
   const [anakList, setAnakList] = useState([]);
   const [isTableVisible, setTableVisible] = useState(true);
 

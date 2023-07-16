@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -10,7 +10,7 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { checkAuthentication, getUsername } from "../../utils/auth";
+import { checkAuthentication } from "../../utils/auth";
 
 import Sidebar from "../../Sidebar/Sidebar.js";
 import Navbar from "../../Navbars/AuthNavbar.js";
@@ -26,7 +26,6 @@ const OrangTuaUpdate = ({ handleLogout }) => {
   const [posyandu, setPosyandu] = useState("");
   const [rt, setRt] = useState("");
   const [rw, setRw] = useState("");
-  const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -57,7 +56,6 @@ const OrangTuaUpdate = ({ handleLogout }) => {
     }
 
     fetchOrangTua();
-    setUsername(getUsername());
     document.title = "Edit Data Anak";
   }, [id]);
 

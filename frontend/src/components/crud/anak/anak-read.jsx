@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Table } from "reactstrap";
-import { checkAuthentication, getUsername } from "../../utils/auth";
+import { checkAuthentication } from "../../utils/auth";
 import { Link } from "react-router-dom";
 
 import Sidebar from "../../Sidebar/Sidebar.js";
@@ -10,7 +10,6 @@ import Header from "../../Headers/UserHeader.js";
 
 const AnakRead = ({ handleLogout }) => {
   const [anakList, setAnakList] = useState([]);
-  const [username, setUsername] = useState("");
   const [isTableVisible, setTableVisible] = useState(true);
 
   useEffect(() => {

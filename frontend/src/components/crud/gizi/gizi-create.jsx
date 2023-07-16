@@ -10,7 +10,7 @@ import {
   Button,
 } from "reactstrap";
 import { Navigate } from "react-router-dom";
-import { checkAuthentication, getUsername } from "../../utils/auth";
+import { checkAuthentication } from "../../utils/auth";
 
 import Sidebar from "../../Sidebar/Sidebar.js";
 import Navbar from "../../Navbars/AuthNavbar.js";
@@ -25,7 +25,6 @@ const GiziCreate = ({ handleLogout }) => {
   const [jumlahVitaminA, setJumlahVitaminA] = useState("");
   const [anakOptions, setAnakOptions] = useState([]);
   const [redirectToGiziRead, setRedirectToGiziRead] = useState(false);
-  const username = getUsername();
 
   useEffect(() => {
     checkAuthentication();
