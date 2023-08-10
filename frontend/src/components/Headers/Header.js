@@ -57,12 +57,6 @@ const Header = () => {
                         </div>
                       </Col>
                     </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-success mr-2">
-                        <i className="fa fa-arrow-up" />
-                      </span>{" "}
-                      <span className="text-nowrap"></span>
-                    </p>
                   </CardBody>
                 </Card>
               </Col>
@@ -87,12 +81,6 @@ const Header = () => {
                         </div>
                       </Col>
                     </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-danger mr-2">
-                        <i className="fas fa-arrow-down" />
-                      </span>{" "}
-                      <span className="text-nowrap"></span>
-                    </p>
                   </CardBody>
                 </Card>
               </Col>
@@ -117,12 +105,6 @@ const Header = () => {
                         </div>
                       </Col>
                     </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-warning mr-2">
-                        <i className="fas fa-arrow-down" />
-                      </span>{" "}
-                      <span className="text-nowrap"></span>
-                    </p>
                   </CardBody>
                 </Card>
               </Col>
@@ -147,12 +129,6 @@ const Header = () => {
                         </div>
                       </Col>
                     </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-success mr-2">
-                        <i className="fas fa-arrow-up" />
-                      </span>{" "}
-                      <span className="text-nowrap"></span>
-                    </p>
                   </CardBody>
                 </Card>
               </Col>

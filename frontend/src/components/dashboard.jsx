@@ -190,12 +190,19 @@ const Dashboard = ({ handleLogout }) => {
         <Container className="mt--7" fluid>
           <Row className="align-items-center">
             <Col>
-              <Card style={{ height: "6rem" }}>
+              <Card style={{ height: "12rem" }}>
                 <CardHeader>
                   <Col>
-                    <h1 style={{ fontWeight: "bold", textAlign: "center" }}>
+                    <h1 style={{ textAlign: "center" }}>
                       Selamat Datang di Website Klasifikasi Status Gizi Anak
                     </h1>
+                    <p style={{ textAlign: "center" }}>
+                      Website ini merupakan website yang digunakan untuk mengklasifikasikan status gizi anak yang berada di wilayah penugasan Puskesmas Bagu yaitu Kecamatan Pringgarata
+                    </p>
+                    <p style={{ textAlign: "center" }}>
+                      Hasil dari klasifikasi pada website ini terdiri dari anak dengan GIZI LEBIH, GIZI BAIK dan GIZI KURANG dengan menggunakan metode K-Means dan K-Medoids 
+                      kemudian akan dilakukan perbandingan akhir dari kedua metode tersebut untuk mencari metode yang paling baik dalam mengklasifikasikan status gizi anak
+                    </p>
                   </Col>
                 </CardHeader>
               </Card>
@@ -204,7 +211,7 @@ const Dashboard = ({ handleLogout }) => {
           <br></br>
           <Row>
             <Col className="mb-5 mb-xl-0" xl="6">
-              <Card className="shadow">
+              <Card className="shadow"  style={{ height: "30rem" }}>
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <Col>
@@ -229,7 +236,7 @@ const Dashboard = ({ handleLogout }) => {
               </Card>
             </Col>
             <Col xl="6">
-              <Card className="shadow">
+              <Card className="shadow" style={{ height: "30rem" }}>
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <Col>
@@ -254,7 +261,7 @@ const Dashboard = ({ handleLogout }) => {
           </Row>
           <Row className="mt-4">
             <Col className="mb-5 mb-xl-0" xl="6">
-              <Card className="shadow">
+              <Card className="shadow" style={{ height: "31rem" }}>
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <Col>
@@ -279,7 +286,7 @@ const Dashboard = ({ handleLogout }) => {
               </Card>
             </Col>
             <Col xl="6">
-              <Card className="shadow">
+              <Card className="shadow" style={{ height: "31rem" }}>
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <Col>
@@ -306,7 +313,7 @@ const Dashboard = ({ handleLogout }) => {
           </Row>
           <Row className="mt-4">
             <Col className="mb-5 mb-xl-0" xl="6">
-              <Card className="shadow">
+              <Card className="shadow" style={{ height: "29rem" }}>
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <Col>
@@ -331,7 +338,7 @@ const Dashboard = ({ handleLogout }) => {
               </Card>
             </Col>
             <Col xl="6">
-              <Card className="shadow">
+              <Card className="shadow" style={{ height: "29rem" }}>
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <Col>

@@ -38,48 +38,6 @@ def train_kmedoids():
     end_time = time.time()
     training_time = end_time - start_time
 
-    iterations = []
-    total_iterations = kmedoids.n_iter_
-
-    for i in range(total_iterations):
-        iteration = {}
-        current_kmedoids = KMedoids(
-            n_clusters=n_clusters,
-            init=kmedoids.medoid_indices_,
-            random_state=random_state,
-            metric="euclidean",
-        )
-        current_kmedoids.medoid_indices_ = kmedoids.medoid_indices_
-        current_kmedoids.labels_ = kmedoids.predict(scaled_data)
-
-        medoid_changes = []
-
-        for j in range(n_clusters):
-            cluster_indices = np.where(current_kmedoids.labels_ == j)[0]
-            cluster_points = scaled_data[cluster_indices]
-            medoid_index = kmedoids.medoid_indices_[j]
-            medoid_change = np.mean(
-                cdist(cluster_points, np.expand_dims(scaled_data[medoid_index], axis=0))
-            )
-            medoid_changes.append(medoid_change)
-
-        iteration["medoid_changes"] = medoid_changes
-
-        for j in range(n_clusters):
-            cluster_points = []
-            for index, point in enumerate(scaled_data):
-                if current_kmedoids.labels_[index] == j:
-                    cluster_points.append(point.tolist())
-            iteration[f"cluster_{j+1}"] = cluster_points
-
-        iterations.append(iteration)
-
-        kmedoids.fit(scaled_data)
-
-        print(f"Iteration {i+1} - Medoid Changes:")
-        for j, medoid_change in enumerate(medoid_changes):
-            print(f"M{j+1}: {medoid_change}")
-
     cluster_count = n_clusters
     cluster_labels = []
     for label in kmedoids.labels_:
@@ -91,11 +49,10 @@ def train_kmedoids():
             cluster_labels.append("GIZI LEBIH")
 
     response = {
-        "iterations": iterations,
         "cluster_count": cluster_count,
         "cluster_labels": cluster_labels,
         "initial_medoids": initial_medoids.tolist(),
-        "total_iterations": total_iterations,
+        "total_iterations": kmedoids.n_iter_,
         "scaled_data": scaled_data.tolist(),
         "training_time": training_time,
     }
