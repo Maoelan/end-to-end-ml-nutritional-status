@@ -188,6 +188,20 @@ const Dashboard = ({ handleLogout }) => {
         <Navbar handleLogout={handleLogout} />
         <Header />
         <Container className="mt--7" fluid>
+          <Row className="align-items-center">
+            <Col>
+              <Card style={{ height: "6rem" }}>
+                <CardHeader>
+                  <Col>
+                    <h1 style={{ fontWeight: "bold", textAlign: "center" }}>
+                      Selamat Datang di Website Klasifikasi Status Gizi Anak
+                    </h1>
+                  </Col>
+                </CardHeader>
+              </Card>
+            </Col>
+          </Row>
+          <br></br>
           <Row>
             <Col className="mb-5 mb-xl-0" xl="6">
               <Card className="shadow">
@@ -270,8 +284,7 @@ const Dashboard = ({ handleLogout }) => {
                   <Row className="align-items-center">
                     <Col>
                       <h3 className="mb-0">
-                        Rata-rata Tinggi Lahir Anak Perempuan dan
-                        Laki-laki
+                        Rata-rata Tinggi Lahir Anak Perempuan dan Laki-laki
                       </h3>
                     </Col>
                     <Col className="text-right">
