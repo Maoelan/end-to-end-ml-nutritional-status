@@ -50,6 +50,12 @@ const AnakRead = ({ handleLogout }) => {
     setTableVisible(!isTableVisible);
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('id-ID', options);
+    return formattedDate;
+  };
+
   return (
     <>
       <Sidebar />
@@ -96,7 +102,7 @@ const AnakRead = ({ handleLogout }) => {
                         <td>{anak.nik}</td>
                         <td>{anak.nama}</td>
                         <td>{anak.jenis_kelamin}</td>
-                        <td>{anak.tanggal_lahir}</td>
+                        <td>{formatDate(anak.tanggal_lahir)}</td>
                         <td>{anak.berat_lahir}</td>
                         <td>{anak.tinggi_lahir}</td>
                         <td className="text-center">

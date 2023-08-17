@@ -61,6 +61,12 @@ const GiziRead = ({ handleLogout }) => {
     setTableVisible(!isTableVisible);
   };
 
+  const formatDateYear = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('id-ID', options);
+    return formattedDate;
+  };
+
   return (
     <>
       <Sidebar />
@@ -112,7 +118,7 @@ const GiziRead = ({ handleLogout }) => {
                           <td>{index + 1}</td>
                           <td>{namaAnak}</td>
                           <td>{gizi.usia_diukur}</td>
-                          <td>{gizi.tanggal_pengukuran}</td>
+                          <td>{formatDateYear(gizi.tanggal_pengukuran)}</td>
                           <td>{gizi.berat}</td>
                           <td>{gizi.tinggi}</td>
                           <td>{gizi.jumlah_vitamin_a}</td>
