@@ -260,6 +260,11 @@ const Perbandingan = ({ handleLogout }) => {
     return (tp / (tp + fn)) * 100;
   };
 
+  const calculateSpecificity = (tn, fp) => {
+    if (tn === 0 && fp === 0) return 0;
+    return (tn / (tn + fp)) * 100;
+  };
+
   const handleToggleTable = () => {
     setTableVisible(!isTableVisible);
   };
@@ -502,7 +507,7 @@ const Perbandingan = ({ handleLogout }) => {
                             %
                           </td>
                         </tr>
-                        <tr>
+                        {/*<tr>
                           <td>Precision</td>
                           <td>
                             {calculatePrecision(
@@ -546,9 +551,9 @@ const Perbandingan = ({ handleLogout }) => {
                             ).toFixed(2)}
                             %
                           </td>
-                        </tr>
+                        </tr>*/}
                         <tr>
-                          <td>Recall</td>
+                          <td>Sensitifity</td>
                           <td>
                             {calculateRecall(
                               evaluationMetrics.tpKMeansGiziLebih,
@@ -588,6 +593,51 @@ const Perbandingan = ({ handleLogout }) => {
                             {calculateRecall(
                               evaluationMetrics.tpKMedoidsGiziKurang,
                               evaluationMetrics.fnKMedoidsGiziKurang
+                            ).toFixed(2)}
+                            %
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Specificity</td>
+                          <td>
+                            {calculateSpecificity(
+                              evaluationMetrics.tnKMeansGiziLebih,
+                              evaluationMetrics.fpKMeansGiziLebih
+                            ).toFixed(2)}
+                            %
+                          </td>
+                          <td>
+                            {calculateSpecificity(
+                              evaluationMetrics.tnKMeansGiziBaik,
+                              evaluationMetrics.fpKMeansGiziBaik
+                            ).toFixed(2)}
+                            %
+                          </td>
+                          <td>
+                            {calculateSpecificity(
+                              evaluationMetrics.tnKMeansGiziKurang,
+                              evaluationMetrics.fpKMeansGiziKurang
+                            ).toFixed(2)}
+                            %
+                          </td>
+                          <td>
+                            {calculateSpecificity(
+                              evaluationMetrics.tnKMedoidsGiziLebih,
+                              evaluationMetrics.fpKMedoidsGiziLebih
+                            ).toFixed(2)}
+                            %
+                          </td>
+                          <td>
+                            {calculateSpecificity(
+                              evaluationMetrics.tnKMedoidsGiziBaik,
+                              evaluationMetrics.fpKMedoidsGiziBaik
+                            ).toFixed(2)}
+                            %
+                          </td>
+                          <td>
+                            {calculateSpecificity(
+                              evaluationMetrics.tnKMedoidsGiziKurang,
+                              evaluationMetrics.fpKMedoidsGiziKurang
                             ).toFixed(2)}
                             %
                           </td>
