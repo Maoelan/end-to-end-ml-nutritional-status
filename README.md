@@ -1,4 +1,4 @@
-# END TO END MACHINE LEARNING PROJECT NUTRITIONAL STATUS OF CHILDREN (STATUS GIZI ANAK)
+<!--# END TO END MACHINE LEARNING PROJECT NUTRITIONAL STATUS OF CHILDREN (STATUS GIZI ANAK)
 ## THIS PROJECT FOR MY UNDERGRADUATE THESIS (S.Kom / B.Sc) INSTITUT TEKNOLOGI NASIONAL MALANG
 
 
@@ -10,4 +10,4 @@ I used two different algorithms, namely the K-Means and K-Medoids clustering alg
 - For training the dataset, I utilized the sklearn.cluster library's KMeans and KMedoids.
 (This project only displays the training results).
 - For the frontend, I used React.js with the Argon Dashboard React template.
-- I also compared the results with the manual calculations I performed in Microsoft Excel.
+- I also compared the results with the manual calculations I performed in Microsoft Excel.-->
